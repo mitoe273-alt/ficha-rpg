@@ -796,8 +796,51 @@ window.onload = function() {
   atualizar();
 }, 10);
 
-  } else {
+} else {
 
+  modoAssassino = false;
+
+  // REMOVE BONUS
+  vidaMax -= bonusVidaAssassino;
+  vidaAtual -= bonusVidaAssassino;
+
+  detMax -= bonusDetAssassino;
+  detAtual -= bonusDetAssassino;
+
+  // evita valores negativos
+  vidaAtual = Math.max(0, vidaAtual);
+  detAtual = Math.max(0, detAtual);
+
+  document.body.classList.remove("modoAssassino");
+
+  btn.innerText = "Ativar";
+
+  img.src = "jae.png";
+
+  nome.innerText = "JAE-YOON";
+  nome.style.color = "#ff4444";
+
+  // VOLTA HABILIDADES NORMAIS
+  habFurtivo.innerHTML = `
+  <b>ASSASSINATO FURTIVO (2 determinação)</b><br>
+  Uma vez por rodada, quando Jae atinge um alvo desprevenido ou que esteja flanqueando, ele causa +3d8 pontos de dano.
+  `;
+
+  habEsquiva.innerHTML = `
+  <b>Esquiva Tática (2 determinação)</b><br>
+  Você pode fazer uma segunda reação especial de defesa na mesma rodada, desde que ela seja uma esquiva.
+  `;
+
+  habPerito.innerHTML = `
+  <b>Perito (3 determinação)</b><br>
+  Uma vez por rodada, quando faz um teste de uma perícia em que é treinado, Jae soma +1d8 no resultado do teste.
+  `;
+
+  habZona.innerHTML = `
+  <b>ZONA DOS SUSSURROS (3 determinação)</b><br>
+  Jae gasta 1 rodadas para marcar uma área equivalente a um cômodo com vários “X”. ...
+  `;
+}
     document.body.classList.remove("modoAssassino");
 
     img.src = "jae.png";
