@@ -654,11 +654,9 @@ function atualizar() {
   vidaFill.style.width = vidaPerc + "%";
   detFill.style.width = detPerc + "%";
 
-  setTimeout(() => {
-    vidaGhost.style.width = vidaPerc + "%";
-    detGhost.style.width = detPerc + "%";
-  }, 200);
-
+  vidaGhost.style.width = vidaPerc + "%";
+detGhost.style.width = detPerc + "%";
+  
  localStorage.setItem("vidaAtual", vidaAtual);
   localStorage.setItem("vidaMax", vidaMax);
   localStorage.setItem("detAtual", detAtual);
