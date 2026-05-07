@@ -508,12 +508,15 @@ const habZona = document.getElementById("habZona");
     detAtual -= 6;
     modoAssassino = true;
 // 🔥 AUMENTO DE VIDA E DET
-vidaMax += bonusVidaAssassino;
-vidaAtual += bonusVidaAssassino;
+let porcentagemVida = vidaAtual / vidaMax;
+let porcentagemDet = detAtual / detMax;
 
-detMax += bonusDetAssassino;
-detAtual += bonusDetAssassino;
+vidaMax -= bonusVidaAssassino;
+detMax -= bonusDetAssassino;
 
+vidaAtual = Math.ceil(vidaMax * porcentagemVida);
+detAtual = Math.ceil(detMax * porcentagemDet);
+    
     document.body.classList.add("modoAssassino");
     btn.innerText = "Desativar";
 
