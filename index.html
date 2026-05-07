@@ -757,18 +757,37 @@ window.onload = function() {
   atualizarCarga();
   atualizarDef();
 
-  // elementos
   const img = document.getElementById("portrait");
   const btn = document.getElementById("btnAssassino");
   const nome = document.getElementById("nomePersonagem");
 
-  // se tava no modo assassino
+  // restaura defesa
+  defesa = parseInt(localStorage.getItem("defesa")) || 18;
+  esquiva = parseInt(localStorage.getItem("esquiva")) || 28;
+  bloqueio = parseInt(localStorage.getItem("bloqueio")) || 0;
+
+  atualizarDef();
+
+  // restaura modo assassino
   if (modoAssassino) {
+
     document.body.classList.add("modoAssassino");
+
     img.src = "jae_assassino.png";
+
     nome.innerText = "X";
     nome.style.color = "red";
+
     btn.innerText = "Desativar";
+
+  } else {
+
+    img.src = "jae.png";
+
+    nome.innerText = "JAE-YOON";
+    nome.style.color = "#ff4444";
+
+    btn.innerText = "Ativar";
   }
 
 };
