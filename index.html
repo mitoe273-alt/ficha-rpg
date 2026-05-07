@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jae-Yoon</title>
+
+<style>
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #1a0000, #000);
+  color: #eee;
+  font-family: 'Segoe UI', sans-serif;
+  transition: 0.3s;
+}
+
+body.modoAssassino {
+  background: radial-gradient(circle at top, #3a0000, #000);
+}
+
+.container { padding: 12px; }
+
+.card {
+  border: 1px solid #500;
+  border-radius: 12px;
+  padding: 12px;
+  background: rgba(20,0,0,0.8);
+  box-shadow: 0 0 10px #400;
+  transition: 0.3s;
+}
+
+body.modoAssassino .card {
+  background: rgba(60,0,0,0.9);
+  box-shadow: 0 0 20px red;
+}
+
+.nome {
+  text-align: center;
+  font-size: 22px;
+  color: #ff4444;
+}
+
+.portraitBox {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+#portrait {
+  width: 45vw;
+  max-width: 180px;
+  min-width: 120px;
+  border-radius: 10px;
+  border: 2px solid #700;
+  box-shadow: 0 0 10px #400;
+}
+
+.classeBox {
+  text-align: center;
+  margin-top: 8px;
+}
+
+.classeLabel {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.classeNome {
+  font-size: 16px;
+  color: #00aaff;
+  font-weight: bold;
+}
+
+.atributosBox {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.atributosLabel {
+  font-size: 12px;
+  color: #aaa;
+}
+
+#atributosImg {
+  width: 90%;
+  max-width: 300px;
+  border-radius: 10px;
+  border: 1px solid #700;
+}
+
+.periciasBox { margin-top: 15px; }
+
+.periciasHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.periciasLista {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hidden { display: none; }
+
+.pericia {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px;
+  border-radius: 5px;
+  background: rgba(0,0,0,0.4);
+}
+
+.periciaVermelha {
+  color: #ff4444;
+  border: 1px solid #ff4444;
+}
+
+.azul { color: #00aaff; }
+.verde { color: #00cc66; }
+.branco { color: #ddd; }
+
+.defesaContainer {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.defItem { flex: 1; }
+
+.defLabel {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.defValor {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffaa00;
+  cursor: pointer;
+}
+
+.section { margin-top: 15px; }
+
+.barBox {
+  height: 6vw;
+  min-height: 28px;
+  max-height: 40px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #555;
+  overflow: hidden;
+  position: relative;
+}
+
+.barBg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #111;
+}
+
+.barFill {
+  position: absolute;
+  height: 100%;
+  left: 0;
+  top: 0;
+  transition: width 0.2s;
+}
+
+.barGhost {
+  position: absolute;
+  height: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0.5;
+  transition: width 0.8s ease;
+}
+
+.vidaFill { background: #ff0000; }
+.vidaGhost { background: #ff5555; }
+
+.detFill { background: #00aaff; }
+.detGhost { background: #66ccff; }
+
+.barText {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.controls {
+  display: flex;
+  gap: 3px;
+  z-index: 3;
+}
+
+.controls button {
+  width: 6vw;
+  height: 6vw;
+  min-width: 24px;
+  min-height: 24px;
+  max-width: 32px;
+  max-height: 32px;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid #700;
+  color: white;
+}
+
+.damageBox {
+  display: flex;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+input {
+  width: 100%;
+  background: #111;
+  border: 1px solid #500;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+button {
+  padding: 6px;
+  background: #700;
+  border: none;
+  color: white;
+  border-radius: 5px;
+}
+
+.penalidade {
+  margin-top: 5px;
+  color: red;
+  text-align: center;
+  font-size: 12px;
+}
+
+.cargaAlta {
+  color: red !important;
+}
+
+.detLimite {
+  font-size: 11px;
+  color: #aaa;
+  margin-left: 6px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<div class="card">
+
+<div class="nome" id="nomePersonagem">JAE-YOON</div>
+
+<div class="portraitBox">
+  <img id="portrait" src="jae.png">
+</div>
+
+<div class="classeBox">
+  <div class="classeLabel">CLASSE</div>
+  <div class="classeNome">ESPECIALISTA</div>
+</div>
+
+<div class="atributosBox">
+  <div class="atributosLabel">ATRIBUTOS</div>
+  <img id="atributosImg" src="atributos.png">
+</div>
+
+<div class="periciasBox">
+  <div class="periciasHeader">
+    <span>PERÍCIAS</span>
+    <button onclick="togglePericias()" id="btnPericias">Mostrar</button>
+  </div>
+
+  <div id="listaPericias" class="periciasLista hidden">
+    <div class="pericia azul">Crime <span>+10</span></div>
+    <div class="pericia azul">Enganação <span>+10</span></div>
+    <div class="pericia azul">Furtividade <span>+10</span></div>
+    <div class="pericia azul">Iniciativa <span>+10</span></div>
+    <div class="pericia azul">Investigação <span>+10</span></div>
+    <div class="pericia azul">Luta <span>+10</span></div>
+    <div class="pericia azul">Reflexos <span>+10</span></div>
+    <div class="pericia azul">Tecnologia <span>+10</span></div>
+
+    <div class="pericia verde">Acrobacia <span>+5</span></div>
+    <div class="pericia verde">Atletismo <span>+5</span></div>
+    <div class="pericia verde">Vontade <span>+5</span></div>
+
+    <div class="pericia branco">Adestramento</div>
+    <div class="pericia branco">Artes</div>
+    <div class="pericia branco">Atualidades</div>
+    <div class="pericia branco">Ciências</div>
+    <div class="pericia branco">Diplomacia</div>
+    <div class="pericia branco">Fortitude</div>
+    <div class="pericia branco">Intimidação</div>
+    <div class="pericia branco">Intuição</div>
+    <div class="pericia branco">Medicina</div>
+    <div class="pericia branco">Ocultismo</div>
+    <div class="pericia branco">Percepção</div>
+    <div class="pericia branco">Pilotagem</div>
+    <div class="pericia branco">Pontaria</div>
+    <div class="pericia branco">Profissão</div>
+    <div class="pericia branco">Religião</div>
+    <div class="pericia branco">Sobrevivência</div>
+    <div class="pericia branco">Tática</div>
+  </div>
+</div>
+
+<div class="defesaContainer">
+  <div class="defItem">
+    <div class="defLabel">DEFESA</div>
+    <div class="defValor" onclick="editarDefesa()" id="defesaTexto">18</div>
+  </div>
+
+  <div class="defItem">
+    <div class="defLabel">ESQUIVA</div>
+    <div class="defValor" onclick="editarEsquiva()" id="esquivaTexto">28</div>
+  </div>
+
+  <div class="defItem">
+    <div class="defLabel">BLOQUEIO</div>
+    <div class="defValor" onclick="editarBloqueio()" id="bloqueioTexto">0</div>
+  </div>
+</div>
+
+<div class="section">
+<h3>VIDA</h3>
+<div class="barBox">
+<div class="barBg"></div>
+<div id="vidaGhost" class="barGhost vidaGhost"></div>
+<div id="vidaFill" class="barFill vidaFill"></div>
+
+<div class="controls">
+<button onclick="mudarVida(-10)">«</button>
+<button onclick="mudarVida(-1)"><</button>
+</div>
+
+<div class="barText" onclick="editarVida()" id="vidaTexto">100 / 100</div>
+
+<div class="controls">
+<button onclick="mudarVida(1)">></button>
+<button onclick="mudarVida(10)">»</button>
+</div>
+</div>
+
+<div class="damageBox">
+<input type="number" id="vidaDano">
+<button onclick="aplicarDano()">Aplicar</button>
+</div>
+</div>
+
+<div class="section">
+<h3>DETERMINAÇÃO <span class="detLimite">(limite de PD por turno 7)</span></h3>
+<div class="barBox">
+<div class="barBg"></div>
+<div id="detGhost" class="barGhost detGhost"></div>
+<div id="detFill" class="barFill detFill"></div>
+
+<div class="controls">
+<button onclick="mudarDet(-5)">«</button>
+<button onclick="mudarDet(-1)"><</button>
+</div>
+
+<div class="barText" onclick="editarDet()" id="detTexto">10 / 10</div>
+
+<div class="controls">
+<button onclick="mudarDet(1)">></button>
+<button onclick="mudarDet(5)">»</button>
+</div>
+</div>
+
+<div class="damageBox">
+<input type="number" id="detDano">
+<button onclick="aplicarDet()">Aplicar</button>
+</div>
+</div>
+
+<div class="section">
+<h3>CARGA</h3>
+<div class="barBox">
+<div class="controls">
+<button onclick="mudarCarga(-5)">«</button>
+<button onclick="mudarCarga(-1)"><</button>
+</div>
+
+<div class="barText" onclick="editarCarga()" id="cargaTexto">0 / 10</div>
+
+<div class="controls">
+<button onclick="mudarCarga(1)">></button>
+<button onclick="mudarCarga(5)">»</button>
+</div>
+</div>
+
+<div id="penalidadeCarga" class="penalidade hidden">
+⚠ Penalidade de carga
+</div>
+</div>
+
+<div class="periciasBox">
+  <div class="periciasHeader">
+    <span>HABILIDADES</span>
+    <button onclick="toggleHabilidades()" id="btnHabilidades">Mostrar</button>
+  </div>
+
+  <div id="listaHabilidades" class="periciasLista hidden">
+
+    <div class="pericia periciaVermelha">
+      <div>
+        <b>INTENÇÃO ASSASSINA (6 determinação)</b><br>
+        Você coloca seu capuz e desperta sua intenção assassina ficando mais forte, porem tome cuidado, tudo tem um preço.
+      </div>
+      <button id="btnAssassino" onclick="toggleAssassino()">Ativar</button>
+    </div>
+
+    <div class="pericia">
+  <div id="habFurtivo">
+    <b id="nomeFurtivo">ASSASSINATO FURTIVO (2 determinação)</b><br>
+    Uma vez por rodada, quando Jae atinge um alvo desprevenido ou que esteja flanqueando, ele causa +3d8 pontos de dano.
+  </div>
+  <button onclick="usarHabilidade(2)">Usar</button>
+</div>
+
+    <div class="pericia">
+  <div id="habEsquiva">
+    <b id="nomeEsquiva">Esquiva Tática (2 determinação)</b><br>
+    Você pode fazer uma segunda reação especial de defesa na mesma rodada, desde que ela seja uma esquiva.
+  </div>
+  <button onclick="usarHabilidade(2)">Usar</button>
+</div>
+
+   <div class="pericia">
+  <div id="habPerito">
+    <b id="nomePerito">Perito (3 determinação)</b><br>
+    Uma vez por rodada, quando faz um teste de uma perícia em que é treinado, Jae soma +1d8 no resultado do teste.
+  </div>
+  <button onclick="usarHabilidade(3)">Usar</button>
+</div>
+
+    <div class="pericia">
+  <div id="habZona">
+    <b id="nomeZona">ZONA DOS SUSSURROS (3 determinação)</b><br>
+    Jae gasta 1 rodadas para marcar uma área equivalente a um cômodo com vários “X”. ...
+  </div>
+  <button onclick="usarHabilidade(3)">Usar</button>
+</div>
+
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+let periciasVisivel = false;
+function togglePericias() {
+  periciasVisivel = !periciasVisivel;
+  listaPericias.classList.toggle("hidden");
+  btnPericias.innerText = periciasVisivel ? "Ocultar" : "Mostrar";
+}
+
+let habilidadesVisivel = false;
+function toggleHabilidades() {
+  habilidadesVisivel = !habilidadesVisivel;
+  listaHabilidades.classList.toggle("hidden");
+  btnHabilidades.innerText = habilidadesVisivel ? "Ocultar" : "Mostrar";
+}
+
+let modoAssassino = localStorage.getItem("modoAssassino") === "true";
+let bonusVidaAssassino = 20;
+let bonusDetAssassino = 10;
+
+function toggleAssassino() {
+
+  const img = document.getElementById("portrait");
+  const btn = document.getElementById("btnAssassino");
+  const nome = document.getElementById("nomePersonagem");
+const nomeFurtivo = document.getElementById("nomeFurtivo");
+const habFurtivo = document.getElementById("habFurtivo");
+
+const nomeEsquiva = document.getElementById("nomeEsquiva");
+const habEsquiva = document.getElementById("habEsquiva");
+
+const nomePerito = document.getElementById("nomePerito");
+const habPerito = document.getElementById("habPerito");
+
+const nomeZona = document.getElementById("nomeZona");
+const habZona = document.getElementById("habZona");
+
+  if (!modoAssassino) {
+
+    if (detAtual < 6) {
+      alert("Determinação insuficiente!");
+      return;
+    }
+
+    detAtual -= 6;
+    modoAssassino = true;
+// 🔥 AUMENTO DE VIDA E DET
+vidaMax += bonusVidaAssassino;
+vidaAtual += bonusVidaAssassino;
+
+detMax += bonusDetAssassino;
+detAtual += bonusDetAssassino;
+
+    document.body.classList.add("modoAssassino");
+    btn.innerText = "Desativar";
+
+    // 🔥 TROCA A IMAGEM
+    img.src = "jae_assassino.png";
+nome.innerText = "X";
+nome.style.color = "red";
+// 🔴 ALTERAR HABILIDADES
+
+nomeFurtivo.innerText = "ASSASSINATO CRUEL (2 determinação)";
+nomeFurtivo.style.color = "red";
+habFurtivo.innerHTML = `
+<b>ASSASSINATO CRUEL (2 determinação)</b><br>
+Uma vez por rodada, quando X atinge um alvo desprevenido ou que esteja flanqueando, ele causa +6d8 pontos de dano.
+`;
+
+nomeEsquiva.innerText = "ESQUIVA SOMBRIA (2 determinação)";
+nomeEsquiva.style.color = "red";
+habEsquiva.innerHTML = `
+<b>ESQUIVA SOMBRIA (2 determinação)</b><br>
+Você pode fazer uma segunda reação especial de defesa na mesma rodada, desde que ela seja uma esquiva. Além disso, o atacante possui -1d20 no teste de ataque.
+`;
+
+nomePerito.innerText = "ANALÍTICO (3 determinação)";
+nomePerito.style.color = "red";
+habPerito.innerHTML = `
+<b>ANALÍTICO (3 determinação)</b><br>
+Uma vez por rodada, quando faz um teste de uma perícia em que é treinado, X soma +1d12 no resultado do teste.
+`;
+
+nomeZona.innerText = "ZONA DAS SOMBRAS (3 determinação)";
+nomeZona.style.color = "red";
+habZona.innerHTML = `
+<b>ZONA DAS SOMBRAS (3 determinação)</b><br>
+Jae gasta 1 rodadas para marcar uma área equivalente a um cômodo com vários “X”. Nessa área, Jae recebe +5 em testes de ataque e não sofre penalidade por fazer testes de Furtividade após atacar ou fazer outras ações chamativas.
+`;
+
+  } else {
+
+    modoAssassino = false;
+// 🔥 REMOVE OS BÔNUS
+vidaMax -= bonusVidaAssassino;
+vidaAtual -= bonusVidaAssassino;
+
+detMax -= bonusDetAssassino;
+detAtual -= bonusDetAssassino;
+
+// 🚨 GARANTE QUE NÃO FIQUE MENOR QUE 1
+vidaAtual = Math.max(1, vidaAtual);
+vidaMax = Math.max(1, vidaMax);
+
+detAtual = Math.max(1, detAtual);
+detMax = Math.max(1, detMax);
+
+    document.body.classList.remove("modoAssassino");
+    btn.innerText = "Ativar";
+
+    // 🔥 VOLTA IMAGEM NORMAL
+    img.src = "jae.png";
+nome.innerText = "JAE-YOON";
+nome.style.color = "#ff4444";
+// 🔵 VOLTAR HABILIDADES
+
+nomeFurtivo.style.color = "";
+habFurtivo.innerHTML = `
+<b>ASSASSINATO FURTIVO (2 determinação)</b><br>
+Uma vez por rodada, quando Jae atinge um alvo desprevenido ou que esteja flanqueando, ele causa +3d8 pontos de dano.
+`;
+
+nomeEsquiva.style.color = "";
+habEsquiva.innerHTML = `
+<b>Esquiva Tática (2 determinação)</b><br>
+Você pode fazer uma segunda reação especial de defesa na mesma rodada, desde que ela seja uma esquiva.
+`;
+
+nomePerito.style.color = "";
+habPerito.innerHTML = `
+<b>Perito (3 determinação)</b><br>
+Uma vez por rodada, quando faz um teste de uma perícia em que é treinado, Jae soma +1d8 no resultado do teste.
+`;
+
+nomeZona.style.color = "";
+habZona.innerHTML = `
+<b>ZONA DOS SUSSURROS (3 determinação)</b><br>
+Jae gasta 1 rodadas para marcar uma área equivalente a um cômodo com vários “X”. ...
+`;
+
+  }
+
+  atualizar();
+}
+
+
+function usarHabilidade(custo) {
+  detAtual = Math.max(0, detAtual - custo);
+  atualizar();
+}
+
+let defesa = 18, esquiva = 28, bloqueio = 0;
+
+function editarDefesa() {
+  let v = prompt("Defesa:", defesa);
+  if (v) defesa = parseInt(v);
+  atualizarDef();
+}
+
+function editarEsquiva() {
+  let v = prompt("Esquiva:", esquiva);
+  if (v) esquiva = parseInt(v);
+  atualizarDef();
+}
+
+function editarBloqueio() {
+  let v = prompt("Bloqueio:", bloqueio);
+  if (v) bloqueio = parseInt(v);
+  atualizarDef();
+}
+
+function atualizarDef() {
+  defesaTexto.innerText = defesa;
+  esquivaTexto.innerText = esquiva;
+  bloqueioTexto.innerText = bloqueio;
+}
+
+let vidaAtual = parseInt(localStorage.getItem("vidaAtual")) || 100;
+let vidaMax = parseInt(localStorage.getItem("vidaMax")) || 100;
+
+let detAtual = parseInt(localStorage.getItem("detAtual")) || 10;
+let detMax = parseInt(localStorage.getItem("detMax")) || 10;
+
+function atualizar() {
+  vidaTexto.innerText = vidaAtual + " / " + vidaMax;
+  detTexto.innerText = detAtual + " / " + detMax;
+
+  let vidaPerc = (vidaAtual / vidaMax) * 100;
+  let detPerc = (detAtual / detMax) * 100;
+
+  vidaFill.style.width = vidaPerc + "%";
+  detFill.style.width = detPerc + "%";
+
+  setTimeout(() => {
+    vidaGhost.style.width = vidaPerc + "%";
+    detGhost.style.width = detPerc + "%";
+  }, 200);
+
+ localStorage.setItem("vidaAtual", vidaAtual);
+  localStorage.setItem("vidaMax", vidaMax);
+  localStorage.setItem("detAtual", detAtual);
+  localStorage.setItem("detMax", detMax);
+  localStorage.setItem("modoAssassino", modoAssassino);
+localStorage.setItem("cargaAtual", cargaAtual);
+localStorage.setItem("cargaMax", cargaMax);
+
+localStorage.setItem("defesa", defesa);
+localStorage.setItem("esquiva", esquiva);
+localStorage.setItem("bloqueio", bloqueio);
+
+}
+
+function mudarVida(v) {
+  vidaAtual = Math.max(0, Math.min(vidaMax, vidaAtual + v));
+  atualizar();
+}
+
+function aplicarDano() {
+  let d = parseInt(vidaDano.value || 0);
+  vidaAtual = Math.max(0, vidaAtual - d);
+  vidaDano.value = "";
+  atualizar();
+}
+
+function mudarDet(v) {
+  detAtual = Math.max(0, Math.min(detMax, detAtual + v));
+  atualizar();
+}
+
+function aplicarDet() {
+  let d = parseInt(detDano.value || 0);
+  detAtual = Math.max(0, detAtual - d);
+  detDano.value = "";
+  atualizar();
+}
+
+function editarVida() {
+  let v = prompt("Digite: atual/max", vidaAtual + "/" + vidaMax);
+  if (!v) return;
+  let p = v.split("/");
+  vidaAtual = parseInt(p[0]);
+  vidaMax = parseInt(p[1]);
+  atualizar();
+}
+
+function editarDet() {
+  let v = prompt("Digite: atual/max", detAtual + "/" + detMax);
+  if (!v) return;
+  let p = v.split("/");
+  detAtual = parseInt(p[0]);
+  detMax = parseInt(p[1]);
+  atualizar();
+}
+
+let cargaAtual = parseInt(localStorage.getItem("cargaAtual")) || 0;
+let cargaMax = parseInt(localStorage.getItem("cargaMax")) || 10;
+
+function atualizarCarga(){
+  cargaTexto.innerText = cargaAtual + " / " + cargaMax;
+
+  if(cargaAtual > cargaMax/2){
+    cargaTexto.classList.add("cargaAlta");
+    penalidadeCarga.classList.remove("hidden");
+  }else{
+    cargaTexto.classList.remove("cargaAlta");
+    penalidadeCarga.classList.add("hidden");
+  }
+
+  // 🔥 SALVAR CARGA
+  localStorage.setItem("cargaAtual", cargaAtual);
+  localStorage.setItem("cargaMax", cargaMax);
+
+}
+
+function mudarCarga(v){
+  cargaAtual = Math.max(0, Math.min(cargaMax, cargaAtual + v));
+  atualizarCarga();
+}
+
+function editarCarga(){
+  let v = prompt("Digite: atual/max", cargaAtual + "/" + cargaMax);
+  if(!v) return;
+  let p = v.split("/");
+  cargaAtual = parseInt(p[0]);
+  cargaMax = parseInt(p[1]);
+  atualizarCarga();
+}
+
+atualizar();
+atualizarCarga();
+window.onload = function() {
+
+  atualizar();
+  atualizarCarga();
+  atualizarDef();
+
+  // elementos
+  const img = document.getElementById("portrait");
+  const btn = document.getElementById("btnAssassino");
+  const nome = document.getElementById("nomePersonagem");
+
+  // se tava no modo assassino
+  if (modoAssassino) {
+    document.body.classList.add("modoAssassino");
+    img.src = "jae_assassino.png";
+    nome.innerText = "X";
+    nome.style.color = "red";
+    btn.innerText = "Desativar";
+  }
+
+};
+</script>
+
+</body>
+</html>
