@@ -486,17 +486,11 @@ function toggleAssassino() {
   const img = document.getElementById("portrait");
   const btn = document.getElementById("btnAssassino");
   const nome = document.getElementById("nomePersonagem");
-const nomeFurtivo = document.getElementById("nomeFurtivo");
-const habFurtivo = document.getElementById("habFurtivo");
 
-const nomeEsquiva = document.getElementById("nomeEsquiva");
-const habEsquiva = document.getElementById("habEsquiva");
-
-const nomePerito = document.getElementById("nomePerito");
-const habPerito = document.getElementById("habPerito");
-
-const nomeZona = document.getElementById("nomeZona");
-const habZona = document.getElementById("habZona");
+  const habFurtivo = document.getElementById("habFurtivo");
+  const habEsquiva = document.getElementById("habEsquiva");
+  const habPerito = document.getElementById("habPerito");
+  const habZona = document.getElementById("habZona");
 
   if (!modoAssassino) {
 
@@ -506,104 +500,86 @@ const habZona = document.getElementById("habZona");
     }
 
     detAtual -= 6;
+
     modoAssassino = true;
-// 🔥 AUMENTO DE VIDA E DET
-let porcentagemVida = vidaAtual / vidaMax;
-let porcentagemDet = detAtual / detMax;
 
-vidaMax -= bonusVidaAssassino;
-detMax -= bonusDetAssassino;
+    // AUMENTA VIDA E DET
+    vidaMax += bonusVidaAssassino;
+    vidaAtual += bonusVidaAssassino;
 
-vidaAtual = Math.ceil(vidaMax * porcentagemVida);
-detAtual = Math.ceil(detMax * porcentagemDet);
-    
+    detMax += bonusDetAssassino;
+    detAtual += bonusDetAssassino;
+
     document.body.classList.add("modoAssassino");
+
     btn.innerText = "Desativar";
 
-    // 🔥 TROCA A IMAGEM
     img.src = "jae_assassino.png";
-nome.innerText = "X";
-nome.style.color = "red";
-// 🔴 ALTERAR HABILIDADES
 
-nomeFurtivo.innerText = "ASSASSINATO CRUEL (2 determinação)";
-nomeFurtivo.style.color = "red";
-habFurtivo.innerHTML = `
-<b>ASSASSINATO CRUEL (2 determinação)</b><br>
-Uma vez por rodada, quando X atinge um alvo desprevenido ou que esteja flanqueando, ele causa +6d8 pontos de dano.
-`;
+    nome.innerText = "X";
+    nome.style.color = "red";
 
-nomeEsquiva.innerText = "ESQUIVA SOMBRIA (2 determinação)";
-nomeEsquiva.style.color = "red";
-habEsquiva.innerHTML = `
-<b>ESQUIVA SOMBRIA (2 determinação)</b><br>
-Você pode fazer uma segunda reação especial de defesa na mesma rodada, desde que ela seja uma esquiva. Além disso, o atacante possui -1d20 no teste de ataque.
-`;
+    // HABILIDADES ALTERADAS
+    habFurtivo.innerHTML = `
+    <b style="color:red;">ASSASSINATO CRUEL (2 determinação)</b><br>
+    Uma vez por rodada, quando X atinge um alvo desprevenido ou que esteja flanqueando, ele causa +6d8 pontos de dano.
+    `;
 
-nomePerito.innerText = "ANALÍTICO (3 determinação)";
-nomePerito.style.color = "red";
-habPerito.innerHTML = `
-<b>ANALÍTICO (3 determinação)</b><br>
-Uma vez por rodada, quando faz um teste de uma perícia em que é treinado, X soma +1d12 no resultado do teste.
-`;
+    habEsquiva.innerHTML = `
+    <b style="color:red;">ESQUIVA SOMBRIA (2 determinação)</b><br>
+    Você pode fazer uma segunda reação especial de defesa na mesma rodada, desde que ela seja uma esquiva. Além disso, o atacante possui -1d20 no teste de ataque.
+    `;
 
-nomeZona.innerText = "ZONA DAS SOMBRAS (3 determinação)";
-nomeZona.style.color = "red";
-habZona.innerHTML = `
-<b>ZONA DAS SOMBRAS (3 determinação)</b><br>
-Jae gasta 1 rodadas para marcar uma área equivalente a um cômodo com vários “X”. Nessa área, Jae recebe +5 em testes de ataque e não sofre penalidade por fazer testes de Furtividade após atacar ou fazer outras ações chamativas.
-`;
+    habPerito.innerHTML = `
+    <b style="color:red;">ANALÍTICO (3 determinação)</b><br>
+    Uma vez por rodada, quando faz um teste de uma perícia em que é treinado, X soma +1d12 no resultado do teste.
+    `;
+
+    habZona.innerHTML = `
+    <b style="color:red;">ZONA DAS SOMBRAS (3 determinação)</b><br>
+    Jae gasta 1 rodada para marcar uma área equivalente a um cômodo com vários “X”. Nessa área, Jae recebe +5 em testes de ataque e não sofre penalidade por fazer testes de Furtividade após atacar ou fazer outras ações chamativas.
+    `;
 
   } else {
 
     modoAssassino = false;
-// 🔥 REMOVE OS BÔNUS
-vidaMax -= bonusVidaAssassino;
-vidaAtual -= bonusVidaAssassino;
 
-detMax -= bonusDetAssassino;
-detAtual -= bonusDetAssassino;
+    // REMOVE BONUS
+    vidaMax -= bonusVidaAssassino;
+    vidaAtual = Math.min(vidaAtual, vidaMax);
 
-// 🚨 GARANTE QUE NÃO FIQUE MENOR QUE 1
-vidaAtual = Math.max(1, vidaAtual);
-vidaMax = Math.max(1, vidaMax);
-
-detAtual = Math.max(1, detAtual);
-detMax = Math.max(1, detMax);
+    detMax -= bonusDetAssassino;
+    detAtual = Math.min(detAtual, detMax);
 
     document.body.classList.remove("modoAssassino");
+
     btn.innerText = "Ativar";
 
-    // 🔥 VOLTA IMAGEM NORMAL
     img.src = "jae.png";
-nome.innerText = "JAE-YOON";
-nome.style.color = "#ff4444";
-// 🔵 VOLTAR HABILIDADES
 
-nomeFurtivo.style.color = "";
-habFurtivo.innerHTML = `
-<b>ASSASSINATO FURTIVO (2 determinação)</b><br>
-Uma vez por rodada, quando Jae atinge um alvo desprevenido ou que esteja flanqueando, ele causa +3d8 pontos de dano.
-`;
+    nome.innerText = "JAE-YOON";
+    nome.style.color = "#ff4444";
 
-nomeEsquiva.style.color = "";
-habEsquiva.innerHTML = `
-<b>Esquiva Tática (2 determinação)</b><br>
-Você pode fazer uma segunda reação especial de defesa na mesma rodada, desde que ela seja uma esquiva.
-`;
+    // VOLTA HABILIDADES NORMAIS
+    habFurtivo.innerHTML = `
+    <b>ASSASSINATO FURTIVO (2 determinação)</b><br>
+    Uma vez por rodada, quando Jae atinge um alvo desprevenido ou que esteja flanqueando, ele causa +3d8 pontos de dano.
+    `;
 
-nomePerito.style.color = "";
-habPerito.innerHTML = `
-<b>Perito (3 determinação)</b><br>
-Uma vez por rodada, quando faz um teste de uma perícia em que é treinado, Jae soma +1d8 no resultado do teste.
-`;
+    habEsquiva.innerHTML = `
+    <b>Esquiva Tática (2 determinação)</b><br>
+    Você pode fazer uma segunda reação especial de defesa na mesma rodada, desde que ela seja uma esquiva.
+    `;
 
-nomeZona.style.color = "";
-habZona.innerHTML = `
-<b>ZONA DOS SUSSURROS (3 determinação)</b><br>
-Jae gasta 1 rodadas para marcar uma área equivalente a um cômodo com vários “X”. ...
-`;
+    habPerito.innerHTML = `
+    <b>Perito (3 determinação)</b><br>
+    Uma vez por rodada, quando faz um teste de uma perícia em que é treinado, Jae soma +1d8 no resultado do teste.
+    `;
 
+    habZona.innerHTML = `
+    <b>ZONA DOS SUSSURROS (3 determinação)</b><br>
+    Jae gasta 1 rodadas para marcar uma área equivalente a um cômodo com vários “X”. ...
+    `;
   }
 
   atualizar();
@@ -769,19 +745,7 @@ window.onload = function() {
   bloqueio = parseInt(localStorage.getItem("bloqueio")) || 0;
 
   modoAssassino = localStorage.getItem("modoAssassino") === "true";
-if (modoAssassino) {
 
-  if (vidaMax <= 100) {
-    vidaMax += bonusVidaAssassino;
-    vidaAtual += bonusVidaAssassino;
-  }
-
-  if (detMax <= 10) {
-    detMax += bonusDetAssassino;
-    detAtual += bonusDetAssassino;
-  }
-
-}
   atualizar();
   atualizarCarga();
   atualizarDef();
