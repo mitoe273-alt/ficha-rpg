@@ -271,6 +271,10 @@ button {
 <div class="classeBox">
   <div class="classeLabel">CLASSE</div>
   <div class="classeNome">ESPECIALISTA</div>
+
+  <button onclick="abrirHexatombe()" id="btnHexatombe">
+HEXATOMBE
+</button>
 </div>
 
 <div class="atributosBox">
@@ -461,7 +465,21 @@ button {
 
 </div>
 </div>
+<div id="menuHexatombe" class="hidden">
 
+  <div class="card" style="margin-top:15px; border:1px solid darkred;">
+
+    <h2 style="color:red; text-align:center;">
+      HEXATOMBE
+    </h2>
+
+    <p style="text-align:center;">
+      Menu secreto desbloqueado.
+    </p>
+
+  </div>
+
+</div>
 <script>
 let periciasVisivel = false;
 function togglePericias() {
@@ -480,6 +498,8 @@ function toggleHabilidades() {
 let modoAssassino = localStorage.getItem("modoAssassino") === "true";
 let bonusVidaAssassino = 20;
 let bonusDetAssassino = 10;
+  let hexatombePermanente =
+localStorage.getItem("hexatombePermanente") === "true";
 
 function toggleAssassino() {
 
@@ -592,7 +612,44 @@ function toggleAssassino() {
 
   atualizar();
 }
+function abrirHexatombe() {
 
+  // se já desbloqueou permanentemente
+  if (hexatombePermanente) {
+
+    menuHexatombe.classList.toggle("hidden");
+    return;
+  }
+
+  let senha = prompt("Digite a senha:");
+
+  // senha permanente
+  if (senha === "sino") {
+
+    hexatombePermanente = true;
+
+    localStorage.setItem(
+      "hexatombePermanente",
+      "true"
+    );
+
+    menuHexatombe.classList.remove("hidden");
+
+    alert("HEXATOMBE desbloqueado permanentemente.");
+
+    return;
+  }
+
+  // senha temporária
+  if (senha === "26282928") {
+
+    menuHexatombe.classList.toggle("hidden");
+
+    return;
+  }
+
+  alert("Senha incorreta.");
+}
 
 function usarHabilidade(custo) {
   detAtual = Math.max(0, detAtual - custo);
