@@ -753,20 +753,35 @@ atualizar();
 atualizarCarga();
 window.onload = function() {
 
-  atualizar();
-  atualizarCarga();
-  atualizarDef();
+  // restaura status
+  vidaAtual = parseInt(localStorage.getItem("vidaAtual")) || 100;
+  vidaMax = parseInt(localStorage.getItem("vidaMax")) || 100;
 
-  const img = document.getElementById("portrait");
-  const btn = document.getElementById("btnAssassino");
-  const nome = document.getElementById("nomePersonagem");
+  detAtual = parseInt(localStorage.getItem("detAtual")) || 10;
+  detMax = parseInt(localStorage.getItem("detMax")) || 10;
 
-  // restaura defesa
+  cargaAtual = parseInt(localStorage.getItem("cargaAtual")) || 0;
+  cargaMax = parseInt(localStorage.getItem("cargaMax")) || 10;
+
   defesa = parseInt(localStorage.getItem("defesa")) || 18;
   esquiva = parseInt(localStorage.getItem("esquiva")) || 28;
   bloqueio = parseInt(localStorage.getItem("bloqueio")) || 0;
 
+  modoAssassino = localStorage.getItem("modoAssassino") === "true";
+
+  atualizar();
+  atualizarCarga();
   atualizarDef();
+
+  // elementos
+  const img = document.getElementById("portrait");
+  const btn = document.getElementById("btnAssassino");
+  const nome = document.getElementById("nomePersonagem");
+
+  const habFurtivo = document.getElementById("habFurtivo");
+  const habEsquiva = document.getElementById("habEsquiva");
+  const habPerito = document.getElementById("habPerito");
+  const habZona = document.getElementById("habZona");
 
   // restaura modo assassino
   if (modoAssassino) {
@@ -780,7 +795,30 @@ window.onload = function() {
 
     btn.innerText = "Desativar";
 
+    // habilidades transformadas
+    habFurtivo.innerHTML = `
+    <b style="color:red;">ASSASSINATO CRUEL (2 determinação)</b><br>
+    Uma vez por rodada, quando X atinge um alvo desprevenido ou que esteja flanqueando, ele causa +6d8 pontos de dano.
+    `;
+
+    habEsquiva.innerHTML = `
+    <b style="color:red;">ESQUIVA SOMBRIA (2 determinação)</b><br>
+    Você pode fazer uma segunda reação especial de defesa na mesma rodada, desde que ela seja uma esquiva. Além disso, o atacante possui -1d20 no teste de ataque.
+    `;
+
+    habPerito.innerHTML = `
+    <b style="color:red;">ANALÍTICO (3 determinação)</b><br>
+    Uma vez por rodada, quando faz um teste de uma perícia em que é treinado, X soma +1d12 no resultado do teste.
+    `;
+
+    habZona.innerHTML = `
+    <b style="color:red;">ZONA DAS SOMBRAS (3 determinação)</b><br>
+    Jae gasta 1 rodada para marcar uma área equivalente a um cômodo com vários “X”. Nessa área, Jae recebe +5 em testes de ataque e não sofre penalidade por fazer testes de Furtividade após atacar ou fazer outras ações chamativas.
+    `;
+
   } else {
+
+    document.body.classList.remove("modoAssassino");
 
     img.src = "jae.png";
 
