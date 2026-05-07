@@ -769,7 +769,19 @@ window.onload = function() {
   bloqueio = parseInt(localStorage.getItem("bloqueio")) || 0;
 
   modoAssassino = localStorage.getItem("modoAssassino") === "true";
+if (modoAssassino) {
 
+  if (vidaMax <= 100) {
+    vidaMax += bonusVidaAssassino;
+    vidaAtual += bonusVidaAssassino;
+  }
+
+  if (detMax <= 10) {
+    detMax += bonusDetAssassino;
+    detAtual += bonusDetAssassino;
+  }
+
+}
   atualizar();
   atualizarCarga();
   atualizarDef();
