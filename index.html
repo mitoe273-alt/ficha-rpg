@@ -564,6 +564,8 @@ function toggleAssassino() {
 
       modoAssassino = false;
 
+    localStorage.setItem("modoAssassino", "false");
+
     // REMOVE BONUS CORRETAMENTE
     vidaMax -= bonusVidaAssassino;
     vidaAtual -= bonusVidaAssassino;
