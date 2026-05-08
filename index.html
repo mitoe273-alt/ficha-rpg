@@ -583,7 +583,39 @@ onclick="adicionarLinhaApaixonado()"
 </button>
 
 </div>
+<div class="periciasBox" style="margin-top:20px;">
 
+  <div class="periciasHeader">
+
+    <span style="
+      color:red;
+      font-weight:bold;
+    ">
+      INTENÇÕES
+    </span>
+
+    <button
+    onclick="toggleIntencoes()"
+    id="btnIntencoes">
+      Mostrar
+    </button>
+
+  </div>
+
+  <div
+  id="listaIntencoes"
+  class="periciasLista hidden">
+
+    <div class="pericia periciaVermelha">
+      <div>
+        <b>EXEMPLO</b><br>
+        Texto da intenção.
+      </div>
+    </div>
+
+  </div>
+
+</div>
 </div>     
 </div>
 
@@ -604,7 +636,22 @@ function toggleHabilidades() {
   listaHabilidades.classList.toggle("hidden");
   btnHabilidades.innerText = habilidadesVisivel ? "Ocultar" : "Mostrar";
 }
+let intencoesVisivel = false;
 
+function toggleIntencoes() {
+
+  intencoesVisivel =
+  !intencoesVisivel;
+
+  listaIntencoes.classList.toggle(
+    "hidden"
+  );
+
+  btnIntencoes.innerText =
+  intencoesVisivel
+  ? "Ocultar"
+  : "Mostrar";
+}
 let modoAssassino = localStorage.getItem("modoAssassino") === "true";
 let bonusVidaAssassino = 20;
 let bonusDetAssassino = 10;
