@@ -517,7 +517,27 @@ Deve ser desbloqueado em circunstancias especificas
     <button onclick="mudarDia(1)">+</button>
 
   </div>
+<div style="
+margin-top:20px;
+display:flex;
+flex-direction:column;
+gap:10px;
+align-items:center;
+">
 
+<label style="display:flex; gap:10px; align-items:center;">
+<input type="checkbox" id="aguaCheck"
+onchange="toggleAgua()">
+Água
+</label>
+
+<label style="display:flex; gap:10px; align-items:center;">
+<input type="checkbox" id="comidaCheck"
+onchange="toggleComida()">
+Comida
+</label>
+
+</div>
 </div>
 
   </div>
@@ -940,6 +960,7 @@ function atualizarDia() {
     "diaAtual",
     diaAtual
   );
+  atualizarChecks();
 }
 
 function mudarDia(valor) {
@@ -951,6 +972,33 @@ function mudarDia(valor) {
   if (diaAtual > 6) diaAtual = 6;
 
   atualizarDia();
+function toggleAgua() {
+
+  localStorage.setItem(
+    "aguaDia" + diaAtual,
+    aguaCheck.checked
+  );
+}
+
+function toggleComida() {
+
+  localStorage.setItem(
+    "comidaDia" + diaAtual,
+    comidaCheck.checked
+  );
+}
+
+function atualizarChecks() {
+
+  aguaCheck.checked =
+    localStorage.getItem(
+      "aguaDia" + diaAtual
+    ) === "true";
+
+  comidaCheck.checked =
+    localStorage.getItem(
+      "comidaDia" + diaAtual
+    ) === "true";
 }
   window.onload = function() {
 
