@@ -710,7 +710,45 @@ function desbloquearSabor() {
 
   alert("Senha incorreta.");
 }
-  
+  function ativarSabor() {
+
+  const hab = document.getElementById("habSecreta");
+
+  hab.innerHTML = `
+
+<b style="color:red;">
+SABOR DO SILÊNCIO
+</b>
+<br><br>
+
+<span style="color:red;">
+"O silêncio que te atormentou agora assombra o pesadelo dos outros."
+</span>
+
+<br><br>
+
+<b style="color:red;">
+Gatilho
+</b>
+<br>
+
+<span style="color:white;">
+Você precisa gastar uma ação padrão para provar o sangue de um ser adjante que esteja machucado.
+</span>
+
+<br><br>
+
+<b style="color:red;">
+Efeito
+</b>
+<br>
+
+<span style="color:white;">
+Seus ataques causam +1d8 pontos de dano, e recebem +2 na margem de ameaça. Além disso, se fizer um acerto crítico, você corta a boca do alvo, o silenciando, impedindo de se comunicar e utilizar qualquer poder ou ritual por 1d4 rodadas. Os efeitos duram até o final da cena.
+</span>
+
+  `;
+}
 function usarHabilidade(custo) {
   detAtual = Math.max(0, detAtual - custo);
   atualizar();
@@ -922,6 +960,9 @@ window.onload = function() {
 }, 10);
 
   }
+if (saborLiberado) {
+  ativarSabor();
+}
 
 };
 </script>
