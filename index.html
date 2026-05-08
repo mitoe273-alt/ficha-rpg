@@ -492,9 +492,33 @@ Deve ser desbloqueado em circunstancias especificas
       HEXATOMBE
     </h2>
 
-    <p style="text-align:center;">
-      Menu secreto desbloqueado.
-    </p>
+   <div style="text-align:center;">
+
+  <h3>Dias</h3>
+
+  <div style="
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-top:10px;
+  ">
+
+    <button onclick="mudarDia(-1)">-</button>
+
+    <span id="diaTexto"
+    style="
+      font-size:28px;
+      font-weight:bold;
+    ">
+      1
+    </span>
+
+    <button onclick="mudarDia(1)">+</button>
+
+  </div>
+
+</div>
 
   </div>
 
@@ -891,7 +915,44 @@ function editarCarga(){
 
 atualizar();
 atualizarCarga();
-window.onload = function() {
+let diaAtual =
+parseInt(localStorage.getItem("diaAtual")) || 1;
+
+function atualizarDia() {
+
+  const texto =
+  document.getElementById("diaTexto");
+
+  texto.innerText = diaAtual;
+
+  // deixa o 6 vermelho
+  if (diaAtual === 6) {
+
+    texto.style.color = "red";
+
+  } else {
+
+    texto.style.color = "white";
+
+  }
+
+  localStorage.setItem(
+    "diaAtual",
+    diaAtual
+  );
+}
+
+function mudarDia(valor) {
+
+  diaAtual += valor;
+
+  // limita entre 1 e 6
+  if (diaAtual < 1) diaAtual = 1;
+  if (diaAtual > 6) diaAtual = 6;
+
+  atualizarDia();
+}
+  window.onload = function() {
 
   // restaura status
   vidaAtual = parseInt(localStorage.getItem("vidaAtual")) || 100;
@@ -912,6 +973,7 @@ window.onload = function() {
   atualizar();
   atualizarCarga();
   atualizarDef();
+    atualizarDia();
 
   // elementos
   const img = document.getElementById("portrait");
