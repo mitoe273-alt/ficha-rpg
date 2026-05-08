@@ -673,7 +673,44 @@ function abrirHexatombe() {
 
   alert("Senha incorreta.");
 }
+function desbloquearSabor() {
 
+  // já liberado permanente
+  if (saborLiberado) {
+    ativarSabor();
+    return;
+  }
+
+  let senha = prompt("Digite a senha:");
+
+  // desbloqueio permanente
+  if (senha === "coroa de espinhos") {
+
+    saborLiberado = true;
+
+    localStorage.setItem(
+      "saborLiberado",
+      "true"
+    );
+
+    ativarSabor();
+
+    alert("Nova habilidade desbloqueada.");
+
+    return;
+  }
+
+  // desbloqueio temporário
+  if (senha === "26282928") {
+
+    ativarSabor();
+
+    return;
+  }
+
+  alert("Senha incorreta.");
+}
+  
 function usarHabilidade(custo) {
   detAtual = Math.max(0, detAtual - custo);
   atualizar();
