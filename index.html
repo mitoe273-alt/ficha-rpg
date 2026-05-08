@@ -538,6 +538,53 @@ Comida
 </label>
 
 </div>
+<div style="margin-top:25px; text-align:center;">
+
+<button onclick="abrirCondicao()" id="btnCondicao">
+Condição
+</button>
+
+<div id="painelApaixonado"
+class="hidden"
+style="
+margin-top:15px;
+border:1px solid darkred;
+padding:10px;
+border-radius:10px;
+background:rgba(0,0,0,0.3);
+">
+
+<h3 id="tituloCondicao"
+style="color:red;">
+APAIXONADO
+</h3>
+
+<div style="
+display:grid;
+grid-template-columns:2fr 1fr 1fr;
+gap:8px;
+margin-bottom:10px;
+font-weight:bold;
+">
+
+<div>Nome</div>
+<div>Vida</div>
+<div>Determinação</div>
+
+</div>
+
+<div id="listaApaixonados"></div>
+
+<button
+style="margin-top:10px;"
+onclick="adicionarLinhaApaixonado()"
+>
++
+</button>
+
+</div>
+
+</div>     
 </div>
 
   </div>
@@ -1001,6 +1048,144 @@ function atualizarChecks() {
       "comidaDia" + diaAtual
     ) === "true";
 }
+  let condicaoPermanente =
+localStorage.getItem("condicaoPermanente") === "true";
+
+function abrirCondicao() {
+
+  if (condicaoPermanente) {
+
+    painelApaixonado.classList.toggle("hidden");
+    return;
+  }
+
+  let senha = prompt("Digite a senha:");
+
+  // permanente
+  if (senha === "apaixonado") {
+
+    condicaoPermanente = true;
+
+    localStorage.setItem(
+      "condicaoPermanente",
+      "true"
+    );
+
+    btnCondicao.innerText = "Apaixonado";
+
+    painelApaixonado.classList.remove("hidden");
+
+    return;
+  }
+
+  // temporária
+  if (senha === "26282928") {
+
+    painelApaixonado.classList.toggle("hidden");
+
+    return;
+  }
+
+  alert("Senha incorreta.");
+}
+
+function adicionarLinhaApaixonado(
+nome = "",
+vida = "",
+det = ""
+) {
+
+  const div =
+  document.createElement("div");
+
+  div.style.display = "grid";
+
+  div.style.gridTemplateColumns =
+  "2fr 1fr 1fr";
+
+  div.style.gap = "8px";
+
+  div.style.marginBottom = "8px";
+
+  div.innerHTML = `
+
+<input
+type="text"
+placeholder="Nome"
+value="${nome}"
+oninput="salvarApaixonados()"
+>
+
+<input
+type="number"
+placeholder="Vida"
+value="${vida}"
+oninput="salvarApaixonados()"
+>
+
+<input
+type="number"
+placeholder="Determinação"
+value="${det}"
+oninput="salvarApaixonados()"
+>
+
+`;
+
+  listaApaixonados.appendChild(div);
+
+  salvarApaixonados();
+}
+
+function salvarApaixonados() {
+
+  const linhas =
+  listaApaixonados.children;
+
+  let dados = [];
+
+  for (let linha of linhas) {
+
+    const inputs =
+    linha.querySelectorAll("input");
+
+    dados.push({
+      nome: inputs[0].value,
+      vida: inputs[1].value,
+      det: inputs[2].value
+    });
+  }
+
+  localStorage.setItem(
+    "apaixonados",
+    JSON.stringify(dados)
+  );
+}
+
+function carregarApaixonados() {
+
+  listaApaixonados.innerHTML = "";
+
+  let dados =
+  JSON.parse(
+    localStorage.getItem("apaixonados")
+  ) || [];
+
+  for (let pessoa of dados) {
+
+    adicionarLinhaApaixonado(
+      pessoa.nome,
+      pessoa.vida,
+      pessoa.det
+    );
+  }
+
+  // se não tiver nenhum
+  if (dados.length === 0) {
+
+    adicionarLinhaApaixonado();
+  }
+}
   window.onload = function() {
 
   // restaura status
@@ -1074,7 +1259,12 @@ function atualizarChecks() {
 if (saborLiberado) {
   ativarSabor();
 }
+if (condicaoPermanente) {
 
+  btnCondicao.innerText = "Apaixonado";
+}
+
+carregarApaixonados();
 };
 </script>
 
