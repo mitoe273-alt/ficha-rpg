@@ -1247,33 +1247,73 @@ function criarIntencaoBloqueada(
 id,
 senhaReal,
 titulo,
-descricao
+frase,
+descricao,
+imagem
 ) {
 
   const div =
   document.getElementById(id);
 
-  // já desbloqueada permanentemente
+  // desbloqueada permanente
   if (intencoesLiberadas[id]) {
 
     div.innerHTML = `
-    
+
     <div class="pericia periciaVermelha">
 
-      <div>
+      <div style="width:100%;">
 
-        <b style="color:red;">
-        ${titulo}
-        </b>
+        <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        ">
+
+          <b style="color:red;">
+          ${titulo}
+          </b>
+
+          <span style="
+          color:#00ff66;
+          font-size:20px;
+          ">
+          ✓
+          </span>
+
+        </div>
+
+        <br>
+
+        <div style="
+        text-align:center;
+        margin-bottom:10px;
+        ">
+
+          <img
+          src="${imagem}"
+          style="
+          width:120px;
+          border-radius:10px;
+          border:1px solid darkred;
+          ">
+
+        </div>
+
+        <i style="color:#ff6666;">
+        "${frase}"
+        </i>
 
         <br><br>
 
+        <span style="color:#ddd;">
         ${descricao}
+        </span>
 
       </div>
 
     </div>
-    
+
     `;
 
     return;
@@ -1303,7 +1343,9 @@ descricao
       '${id}',
       '${senhaReal}',
       \`${titulo}\`,
-      \`${descricao}\`
+      \`${frase}\`,
+      \`${descricao}\`,
+      '${imagem}'
     )
     ">
     ?
@@ -1318,14 +1360,16 @@ function desbloquearIntencao(
 id,
 senhaReal,
 titulo,
-descricao
+frase,
+descricao,
+imagem
 ) {
 
   let senha =
   prompt("Digite a senha:");
 
   // permanente
-  if (senha === senhaReal) {
+  if (senha.toLowerCase() === senhaReal.toLowerCase()) {
 
     intencoesLiberadas[id] = true;
 
@@ -1350,10 +1394,10 @@ descricao
     document.getElementById(id);
 
     div.innerHTML = `
-    
+
     <div class="pericia periciaVermelha">
 
-      <div>
+      <div style="width:100%;">
 
         <b style="color:red;">
         ${titulo}
@@ -1361,12 +1405,35 @@ descricao
 
         <br><br>
 
+        <div style="
+        text-align:center;
+        margin-bottom:10px;
+        ">
+
+          <img
+          src="${imagem}"
+          style="
+          width:120px;
+          border-radius:10px;
+          border:1px solid darkred;
+          ">
+
+        </div>
+
+        <i style="color:#ff6666;">
+        "${frase}"
+        </i>
+
+        <br><br>
+
+        <span style="color:#ddd;">
         ${descricao}
+        </span>
 
       </div>
 
     </div>
-    
+
     `;
 
     return;
@@ -1379,44 +1446,56 @@ function atualizarIntencoes() {
 
   criarIntencaoBloqueada(
     "intencao1",
-    "senha1",
-    "INTENÇÃO 1",
-    "Texto da intenção 1."
+    "prazer",
+    "INTENÇÃO I — PRAZER",
+    "Farta-te em um banquete superior à tua fome e sorva insaciável além da tua sede.",
+    "Aqueles que consumirem 3 águas e 3 comidas no mesmo dia terão cumprido a sua INTENÇÃO e serão recompensados à altura.",
+    "prazer.png"
   );
 
   criarIntencaoBloqueada(
     "intencao2",
-    "senha2",
-    "INTENÇÃO 2",
-    "Texto da intenção 2."
+    "orgulho",
+    "INTENÇÃO II — ORGULHO",
+    "Abata incólume o indigno que ousaria te flagelar.",
+    "Aquele que matar alguém sem que essa pessoa o tenha ferido terá cumprido a sua INTENÇÃO e será recompensado à altura.",
+    "orgulho.png"
   );
 
   criarIntencaoBloqueada(
     "intencao3",
-    "senha3",
-    "INTENÇÃO 3",
-    "Texto da intenção 3."
+    "obsessão",
+    "INTENÇÃO III — OBSESSÃO",
+    "Testifica a tua lealdade e sangra sob as mãos do teu vínculo.",
+    "Aqueles que forem feridos por um membro de sua própria equipe terão cumprido sua INTENÇÃO e serão recompensados à altura.",
+    "obsessao.png"
   );
 
   criarIntencaoBloqueada(
     "intencao4",
-    "senha4",
-    "INTENÇÃO 4",
-    "Texto da intenção 4."
+    "rebeldia",
+    "INTENÇÃO IV — REBELDIA",
+    "Liberta tua cólera primordial e aniquila a díade.",
+    "Aqueles que matarem duas pessoas no mesmo dia terão cumprido sua INTENÇÃO e serão recompensados à altura.",
+    "rebeldia.png"
   );
 
   criarIntencaoBloqueada(
     "intencao5",
-    "senha5",
-    "INTENÇÃO 5",
-    "Texto da intenção 5."
+    "culpa",
+    "INTENÇÃO V — CULPA",
+    "Carrega o fardo daquele sucumbido em teu amparo.",
+    "Aqueles que deixarem um aliado morrer quando ele poderia ter sido salvo terão cumprido sua INTENÇÃO e serão recompensados à altura.",
+    "culpa.png"
   );
 
   criarIntencaoBloqueada(
     "intencao6",
-    "senha6",
-    "INTENÇÃO 6",
-    "Texto da intenção 6."
+    "desejo",
+    "INTENÇÃO VI — DESEJO",
+    "Encare o limiar e retorne à tua forma prístina.",
+    "Aquele que chegar a 0 de vida e depois ficar com a vida completa novamente terá cumprido a sua INTENÇÃO e será recompensado à altura.",
+    "desejo.png"
   );
 
 }
