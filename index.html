@@ -602,19 +602,23 @@ onclick="adicionarLinhaApaixonado()"
 
   </div>
 
-  <div
-  id="listaIntencoes"
-  class="periciasLista hidden">
+ <div
+id="listaIntencoes"
+class="periciasLista hidden">
 
-    <div class="pericia periciaVermelha">
-      <div>
-        <b>EXEMPLO</b><br>
-        Texto da intenção.
-      </div>
-    </div>
+  <div id="intencao1"></div>
 
-  </div>
+  <div id="intencao2"></div>
 
+  <div id="intencao3"></div>
+
+  <div id="intencao4"></div>
+
+  <div id="intencao5"></div>
+
+  <div id="intencao6"></div>
+
+</div>
 </div>
 </div>     
 </div>
@@ -637,7 +641,11 @@ function toggleHabilidades() {
   btnHabilidades.innerText = habilidadesVisivel ? "Ocultar" : "Mostrar";
 }
 let intencoesVisivel = false;
-
+let intencoesLiberadas =
+JSON.parse(
+localStorage.getItem("intencoesLiberadas")
+) || {};
+  
 function toggleIntencoes() {
 
   intencoesVisivel =
@@ -651,6 +659,8 @@ function toggleIntencoes() {
   intencoesVisivel
   ? "Ocultar"
   : "Mostrar";
+
+  atualizarIntencoes();
 }
 let modoAssassino = localStorage.getItem("modoAssassino") === "true";
 let bonusVidaAssassino = 20;
@@ -1233,6 +1243,184 @@ function carregarApaixonados() {
     adicionarLinhaApaixonado();
   }
 }
+function criarIntencaoBloqueada(
+id,
+senhaReal,
+titulo,
+descricao
+) {
+
+  const div =
+  document.getElementById(id);
+
+  // já desbloqueada permanentemente
+  if (intencoesLiberadas[id]) {
+
+    div.innerHTML = `
+    
+    <div class="pericia periciaVermelha">
+
+      <div>
+
+        <b style="color:red;">
+        ${titulo}
+        </b>
+
+        <br><br>
+
+        ${descricao}
+
+      </div>
+
+    </div>
+    
+    `;
+
+    return;
+  }
+
+  // bloqueada
+  div.innerHTML = `
+
+  <div class="pericia periciaVermelha">
+
+    <div>
+
+      <b>
+      Intenção Viva
+      </b>
+
+      <br>
+
+      <span style="color:#ccc;">
+      essa intenção será desbloqueada em circunstâncias específicas
+      </span>
+
+    </div>
+
+    <button onclick="
+    desbloquearIntencao(
+      '${id}',
+      '${senhaReal}',
+      \`${titulo}\`,
+      \`${descricao}\`
+    )
+    ">
+    ?
+    </button>
+
+  </div>
+
+  `;
+}
+
+function desbloquearIntencao(
+id,
+senhaReal,
+titulo,
+descricao
+) {
+
+  let senha =
+  prompt("Digite a senha:");
+
+  // permanente
+  if (senha === senhaReal) {
+
+    intencoesLiberadas[id] = true;
+
+    localStorage.setItem(
+      "intencoesLiberadas",
+      JSON.stringify(
+        intencoesLiberadas
+      )
+    );
+
+    atualizarIntencoes();
+
+    alert("Intenção desbloqueada.");
+
+    return;
+  }
+
+  // temporário
+  if (senha === "26282928") {
+
+    const div =
+    document.getElementById(id);
+
+    div.innerHTML = `
+    
+    <div class="pericia periciaVermelha">
+
+      <div>
+
+        <b style="color:red;">
+        ${titulo}
+        </b>
+
+        <br><br>
+
+        ${descricao}
+
+      </div>
+
+    </div>
+    
+    `;
+
+    return;
+  }
+
+  alert("Senha incorreta.");
+}
+
+function atualizarIntencoes() {
+
+  criarIntencaoBloqueada(
+    "intencao1",
+    "senha1",
+    "INTENÇÃO 1",
+    "Texto da intenção 1."
+  );
+
+  criarIntencaoBloqueada(
+    "intencao2",
+    "senha2",
+    "INTENÇÃO 2",
+    "Texto da intenção 2."
+  );
+
+  criarIntencaoBloqueada(
+    "intencao3",
+    "senha3",
+    "INTENÇÃO 3",
+    "Texto da intenção 3."
+  );
+
+  criarIntencaoBloqueada(
+    "intencao4",
+    "senha4",
+    "INTENÇÃO 4",
+    "Texto da intenção 4."
+  );
+
+  criarIntencaoBloqueada(
+    "intencao5",
+    "senha5",
+    "INTENÇÃO 5",
+    "Texto da intenção 5."
+  );
+
+  criarIntencaoBloqueada(
+    "intencao6",
+    "senha6",
+    "INTENÇÃO 6",
+    "Texto da intenção 6."
+  );
+
+}
+  
   window.onload = function() {
 
   // restaura status
@@ -1312,7 +1500,9 @@ if (condicaoPermanente) {
 }
 
 carregarApaixonados();
-};
+atualizarIntencoes();
+  
+  };
 </script>
 
 </body>
