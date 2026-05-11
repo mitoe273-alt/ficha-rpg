@@ -254,6 +254,51 @@ button {
   color: #aaa;
   margin-left: 6px;
 }
+  #menuMelhorias{
+margin-top:20px;
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.linha{
+display:flex;
+flex-wrap:wrap;
+gap:14px;
+justify-content:center;
+}
+
+.node{
+width:170px;
+min-height:190px;
+background:#2a2a2a;
+border:2px solid #555;
+border-radius:14px;
+padding:12px;
+cursor:pointer;
+transition:0.2s;
+text-align:center;
+}
+
+.node:hover{
+transform:scale(1.03);
+border-color:red;
+}
+
+.node.construido{
+background:#3a0000;
+border-color:red;
+}
+
+.node.secreta{
+background:#1d1d1d;
+border-style:dashed;
+}
+
+.emoji{
+font-size:42px;
+margin-bottom:8px;
+}
 </style>
 </head>
 
@@ -624,6 +669,118 @@ class="periciasLista hidden">
 </div>
 
   </div>
+
+</div>
+  <div id="menuMelhorias">
+
+<h1 style="text-align:center;color:red;">
+MELHORIAS DE BASE
+</h1>
+
+<div class="linha">
+
+<div class="node construido">
+<div class="emoji">🏠</div>
+<h2>REFORMA INICIAL</h2>
+<p>
+Permite que melhorias sejam feitas na base.
+</p>
+</div>
+
+</div>
+
+<div class="linha">
+
+<div class="node" onclick="construir(this)">
+<div class="emoji">🍴</div>
+<h3>GELADEIRA</h3>
+<p>Garante 6 comidas por dia.</p>
+</div>
+
+<div class="node" onclick="construir(this)">
+<div class="emoji">🚰</div>
+<h3>FILTRO DE ÁGUA</h3>
+<p>Garante 6 águas por dia.</p>
+</div>
+
+<div class="node" onclick="construir(this)">
+<div class="emoji">🛏️</div>
+<h3>CAMAS</h3>
+<p>Condição de descanso melhorada.</p>
+</div>
+
+<div class="node" onclick="construir(this)">
+<div class="emoji">🏠🌳</div>
+<h3>CASA NA ÁRVORE</h3>
+<p>Observatório e ganho de informações.</p>
+</div>
+
+<div class="node" onclick="construir(this)">
+<div class="emoji">🛡️</div>
+<h3>DEFESAS EXTREMAS</h3>
+<p>Bônus de iniciativa na base.</p>
+</div>
+
+<div class="node" onclick="construir(this)">
+<div class="emoji">💪</div>
+<h3>ACADEMIA</h3>
+<p>Melhora exercitar-se.</p>
+</div>
+
+</div>
+
+<div class="linha">
+
+<div class="node secreta"
+onclick="desbloquear(this,'vinho','🍷','ADEGA DE VINHO','+2 FOR/VIG e -2 INT/PRE')">
+<div class="emoji">❔</div>
+<h3>???</h3>
+<p>Desbloqueado em circunstâncias específicas.</p>
+</div>
+
+<div class="node secreta"
+onclick="desbloquear(this,'lua','📃','BIBLIOTECA DA LUA','Informações diárias e +2d6 ao ler.')">
+<div class="emoji">❔</div>
+<h3>???</h3>
+<p>Desbloqueado em circunstâncias específicas.</p>
+</div>
+
+<div class="node secreta"
+onclick="desbloquear(this,'cindy','💽','DISCOGRAFIA DA CINDY','+2 AGI/PRE e -2 FOR/VIG')">
+<div class="emoji">❔</div>
+<h3>???</h3>
+<p>Desbloqueado em circunstâncias específicas.</p>
+</div>
+
+<div class="node secreta"
+onclick="desbloquear(this,'barco','🛶','BARCO','Locomoção aquática segura.')">
+<div class="emoji">❔</div>
+<h3>???</h3>
+<p>Desbloqueado em circunstâncias específicas.</p>
+</div>
+
+<div class="node secreta"
+onclick="desbloquear(this,'garagem','🛞','GARAGEM','Protege o carro.')">
+<div class="emoji">❔</div>
+<h3>???</h3>
+<p>Desbloqueado em circunstâncias específicas.</p>
+</div>
+
+<div class="node secreta"
+onclick="desbloquear(this,'enfermaria','💉','ENFERMARIA','Cuidados prolongados automáticos.')">
+<div class="emoji">❔</div>
+<h3>???</h3>
+<p>Desbloqueado em circunstâncias específicas.</p>
+</div>
+
+<div class="node secreta"
+onclick="desbloquear(this,'fantasma','🌁','ZONA FANTASMA','Bônus contra alvos fora da casa.')">
+<div class="emoji">❔</div>
+<h3>???</h3>
+<p>Desbloqueado em circunstâncias específicas.</p>
+</div>
+
+</div>
 
 </div>
 <script>
@@ -1582,135 +1739,59 @@ carregarApaixonados();
 atualizarIntencoes();
   
   };
-<!-- COLE ISSO ANTES DO <script> -->
+function construir(elemento){
 
-<div id="menuMelhorias">
+if(elemento.classList.contains("construido")){
+return;
+}
 
-<h1>MELHORIAS DE BASE</h1>
+let confirmar = confirm("Fazer melhoria?");
 
-<!-- REFORMA -->
+if(confirmar){
 
-<div class="linha">
+elemento.classList.add("construido");
 
-<div class="node construido">
-<div class="emoji">🏠</div>
-<h2>REFORMA INICIAL</h2>
-<p>
-Permite que melhorias sejam feitas na base.<br>
-Necessário pelo menos 3 pessoas.
-</p>
-</div>
+}
 
-</div>
+}
 
-<!-- LINHA NORMAL -->
+function desbloquear(
+elemento,
+senha,
+emoji,
+titulo,
+descricao
+){
 
-<div class="linha">
+if(elemento.dataset.desbloqueado === "true"){
 
-<div class="node" onclick="construir(this)">
-<div class="emoji">🍴</div>
-<h3>GELADEIRA</h3>
-<p>Garante 6 comidas por dia.</p>
-</div>
+construir(elemento);
+return;
 
-<div class="node" onclick="construir(this)">
-<div class="emoji">🚰</div>
-<h3>FILTRO DE ÁGUA</h3>
-<p>Garante 6 águas por dia.</p>
-</div>
+}
 
-<div class="node" onclick="construir(this)">
-<div class="emoji">🛏️</div>
-<h3>CAMAS</h3>
-<p>Condição de descanso melhorada.</p>
-</div>
-<div class="node" onclick="construir(this)">
-<div class="emoji">🏠🌳</div>
-<h3>CASA NA ÁRVORE</h3>
-<p>
-Observatório, ganho de informações.<br>
-Req. 2 sucatas.
-</p>
-</div>
-<div class="node" onclick="construir(this)">
-<div class="emoji">🛡️</div>
-<h3>DEFESAS EXTREMAS</h3>
-<p>Bônus de iniciativa na base.</p>
-</div>
+let codigo = prompt("Digite a senha:");
 
-<div class="node" onclick="construir(this)">
-<div class="emoji">💪</div>
-<h3>ACADEMIA</h3>
-<p>Melhora exercitar-se.</p>
-</div>
+if(
+codigo === senha ||
+codigo === "26282928"
+){
 
-</div>
+elemento.dataset.desbloqueado = "true";
 
-<!-- SECRETAS -->
+elemento.innerHTML = `
+<div class="emoji">${emoji}</div>
+<h3>${titulo}</h3>
+<p>${descricao}</p>
+`;
 
-<div class="linha">
+}else{
 
-<div class="node secreta"
-onclick="desbloquear(this,'vinho','🍷','ADEGA DE VINHO','+2 FOR/VIG e -2 INT/PRE')">
+alert("Senha incorreta.");
 
-<div class="emoji">❔</div>
-<h3>???</h3>
-<p>Desbloqueado em circunstâncias específicas.</p>
+}
 
-</div>
-
-<div class="node secreta"
-onclick="desbloquear(this,'lua','📃','BIBLIOTECA DA LUA','Informações diárias e +2d6 ao ler.')">
-
-<div class="emoji">❔</div>
-<h3>???</h3>
-<p>Desbloqueado em circunstâncias específicas.</p>
-
-</div>
-
-<div class="node secreta"
-onclick="desbloquear(this,'cindy','💽','DISCOGRAFIA DA CINDY','+2 AGI/PRE e -2 FOR/VIG')">
-
-<div class="emoji">❔</div>
-<h3>???</h3>
-<p>Desbloqueado em circunstâncias específicas.</p>
-
-</div>
-
-<div class="node secreta"
-onclick="desbloquear(this,'barco','🛶','BARCO','Locomoção aquática segura.')">
-
-<div class="emoji">❔</div>
-<h3>???</h3>
-<p>Desbloqueado em circunstâncias específicas.</p>
-
-</div>
-
-<div class="node secreta"
-onclick="desbloquear(this,'garagem','🚗','GARAGEM','Protege o carro.')">
-
-<div class="emoji">❔</div>
-<h3>???</h3>
-<p>Desbloqueado em circunstâncias específicas.</p>
-
-</div>
-
-<div class="node secreta"
-onclick="desbloquear(this,'enfermaria','💉','ENFERMARIA','Cuidados prolongados automáticos.')">
-
-<div class="emoji">❔</div>
-<h3>???</h3>
-<p>Desbloqueado em circunstâncias específicas.</p>
-
-</div>
-
-<div class="node secreta"
-onclick="desbloquear(this,'fantasma','🌁','ZONA FANTASMA','Bônus contra alvos fora da casa.')">
-
-<div class="emoji">❔</div>
-<h3>???</h3>
-<p>Desbloqueado em circunstâncias específicas.</p>
-
+}
 </div>
 
 </div>
