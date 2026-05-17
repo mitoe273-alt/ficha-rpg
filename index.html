@@ -640,10 +640,15 @@ letter-spacing:2px;
 MELHORIAS DE BASE
 </h2>
 
-<div style="
+<div
+id="melhoriaReforma"
+onclick="toggleReforma()"
+style="
 background:#2b2b2b;
 border:2px solid #555;
 border-radius:50%;
+cursor:pointer;
+transition:0.3s;
 width:190px;
 height:190px;
 display:flex;
@@ -1557,7 +1562,66 @@ function atualizarIntencoes() {
   );
 
 }
-  
+  let reformaFeita =
+localStorage.getItem("reformaFeita") === "true";
+
+function atualizarReforma() {
+
+  const reforma =
+  document.getElementById("melhoriaReforma");
+
+  if (reformaFeita) {
+
+    reforma.style.background =
+    "darkred";
+
+    reforma.style.border =
+    "2px solid red";
+
+    reforma.style.boxShadow =
+    "0 0 20px red";
+
+  } else {
+
+    reforma.style.background =
+    "#2b2b2b";
+
+    reforma.style.border =
+    "2px solid #555";
+
+    reforma.style.boxShadow =
+    "0 0 15px rgba(0,0,0,0.6)";
+  }
+
+  localStorage.setItem(
+    "reformaFeita",
+    reformaFeita
+  );
+}
+
+function toggleReforma() {
+
+  if (!reformaFeita) {
+
+    let confirmar =
+    confirm("Fazer melhoria?");
+
+    if (!confirmar) return;
+
+    reformaFeita = true;
+
+  } else {
+
+    let confirmar =
+    confirm("Desfazer melhoria?");
+
+    if (!confirmar) return;
+
+    reformaFeita = false;
+  }
+
+  atualizarReforma();
+}
   window.onload = function() {
 
   // restaura status
@@ -1638,7 +1702,7 @@ if (condicaoPermanente) {
 
 carregarApaixonados();
 atualizarIntencoes();
-  
+atualizarReforma();    
   };
 </script>
 
