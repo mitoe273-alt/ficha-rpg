@@ -546,14 +546,31 @@ Deve ser desbloqueado em circunstancias especificas
     </button>
   </div>
 
+ <div id="listaAtaques" class="periciasLista hidden">
+
   <div
-  id="listaAtaques"
-  class="periciasLista hidden">
+  class="pericia"
+  style="
+  flex-direction:column;
+  align-items:center;
+  background:transparent;
+  border:none;
+  ">
 
-    <div
-id="listaAtaques"
-class="periciasLista hidden">
+    <img
+    src="CARTA.PUNHAL X.png"
+    style="
+    width:100%;
+    max-width:340px;
+    border-radius:12px;
+    box-shadow:0 0 20px rgba(255,0,0,0.4);
+    transition:0.3s;
+    "
+    >
 
+  </div>
+
+</div>
   <div
   class="pericia"
   style="
@@ -949,6 +966,19 @@ function toggleHabilidades() {
   habilidadesVisivel = !habilidadesVisivel;
   listaHabilidades.classList.toggle("hidden");
   btnHabilidades.innerText = habilidadesVisivel ? "Ocultar" : "Mostrar";
+}
+  let ataquesVisivel = false;
+
+function toggleAtaques() {
+
+  ataquesVisivel = !ataquesVisivel;
+
+  listaAtaques.classList.toggle("hidden");
+
+  btnAtaques.innerText =
+  ataquesVisivel
+  ? "Ocultar"
+  : "Mostrar";
 }
 let intencoesVisivel = false;
 let intencoesLiberadas =
