@@ -534,7 +534,7 @@ Deve ser desbloqueado em circunstancias especificas
 </div>
     </div>
 
-  <div class="periciasBox">
+<div class="periciasBox">
 
   <div class="periciasHeader">
     <span>ATAQUES</span>
@@ -546,59 +546,33 @@ Deve ser desbloqueado em circunstancias especificas
     </button>
   </div>
 
- <div id="listaAtaques" class="periciasLista hidden">
-
   <div
-  class="pericia"
-  style="
-  flex-direction:column;
-  align-items:center;
-  background:transparent;
-  border:none;
-  ">
+  id="listaAtaques"
+  class="periciasLista hidden">
 
-    <img
-    src="CARTA.PUNHAL X.png"
+    <div
+    class="pericia"
     style="
-    width:100%;
-    max-width:340px;
-    border-radius:12px;
-    box-shadow:0 0 20px rgba(255,0,0,0.4);
-    transition:0.3s;
-    "
-    >
+    flex-direction:column;
+    align-items:center;
+    background:transparent;
+    border:none;
+    ">
+
+      <img
+      src="CARTA.PUNHAL X.png"
+      style="
+      width:100%;
+      max-width:340px;
+      border-radius:12px;
+      box-shadow:0 0 20px rgba(255,0,0,0.4);
+      "
+      >
+
+    </div>
 
   </div>
 
-</div>
-  <div
-  class="pericia"
-  style="
-  flex-direction:column;
-  align-items:center;
-  background:transparent;
-  border:none;
-  ">
-
-    <img
-    src="CARTA.PUNHAL X.png"
-    style="
-    width:100%;
-    max-width:340px;
-    border-radius:12px;
-    box-shadow:0 0 20px rgba(255,0,0,0.4);
-    transition:0.3s;
-    "
-    >
-
-  </div>
-
-</div>
-
-</div>
-</div>
-
-</div>
 </div>
 
 <div id="menuHexatombe" class="hidden">
@@ -2172,7 +2146,19 @@ function atualizarSegredos() {
     "A ação dormir sempre é beneficiada por cuidados prolongados"
   );
 }
-  window.onload = function() {
+  let ataquesVisivel = false;
+
+function toggleAtaques() {
+
+  ataquesVisivel = !ataquesVisivel;
+
+  listaAtaques.classList.toggle("hidden");
+
+  btnAtaques.innerText =
+    ataquesVisivel
+    ? "Ocultar"
+    : "Mostrar";
+}
 
   // restaura status
   vidaAtual = parseInt(localStorage.getItem("vidaAtual")) || 100;
