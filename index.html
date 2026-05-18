@@ -860,7 +860,24 @@ Melhora a ação exercitar-se
 </div>
 
 </div>
+<!-- MELHORIAS SECRETAS -->
 
+<div style="
+margin-top:30px;
+display:grid;
+grid-template-columns:repeat(3, 1fr);
+gap:15px;
+width:100%;
+max-width:700px;
+">
+
+<div id="segredo1"></div>
+<div id="segredo2"></div>
+<div id="segredo3"></div>
+<div id="segredo4"></div>
+<div id="segredo5"></div>
+
+</div>
 </div>
   
 <script>
@@ -1866,6 +1883,211 @@ function atualizarMelhorias() {
     JSON.stringify(melhoriasBase)
   );
 }
+  let melhoriasSecretas =
+JSON.parse(
+localStorage.getItem("melhoriasSecretas")
+) || {};
+
+let melhoriasSecretasAtivas =
+JSON.parse(
+localStorage.getItem("melhoriasSecretasAtivas")
+) || {};
+
+function criarMelhoriaSecreta(
+id,
+senha,
+emoji,
+titulo,
+descricao
+) {
+
+  const div =
+  document.getElementById(id);
+
+  // DESBLOQUEADA
+  if (melhoriasSecretas[id]) {
+
+    const ativa =
+    melhoriasSecretasAtivas[id];
+
+    div.innerHTML = `
+
+    <div
+    onclick="toggleMelhoriaSecreta('${id}')"
+    class="miniMelhoria ${ativa ? 'melhoriaAtiva' : ''}"
+    >
+
+      <div style="font-size:28px;">
+      ${emoji}
+      </div>
+
+      <div class="miniTitulo">
+      ${titulo}
+      </div>
+
+      <div class="miniDesc">
+      ${descricao}
+      </div>
+
+    </div>
+
+    `;
+
+    return;
+  }
+
+  // BLOQUEADA
+  div.innerHTML = `
+
+  <div
+  onclick="
+  desbloquearMelhoriaSecreta(
+    '${id}',
+    '${senha}'
+  )
+  "
+  class="miniMelhoria"
+  style="
+  background:#1f1f1f;
+  border:2px solid #444;
+  "
+  >
+
+    <div style="
+    font-size:40px;
+    color:#777;
+    ">
+    ?
+    </div>
+
+    <div class="miniDesc">
+    desbloqueado em circunstâncias específicas
+    </div>
+
+  </div>
+
+  `;
+}
+
+function desbloquearMelhoriaSecreta(
+id,
+senhaReal
+) {
+
+  let senha =
+  prompt("Digite a senha:");
+
+  if (!senha) return;
+
+  // PERMANENTE
+  if (
+    senha.toLowerCase()
+    ===
+    senhaReal.toLowerCase()
+  ) {
+
+    melhoriasSecretas[id] = true;
+
+    localStorage.setItem(
+      "melhoriasSecretas",
+      JSON.stringify(
+        melhoriasSecretas
+      )
+    );
+
+    atualizarSegredos();
+
+    alert("Melhoria desbloqueada.");
+
+    return;
+  }
+
+  // TEMPORÁRIA
+  if (senha === "26282928") {
+
+    melhoriasSecretas[id] = true;
+
+    atualizarSegredos();
+
+    return;
+  }
+
+  alert("Senha incorreta.");
+}
+
+function toggleMelhoriaSecreta(id) {
+
+  if (!melhoriasSecretasAtivas[id]) {
+
+    let confirmar =
+    confirm("Fazer melhoria?");
+
+    if (!confirmar) return;
+
+    melhoriasSecretasAtivas[id] = true;
+
+  } else {
+
+    let confirmar =
+    confirm("Desfazer melhoria?");
+
+    if (!confirmar) return;
+
+    melhoriasSecretasAtivas[id] = false;
+  }
+
+  localStorage.setItem(
+    "melhoriasSecretasAtivas",
+    JSON.stringify(
+      melhoriasSecretasAtivas
+    )
+  );
+
+  atualizarSegredos();
+}
+
+function atualizarSegredos() {
+
+  criarMelhoriaSecreta(
+    "segredo1",
+    "Vinho",
+    "🍷",
+    "Adega de vinho",
+    "+2 em testes de Força e Vigor"
+  );
+
+  criarMelhoriaSecreta(
+    "segredo2",
+    "Biblioteca",
+    "📃",
+    "Biblioteca da lua",
+    "Informações diárias e melhora o bônus da ação 'ler'"
+  );
+
+  criarMelhoriaSecreta(
+    "segredo3",
+    "Música",
+    "💽",
+    "Discografia da cindy",
+    "+2 em testes de agilidade e presença"
+  );
+
+  criarMelhoriaSecreta(
+    "segredo4",
+    "Barco",
+    "🛶",
+    "Barco",
+    "Evita os perigos do rio, e se locomove pelo mapa mais rápido"
+  );
+
+  criarMelhoriaSecreta(
+    "segredo5",
+    "enfermaria",
+    "💉",
+    "Enfermaria",
+    "A ação dormir sempre é beneficiada por cuidados prolongados"
+  );
+}
   window.onload = function() {
 
   // restaura status
@@ -1948,6 +2170,7 @@ carregarApaixonados();
 atualizarIntencoes();
 atualizarReforma();
     atualizarMelhorias();
+    atualizarSegredos();
   };
 </script>
 
