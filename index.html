@@ -2150,19 +2150,7 @@ function atualizarSegredos() {
     "A ação dormir sempre é beneficiada por cuidados prolongados"
   );
 }
-  let ataquesVisivel = false;
 
-function toggleAtaques() {
-
-  ataquesVisivel = !ataquesVisivel;
-
-  listaAtaques.classList.toggle("hidden");
-
-  btnAtaques.innerText =
-    ataquesVisivel
-    ? "Ocultar"
-    : "Mostrar";
-}
 
   // restaura status
   vidaAtual = parseInt(localStorage.getItem("vidaAtual")) || 100;
