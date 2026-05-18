@@ -254,6 +254,58 @@ button {
   color: #aaa;
   margin-left: 6px;
 }
+  .miniMelhoria {
+
+background:#2b2b2b;
+border:2px solid #555;
+border-radius:50%;
+
+aspect-ratio:1/1;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+padding:10px;
+
+text-align:center;
+
+cursor:pointer;
+
+transition:0.3s;
+
+box-shadow:0 0 10px rgba(0,0,0,0.5);
+
+}
+
+.miniTitulo {
+
+font-size:13px;
+font-weight:bold;
+margin-top:5px;
+color:#ddd;
+
+}
+
+.miniDesc {
+
+font-size:10px;
+margin-top:4px;
+color:#aaa;
+line-height:1.2;
+
+}
+
+.melhoriaAtiva {
+
+background:darkred !important;
+
+border:2px solid red !important;
+
+box-shadow:0 0 20px red !important;
+
+}
 </style>
 </head>
 
@@ -684,7 +736,133 @@ line-height:1.4;
 Permite que melhorias sejam feitas na base.<br>
 (Necessário pelo menos 3 pessoas)
 </div>
+</div>
 
+<div style="
+display:grid;
+grid-template-columns:repeat(3, 1fr);
+gap:15px;
+margin-top:25px;
+width:100%;
+max-width:700px;
+">
+
+<!-- GELADEIRA -->
+<div
+id="geladeira"
+onclick="toggleMelhoria('geladeira')"
+class="miniMelhoria"
+>
+
+<div style="font-size:28px;">🍴</div>
+
+<div class="miniTitulo">
+Geladeira
+</div>
+
+<div class="miniDesc">
+Garante 6 comidas por dia
+</div>
+
+</div>
+
+<!-- FILTRO -->
+<div
+id="filtro"
+onclick="toggleMelhoria('filtro')"
+class="miniMelhoria"
+>
+
+<div style="font-size:28px;">🚰</div>
+
+<div class="miniTitulo">
+Filtro de água
+</div>
+
+<div class="miniDesc">
+Garante 6 águas por dia
+</div>
+
+</div>
+
+<!-- CAMAS -->
+<div
+id="camas"
+onclick="toggleMelhoria('camas')"
+class="miniMelhoria"
+>
+
+<div style="font-size:28px;">🛏️</div>
+
+<div class="miniTitulo">
+Camas
+</div>
+
+<div class="miniDesc">
+Descanso melhorado para normal
+</div>
+
+</div>
+
+<!-- CASA NA ÁRVORE -->
+<div
+id="arvore"
+onclick="toggleMelhoria('arvore')"
+class="miniMelhoria"
+>
+
+<div style="font-size:28px;">🌳</div>
+
+<div class="miniTitulo">
+Casa na árvore
+</div>
+
+<div class="miniDesc">
+Observatório e ganho de informações
+</div>
+
+</div>
+
+<!-- DEFESAS -->
+<div
+id="defesas"
+onclick="toggleMelhoria('defesas')"
+class="miniMelhoria"
+>
+
+<div style="font-size:28px;">🛡️</div>
+
+<div class="miniTitulo">
+Defesas externas
+</div>
+
+<div class="miniDesc">
+Bônus em iniciativa na base
+</div>
+
+</div>
+
+<!-- ACADEMIA -->
+<div
+id="academia"
+onclick="toggleMelhoria('academia')"
+class="miniMelhoria"
+>
+
+<div style="font-size:28px;">💪</div>
+
+<div class="miniTitulo">
+Academia
+</div>
+
+<div class="miniDesc">
+Melhora a ação exercitar-se
+</div>
+
+</div>
+
+</div>
+  
 <script>
 
 let periciasVisivel = false;
@@ -1622,6 +1800,72 @@ function toggleReforma() {
 
   atualizarReforma();
 }
+  let melhoriasBase =
+JSON.parse(
+localStorage.getItem("melhoriasBase")
+) || {};
+
+function toggleMelhoria(nome) {
+
+  if (!melhoriasBase[nome]) {
+
+    let confirmar =
+    confirm("Fazer melhoria?");
+
+    if (!confirmar) return;
+
+    melhoriasBase[nome] = true;
+
+  } else {
+
+    let confirmar =
+    confirm("Desfazer melhoria?");
+
+    if (!confirmar) return;
+
+    melhoriasBase[nome] = false;
+  }
+
+  atualizarMelhorias();
+}
+
+function atualizarMelhorias() {
+
+  const lista = [
+    "geladeira",
+    "filtro",
+    "camas",
+    "arvore",
+    "defesas",
+    "academia"
+  ];
+
+  for (let nome of lista) {
+
+    const el =
+    document.getElementById(nome);
+
+    if (!el) continue;
+
+    if (melhoriasBase[nome]) {
+
+      el.classList.add(
+        "melhoriaAtiva"
+      );
+
+    } else {
+
+      el.classList.remove(
+        "melhoriaAtiva"
+      );
+    }
+  }
+
+  localStorage.setItem(
+    "melhoriasBase",
+    JSON.stringify(melhoriasBase)
+  );
+}
   window.onload = function() {
 
   // restaura status
@@ -1702,7 +1946,8 @@ if (condicaoPermanente) {
 
 carregarApaixonados();
 atualizarIntencoes();
-atualizarReforma();    
+atualizarReforma();
+    atualizarMelhorias();
   };
 </script>
 
