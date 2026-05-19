@@ -309,6 +309,28 @@ border:2px solid red !important;
 box-shadow:0 0 20px red !important;
 
 }
+  .areaBonus {
+  width: 100%;
+  min-height: 140px;
+  resize: vertical;
+
+  background: #111;
+  color: white;
+
+  border: 1px solid #700;
+  border-radius: 10px;
+
+  padding: 10px;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  box-sizing: border-box;
+}
+
+.bonusBox {
+  margin-top: 15px;
+}
 </style>
 </head>
 
@@ -464,6 +486,34 @@ HEXATOMBE
 
 <div id="penalidadeCarga" class="penalidade hidden">
 ⚠ Penalidade de carga
+</div>
+  <div class="bonusBox">
+
+  <div class="periciasHeader">
+    <span>AFEITOS / BÔNUS</span>
+
+    <button
+    onclick="toggleBonus()"
+    id="btnBonus">
+      Mostrar
+    </button>
+  </div>
+
+  <div
+  id="menuBonus"
+  class="hidden"
+  style="margin-top:10px;"
+  >
+
+    <textarea
+    id="bonusTexto"
+    class="areaBonus"
+    placeholder="Escreva efeitos temporários, bônus, condições, anotações..."
+    oninput="salvarBonus()"
+    ></textarea>
+
+  </div>
+
 </div>
 </div>
 
@@ -938,7 +988,28 @@ function togglePericias() {
   listaPericias.classList.toggle("hidden");
   btnPericias.innerText = periciasVisivel ? "Ocultar" : "Mostrar";
 }
+let bonusVisivel = false;
 
+function toggleBonus() {
+
+  bonusVisivel = !bonusVisivel;
+
+  menuBonus.classList.toggle("hidden");
+
+  btnBonus.innerText =
+  bonusVisivel
+  ? "Ocultar"
+  : "Mostrar";
+}
+
+function salvarBonus() {
+
+  localStorage.setItem(
+    "bonusTexto",
+    bonusTexto.value
+  );
+}
+  
 let habilidadesVisivel = false;
 function toggleHabilidades() {
   habilidadesVisivel = !habilidadesVisivel;
@@ -2233,6 +2304,9 @@ atualizarIntencoes();
 atualizarReforma();
     atualizarMelhorias();
     atualizarSegredos();
+  bonusTexto.value =
+localStorage.getItem("bonusTexto")
+|| "";
 
 </script>
 
