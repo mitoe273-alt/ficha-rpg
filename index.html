@@ -1005,7 +1005,7 @@ function toggleBonus() {
 
 function salvarBonus() {
 
-  localStorage.setItem(
+ localStorage.setItem(SAVE_ID +
     "bonusTexto",
     bonusTexto.value
   );
@@ -1123,7 +1123,7 @@ function toggleAssassino() {
 
       modoAssassino = false;
 
-    localStorage.setItem("modoAssassino", "false");
+   localStorage.setItem(SAVE_ID +"modoAssassino", "false");
 
     // REMOVE BONUS CORRETAMENTE
     vidaMax -= bonusVidaAssassino;
@@ -1191,7 +1191,7 @@ function abrirHexatombe() {
 
     hexatombePermanente = true;
 
-    localStorage.setItem(
+   localStorage.setItem(SAVE_ID +
       "hexatombePermanente",
       "true"
     );
@@ -1228,7 +1228,7 @@ function desbloquearSabor() {
 
     saborLiberado = true;
 
-    localStorage.setItem(
+    localStorage.setItem(SAVE_ID +
       "saborLiberado",
       "true"
     );
@@ -1339,17 +1339,17 @@ function atualizar() {
   vidaGhost.style.width = vidaPerc + "%";
 detGhost.style.width = detPerc + "%";
   
- localStorage.setItem("vidaAtual", vidaAtual);
-  localStorage.setItem("vidaMax", vidaMax);
-  localStorage.setItem("detAtual", detAtual);
-  localStorage.setItem("detMax", detMax);
-  localStorage.setItem("modoAssassino", modoAssassino);
-localStorage.setItem("cargaAtual", cargaAtual);
-localStorage.setItem("cargaMax", cargaMax);
+ localStorage.setItem(SAVE_ID +"vidaAtual", vidaAtual);
+ localStorage.setItem(SAVE_ID +"vidaMax", vidaMax);
+ localStorage.setItem(SAVE_ID +"detAtual", detAtual);
+  localStorage.setItem(SAVE_ID +"detMax", detMax);
+  localStorage.setItem(SAVE_ID +"modoAssassino", modoAssassino);
+localStorage.setItem(SAVE_ID +"cargaAtual", cargaAtual);
+localStorage.setItem(SAVE_ID +"cargaMax", cargaMax);
 
-localStorage.setItem("defesa", defesa);
-localStorage.setItem("esquiva", esquiva);
-localStorage.setItem("bloqueio", bloqueio);
+localStorage.setItem(SAVE_ID +"defesa", defesa);
+localStorage.setItem(SAVE_ID +"esquiva", esquiva);
+localStorage.setItem(SAVE_ID +"bloqueio", bloqueio);
 
 }
 
@@ -1410,8 +1410,8 @@ function atualizarCarga(){
   }
 
   // 🔥 SALVAR CARGA
-  localStorage.setItem("cargaAtual", cargaAtual);
-  localStorage.setItem("cargaMax", cargaMax);
+  localStorage.setItem(SAVE_ID +"cargaAtual", cargaAtual);
+  localStorage.setItem(SAVE_ID +"cargaMax", cargaMax);
 
 }
 
@@ -1452,7 +1452,7 @@ function atualizarDia() {
 
   }
 
-  localStorage.setItem(
+  localStorage.setItem(SAVE_ID +
     "diaAtual",
     diaAtual
   );
@@ -1471,7 +1471,7 @@ function mudarDia(valor) {
   }
 function toggleAgua() {
 
-  localStorage.setItem(
+ localStorage.setItem(SAVE_ID +
     "aguaDia" + diaAtual,
     aguaCheck.checked
   );
@@ -1479,7 +1479,7 @@ function toggleAgua() {
 
 function toggleComida() {
 
-  localStorage.setItem(
+  localStorage.setItem(SAVE_ID +
     "comidaDia" + diaAtual,
     comidaCheck.checked
   );
@@ -1515,7 +1515,7 @@ function abrirCondicao() {
 
     condicaoPermanente = true;
 
-    localStorage.setItem(
+    localStorage.setItem(SAVE_ID +
       "condicaoPermanente",
       "true"
     );
@@ -1605,7 +1605,7 @@ function salvarApaixonados() {
     });
   }
 
-  localStorage.setItem(
+  localStorage.setItem(SAVE_ID +
     "apaixonados",
     JSON.stringify(dados)
   );
@@ -1765,7 +1765,7 @@ imagem
 
     intencoesLiberadas[id] = true;
 
-    localStorage.setItem(
+    localStorage.setItem(SAVE_ID +
       "intencoesLiberadas",
       JSON.stringify(
         intencoesLiberadas
@@ -1922,7 +1922,7 @@ function atualizarReforma() {
     "0 0 15px rgba(0,0,0,0.6)";
   }
 
-  localStorage.setItem(
+  localStorage.setItem(SAVE_ID +
     "reformaFeita",
     reformaFeita
   );
@@ -2012,7 +2012,7 @@ function atualizarMelhorias() {
     }
   }
 
-  localStorage.setItem(
+  localStorage.setItem(SAVE_ID +
     "melhoriasBase",
     JSON.stringify(melhoriasBase)
   );
@@ -2122,7 +2122,7 @@ senhaReal
 
     melhoriasSecretas[id] = true;
 
-    localStorage.setItem(
+    localStorage.setItem(SAVE_ID +
       "melhoriasSecretas",
       JSON.stringify(
         melhoriasSecretas
@@ -2170,7 +2170,7 @@ function toggleMelhoriaSecreta(id) {
     melhoriasSecretasAtivas[id] = false;
   }
 
-  localStorage.setItem(
+  localStorage.setItem(SAVE_ID +
     "melhoriasSecretasAtivas",
     JSON.stringify(
       melhoriasSecretasAtivas
