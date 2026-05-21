@@ -2258,6 +2258,19 @@ function atualizarSegredos() {
   // restaura modo assassino
   if (modoAssassino) {
 
+// garante bônus do modo assassino
+if (vidaMax <= 52) {
+  vidaMax += bonusVidaAssassino;
+  vidaAtual += bonusVidaAssassino;
+}
+
+if (detMax <= 39) {
+  detMax += bonusDetAssassino;
+  detAtual += bonusDetAssassino;
+}
+
+ atualizar();
+    
     document.body.classList.add("modoAssassino");
 
     img.src = "jae_assassino.png";
