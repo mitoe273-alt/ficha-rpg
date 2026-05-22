@@ -236,6 +236,8 @@ button {
   border: none;
   color: white;
   border-radius: 5px;
+
+  touch-action: manipulation;
 }
 
 .penalidade {
@@ -330,6 +332,11 @@ box-shadow:0 0 20px red !important;
 
 .bonusBox {
   margin-top: 15px;
+  }
+  
+input,
+textarea {
+  font-size: 16px;
 }
 </style>
 </head>
@@ -1062,6 +1069,14 @@ localStorage.getItem(SAVE_ID +"saborLiberado") === "true";
 
 function toggleAssassino() {
 
+if (toggleAssassino.travado) return;
+
+toggleAssassino.travado = true;
+
+setTimeout(() => {
+  toggleAssassino.travado = false;
+}, 300);
+  
   const img = document.getElementById("portrait");
   const btn = document.getElementById("btnAssassino");
   const nome = document.getElementById("nomePersonagem");
@@ -1254,7 +1269,11 @@ function desbloquearSabor() {
 
   const hab = document.getElementById("habSecreta");
 
-  hab.innerHTML = `
+ if (hab.dataset.ativo === "true") return;
+
+hab.dataset.ativo = "true";
+
+hab.innerHTML = `
 
 <b style="color:red;">
 SABOR DO SILÊNCIO
@@ -1298,19 +1317,25 @@ let defesa = 18, esquiva = 28, bloqueio = 0;
 
 function editarDefesa() {
   let v = prompt("Defesa:", defesa);
-  if (v) defesa = parseInt(v);
+ if (v !== null) {
+  defesa = parseInt(v) || 0;
+}
   atualizarDef();
 }
 
 function editarEsquiva() {
   let v = prompt("Esquiva:", esquiva);
-  if (v) esquiva = parseInt(v);
+if (v !== null) {
+  esquiva = parseInt(v) || 0;
+}
   atualizarDef();
 }
 
 function editarBloqueio() {
   let v = prompt("Bloqueio:", bloqueio);
-  if (v) bloqueio = parseInt(v);
+ if (v !== null) {
+  bloqueio = parseInt(v) || 0;
+}
   atualizarDef();
 }
 
@@ -1327,6 +1352,8 @@ let detAtual = parseInt(localStorage.getItem(SAVE_ID +"detAtual")) || 10;
 let detMax = parseInt(localStorage.getItem(SAVE_ID +"detMax")) || 10;
 
 function atualizar() {
+  vidaAtual = Math.max(0, Math.min(vidaAtual, vidaMax));
+detAtual = Math.max(0, Math.min(detAtual, detMax));
   vidaTexto.innerText = vidaAtual + " / " + vidaMax;
   detTexto.innerText = detAtual + " / " + detMax;
 
@@ -1336,8 +1363,13 @@ function atualizar() {
   vidaFill.style.width = vidaPerc + "%";
   detFill.style.width = detPerc + "%";
 
+ requestAnimationFrame(() => {
   vidaGhost.style.width = vidaPerc + "%";
-detGhost.style.width = detPerc + "%";
+  detGhost.style.width = detPerc + "%";
+
+  vidaFill.style.width = vidaPerc + "%";
+  detFill.style.width = detPerc + "%";
+});
   
  localStorage.setItem(SAVE_ID +"vidaAtual", vidaAtual);
  localStorage.setItem(SAVE_ID +"vidaMax", vidaMax);
@@ -1351,6 +1383,8 @@ localStorage.setItem(SAVE_ID +"defesa", defesa);
 localStorage.setItem(SAVE_ID +"esquiva", esquiva);
 localStorage.setItem(SAVE_ID +"bloqueio", bloqueio);
 
+  localStorage.setItem(SAVE_ID + "modoAssassino", JSON.stringify(modoAssassino));
+  
 }
 
 function mudarVida(v) {
@@ -1381,8 +1415,10 @@ function editarVida() {
   let v = prompt("Digite: atual/max", vidaAtual + "/" + vidaMax);
   if (!v) return;
   let p = v.split("/");
-  vidaAtual = parseInt(p[0]);
-  vidaMax = parseInt(p[1]);
+vidaAtual = parseInt(p[0]) || 0;
+vidaMax = parseInt(p[1]) || 1;
+
+vidaAtual = Math.max(0, Math.min(vidaAtual, vidaMax));
   atualizar();
 }
 
@@ -1390,8 +1426,10 @@ function editarDet() {
   let v = prompt("Digite: atual/max", detAtual + "/" + detMax);
   if (!v) return;
   let p = v.split("/");
-  detAtual = parseInt(p[0]);
-  detMax = parseInt(p[1]);
+ detAtual = parseInt(p[0]) || 0;
+detMax = parseInt(p[1]) || 1;
+
+detAtual = Math.max(0, Math.min(detAtual, detMax));
   atualizar();
 }
 
@@ -1424,8 +1462,10 @@ function editarCarga(){
   let v = prompt("Digite: atual/max", cargaAtual + "/" + cargaMax);
   if(!v) return;
   let p = v.split("/");
-  cargaAtual = parseInt(p[0]);
-  cargaMax = parseInt(p[1]);
+ cargaAtual = parseInt(p[0]) || 0;
+cargaMax = parseInt(p[1]) || 1;
+
+cargaAtual = Math.max(0, Math.min(cargaAtual, cargaMax));
   atualizarCarga();
 }
 
@@ -2257,17 +2297,6 @@ function atualizarSegredos() {
 
   // restaura modo assassino
   if (modoAssassino) {
-
-// garante bônus do modo assassino
-if (vidaMax <= 52) {
-  vidaMax += bonusVidaAssassino;
-  vidaAtual += bonusVidaAssassino;
-}
-
-if (detMax <= 39) {
-  detMax += bonusDetAssassino;
-  detAtual += bonusDetAssassino;
-}
 
  atualizar();
     
