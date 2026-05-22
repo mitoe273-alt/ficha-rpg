@@ -1065,7 +1065,9 @@ function toggleIntencoes() {
 
   atualizarIntencoes();
 }
-let modoAssassino = localStorage.getItem(SAVE_ID +"modoAssassino") === "true";
+let modoAssassino = JSON.parse(
+  localStorage.getItem(SAVE_ID + "modoAssassino")
+) || false;
 let bonusVidaAssassino = 20;
 let bonusDetAssassino = 10;
   let hexatombePermanente =
@@ -1355,11 +1357,42 @@ let vidaMax = vidaBase;
 let detMax = detBase;
 
 function atualizar() {
-  vidaAtual = Math.max(0, Math.min(vidaAtual, vidaMax));
-detAtual = Math.max(0, Math.min(detAtual, detMax));
- vidaMax = vidaBase + (modoAssassino ? bonusVidaAssassino : 0);
+ function atualizar() {
 
-detMax = detBase + (modoAssassino ? bonusDetAssassino : 0);
+  vidaMax = vidaBase + (modoAssassino ? bonusVidaAssassino : 0);
+  detMax = detBase + (modoAssassino ? bonusDetAssassino : 0);
+
+  vidaAtual = Math.max(0, Math.min(vidaAtual, vidaMax));
+  detAtual = Math.max(0, Math.min(detAtual, detMax));
+
+  vidaTexto.innerText = vidaAtual + " / " + vidaMax;
+  detTexto.innerText = detAtual + " / " + detMax;
+
+  let vidaPerc = (vidaAtual / vidaMax) * 100;
+  let detPerc = (detAtual / detMax) * 100;
+
+  vidaFill.style.width = vidaPerc + "%";
+  detFill.style.width = detPerc + "%";
+
+  requestAnimationFrame(() => {
+    vidaGhost.style.width = vidaPerc + "%";
+    detGhost.style.width = detPerc + "%";
+
+    vidaFill.style.width = vidaPerc + "%";
+    detFill.style.width = detPerc + "%";
+  });
+
+  localStorage.setItem(SAVE_ID +"vidaAtual", vidaAtual);
+  localStorage.setItem(SAVE_ID +"vidaMax", vidaMax);
+
+  localStorage.setItem(SAVE_ID +"detAtual", detAtual);
+  localStorage.setItem(SAVE_ID +"detMax", detMax);
+
+  localStorage.setItem(
+    SAVE_ID + "modoAssassino",
+    JSON.stringify(modoAssassino)
+  );
+}
   vidaTexto.innerText = vidaAtual + " / " + vidaMax;
   detTexto.innerText = detAtual + " / " + detMax;
 
@@ -2284,7 +2317,9 @@ function atualizarSegredos() {
   esquiva = parseInt(localStorage.getItem(SAVE_ID +"esquiva")) || 28;
   bloqueio = parseInt(localStorage.getItem(SAVE_ID +"bloqueio")) || 0;
 
-  modoAssassino = localStorage.getItem(SAVE_ID +"modoAssassino") === "true";
+  modoAssassino = JSON.parse(
+  localStorage.getItem(SAVE_ID + "modoAssassino")
+) || false;
 
   atualizar();
   atualizarCarga();
