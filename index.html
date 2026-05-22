@@ -997,7 +997,9 @@ const SAVE_ID = "jae_";
 let periciasVisivel = false;
 function togglePericias() {
   periciasVisivel = !periciasVisivel;
-  listaPericias.classList.toggle("hidden");
+  document
+.getElementById("listaPericias")
+.classList.toggle("hidden");
   btnPericias.innerText = periciasVisivel ? "Ocultar" : "Mostrar";
 }
 let bonusVisivel = false;
@@ -1102,12 +1104,7 @@ setTimeout(() => {
     modoAssassino = true;
 
     // AUMENTA VIDA E DET
-    vidaMax += bonusVidaAssassino;
-    vidaAtual += bonusVidaAssassino;
-
-    detMax += bonusDetAssassino;
-    detAtual += bonusDetAssassino;
-
+  
     document.body.classList.add("modoAssassino");
 
     btn.innerText = "Desativar";
@@ -1145,12 +1142,7 @@ setTimeout(() => {
    localStorage.setItem(SAVE_ID +"modoAssassino", "false");
 
     // REMOVE BONUS CORRETAMENTE
-    vidaMax -= bonusVidaAssassino;
-    vidaAtual -= bonusVidaAssassino;
-
-    detMax -= bonusDetAssassino;
-    detAtual -= bonusDetAssassino;
-
+   
     // evita negativo
     vidaAtual = Math.max(0, vidaAtual);
     detAtual = Math.max(0, detAtual);
@@ -1350,14 +1342,20 @@ function atualizarDef() {
 }
 
 let vidaAtual = parseInt(localStorage.getItem(SAVE_ID +"vidaAtual")) || 52;
-let vidaMax = parseInt(localStorage.getItem(SAVE_ID +"vidaMax")) || 52;
+let vidaBase = 52;
 
 let detAtual = parseInt(localStorage.getItem(SAVE_ID +"detAtual")) || 39;
-let detMax = parseInt(localStorage.getItem(SAVE_ID +"detMax")) || 39;
+let detBase = 39;
+
+let vidaMax = vidaBase;
+let detMax = detBase;
 
 function atualizar() {
   vidaAtual = Math.max(0, Math.min(vidaAtual, vidaMax));
 detAtual = Math.max(0, Math.min(detAtual, detMax));
+ vidaMax = vidaBase + (modoAssassino ? bonusVidaAssassino : 0);
+
+detMax = detBase + (modoAssassino ? bonusDetAssassino : 0);
   vidaTexto.innerText = vidaAtual + " / " + vidaMax;
   detTexto.innerText = detAtual + " / " + detMax;
 
