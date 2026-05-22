@@ -1099,13 +1099,15 @@ setTimeout(() => {
       return;
     }
 
-    detAtual -= 6;
+  detAtual -= 6;
 
-    modoAssassino = true;
+modoAssassino = true;
 
-    // AUMENTA VIDA E DET
-  
-    document.body.classList.add("modoAssassino");
+// AUMENTA VIDA E DET
+vidaAtual += bonusVidaAssassino;
+detAtual += bonusDetAssassino;
+
+document.body.classList.add("modoAssassino");
 
     btn.innerText = "Desativar";
 
@@ -1137,11 +1139,13 @@ setTimeout(() => {
 
   } else {
 
-      modoAssassino = false;
+    modoAssassino = false;
 
-   localStorage.setItem(SAVE_ID +"modoAssassino", "false");
+localStorage.setItem(SAVE_ID +"modoAssassino", "false");
 
-    // REMOVE BONUS CORRETAMENTE
+// REMOVE BONUS CORRETAMENTE
+vidaAtual -= bonusVidaAssassino;
+detAtual -= bonusDetAssassino;
    
     // evita negativo
     vidaAtual = Math.max(0, vidaAtual);
