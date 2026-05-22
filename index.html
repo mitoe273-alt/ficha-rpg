@@ -1345,11 +1345,11 @@ function atualizarDef() {
   bloqueioTexto.innerText = bloqueio;
 }
 
-let vidaAtual = parseInt(localStorage.getItem(SAVE_ID +"vidaAtual")) || 100;
-let vidaMax = parseInt(localStorage.getItem(SAVE_ID +"vidaMax")) || 100;
+let vidaAtual = parseInt(localStorage.getItem(SAVE_ID +"vidaAtual")) || 52;
+let vidaMax = parseInt(localStorage.getItem(SAVE_ID +"vidaMax")) || 52;
 
-let detAtual = parseInt(localStorage.getItem(SAVE_ID +"detAtual")) || 10;
-let detMax = parseInt(localStorage.getItem(SAVE_ID +"detMax")) || 10;
+let detAtual = parseInt(localStorage.getItem(SAVE_ID +"detAtual")) || 39;
+let detMax = parseInt(localStorage.getItem(SAVE_ID +"detMax")) || 39;
 
 function atualizar() {
   vidaAtual = Math.max(0, Math.min(vidaAtual, vidaMax));
@@ -1375,7 +1375,6 @@ detAtual = Math.max(0, Math.min(detAtual, detMax));
  localStorage.setItem(SAVE_ID +"vidaMax", vidaMax);
  localStorage.setItem(SAVE_ID +"detAtual", detAtual);
   localStorage.setItem(SAVE_ID +"detMax", detMax);
-  localStorage.setItem(SAVE_ID +"modoAssassino", modoAssassino);
 localStorage.setItem(SAVE_ID +"cargaAtual", cargaAtual);
 localStorage.setItem(SAVE_ID +"cargaMax", cargaMax);
 
@@ -1434,7 +1433,7 @@ detAtual = Math.max(0, Math.min(detAtual, detMax));
 }
 
 let cargaAtual = parseInt(localStorage.getItem(SAVE_ID +"cargaAtual")) || 0;
-let cargaMax = parseInt(localStorage.getItem(SAVE_ID +"cargaMax")) || 10;
+let cargaMax = parseInt(localStorage.getItem(SAVE_ID +"cargaMax")) || 16;
 
 function atualizarCarga(){
   cargaTexto.innerText = cargaAtual + " / " + cargaMax;
@@ -1799,6 +1798,7 @@ imagem
 
   let senha =
   prompt("Digite a senha:");
+  if (!senha) return;
 
   // permanente
   if (senha.toLowerCase() === senhaReal.toLowerCase()) {
@@ -2265,14 +2265,14 @@ function atualizarSegredos() {
 
 
   // restaura status
-  vidaAtual = parseInt(localStorage.getItem(SAVE_ID +"vidaAtual")) || 100;
-  vidaMax = parseInt(localStorage.getItem(SAVE_ID +"vidaMax")) || 100;
+  vidaAtual = parseInt(localStorage.getItem(SAVE_ID +"vidaAtual")) || 52;
+  vidaMax = parseInt(localStorage.getItem(SAVE_ID +"vidaMax")) || 52;
 
-  detAtual = parseInt(localStorage.getItem(SAVE_ID +"detAtual")) || 10;
-  detMax = parseInt(localStorage.getItem(SAVE_ID +"detMax")) || 10;
+  detAtual = parseInt(localStorage.getItem(SAVE_ID +"detAtual")) || 39;
+  detMax = parseInt(localStorage.getItem(SAVE_ID +"detMax")) || 39;
 
   cargaAtual = parseInt(localStorage.getItem(SAVE_ID +"cargaAtual")) || 0;
-  cargaMax = parseInt(localStorage.getItem(SAVE_ID +"cargaMax")) || 10;
+  cargaMax = parseInt(localStorage.getItem(SAVE_ID +"cargaMax")) || 16;
 
   defesa = parseInt(localStorage.getItem(SAVE_ID +"defesa")) || 18;
   esquiva = parseInt(localStorage.getItem(SAVE_ID +"esquiva")) || 28;
@@ -2298,8 +2298,6 @@ function atualizarSegredos() {
   // restaura modo assassino
   if (modoAssassino) {
 
- atualizar();
-    
     document.body.classList.add("modoAssassino");
 
     img.src = "jae_assassino.png";
