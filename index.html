@@ -993,7 +993,30 @@ margin-inline:auto;
 
 <script>
 const SAVE_ID = "jae_";
-  
+
+// Configurações de Base dos Atributos
+const vidaBase = 52;
+const detBase = 39;
+let vidaMax = vidaBase;
+let detMax = detBase;
+
+// Carrega os valores atuais salvos ou define o padrão
+let vidaAtual = parseInt(localStorage.getItem(SAVE_ID + "vidaAtual")) || vidaBase;
+let detAtual = parseInt(localStorage.getItem(SAVE_ID + "detAtual")) || detBase;
+let cargaAtual = parseInt(localStorage.getItem(SAVE_ID + "cargaAtual")) || 0;
+let cargaMax = parseInt(localStorage.getItem(SAVE_ID + "cargaMax")) || 16;
+
+let defesa = parseInt(localStorage.getItem(SAVE_ID + "defesa")) || 18;
+let esquiva = parseInt(localStorage.getItem(SAVE_ID + "esquiva")) || 28;
+let bloqueio = parseInt(localStorage.getItem(SAVE_ID + "bloqueio")) || 0;
+
+let modoAssassino = JSON.parse(localStorage.getItem(SAVE_ID + "modoAssassino")) || false;
+let bonusVidaAssassino = 20;
+let bonusDetAssassino = 10;
+
+let hexatombePermanente = localStorage.getItem(SAVE_ID +"hexatombePermanente") === "true";
+let saborLiberado = localStorage.getItem(SAVE_ID +"saborLiberado") === "true";
+
 let periciasVisivel = false;
 function togglePericias() {
   periciasVisivel = !periciasVisivel;
@@ -1347,14 +1370,6 @@ function atualizarDef() {
   bloqueioTexto.innerText = bloqueio;
 }
 
-let vidaAtual = parseInt(localStorage.getItem(SAVE_ID +"vidaAtual")) || 52;
-let vidaBase = 52;
-
-let detAtual = parseInt(localStorage.getItem(SAVE_ID +"detAtual")) || 39;
-let detBase = 39;
-
-let vidaMax = vidaBase;
-let detMax = detBase;
 
 function atualizar() {
  function atualizar() {
