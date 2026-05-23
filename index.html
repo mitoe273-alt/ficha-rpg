@@ -1408,8 +1408,18 @@ let detPerc = (detAtual / (detMax + bonusDet)) * 100;
 
   }
 
-  function mudarVida(v) {
-  vidaAtual = Math.max(0, Math.min(vidaMax, vidaAtual + v));
+ function mudarVida(v) {
+
+  let maxVidaReal =
+  vidaMax +
+  (modoAssassino ? bonusVidaAssassino : 0);
+
+  vidaAtual =
+  Math.max(
+    0,
+    Math.min(maxVidaReal, vidaAtual + v)
+  );
+
   atualizar();
 }
 
@@ -1428,7 +1438,17 @@ function aplicarDano() {
 }
 
 function mudarDet(v) {
-  detAtual = Math.max(0, Math.min(detMax, detAtual + v));
+
+  let maxDetReal =
+  detMax +
+  (modoAssassino ? bonusDetAssassino : 0);
+
+  detAtual =
+  Math.max(
+    0,
+    Math.min(maxDetReal, detAtual + v)
+  );
+
   atualizar();
 }
 
@@ -2307,6 +2327,9 @@ function atualizarSegredos() {
 // restaura modo assassino
 if (modoAssassino) {
 
+vidaAtual += bonusVidaAssassino;
+detAtual += bonusDetAssassino;
+  
   document.body.classList.add("modoAssassino");
 
   img.src = "jae_assassino.png";
