@@ -2301,48 +2301,40 @@ function atualizarSegredos() {
   const habPerito = document.getElementById("habPerito");
   const habZona = document.getElementById("habZona");
 
-  // restaura modo assassino
-  if (modoAssassino) {
+// restaura modo assassino
+if (modoAssassino) {
 
-  if (modoAssassino) {
+  document.body.classList.add("modoAssassino");
 
-    document.body.classList.add("modoAssassino");
+  img.src = "jae_assassino.png";
 
-    img.src = "jae_assassino.png";
+  nome.innerText = "X";
+  nome.style.color = "red";
 
-    nome.innerText = "X";
-    nome.style.color = "red";
+  btn.innerText = "Desativar";
 
-    btn.innerText = "Desativar";
+  habFurtivo.innerHTML = `
+  <b style="color:red;">ASSASSINATO CRUEL (2 determinação)</b><br>
+  Uma vez por rodada, quando X atinge um alvo desprevenido ou que esteja flanqueando, ele causa +6d8 pontos de dano.
+  `;
 
-    vidaMax = vidaBase + bonusVidaAssassino;
-    detMax = detBase + bonusDetAssassino;
+  habEsquiva.innerHTML = `
+  <b style="color:red;">ESQUIVA SOMBRIA (2 determinação)</b><br>
+  Você pode fazer uma segunda reação especial de defesa na mesma rodada, desde que ela seja uma esquiva. Além disso, o atacante possui -1d20 no teste de ataque.
+  `;
+
+  habPerito.innerHTML = `
+  <b style="color:red;">ANALÍTICO (3 determinação)</b><br>
+  Uma vez por rodada, quando faz um teste de uma perícia em que é treinado, X soma +1d12 no resultado do teste.
+  `;
+
+  habZona.innerHTML = `
+  <b style="color:red;">ZONA DAS SOMBRAS (3 determinação)</b><br>
+  Jae gasta 1 rodada para marcar uma área equivalente a um cômodo com vários “X”. Nessa área, Jae recebe +5 em testes de ataque e não sofre penalidade por fazer testes de Furtividade após atacar ou fazer outras ações chamativas.
+  `;
 }
-    // habilidades transformadas
-    habFurtivo.innerHTML = `
-    <b style="color:red;">ASSASSINATO CRUEL (2 determinação)</b><br>
-    Uma vez por rodada, quando X atinge um alvo desprevenido ou que esteja flanqueando, ele causa +6d8 pontos de dano.
-    `;
 
-    habEsquiva.innerHTML = `
-    <b style="color:red;">ESQUIVA SOMBRIA (2 determinação)</b><br>
-    Você pode fazer uma segunda reação especial de defesa na mesma rodada, desde que ela seja uma esquiva. Além disso, o atacante possui -1d20 no teste de ataque.
-    `;
-
-    habPerito.innerHTML = `
-    <b style="color:red;">ANALÍTICO (3 determinação)</b><br>
-    Uma vez por rodada, quando faz um teste de uma perícia em que é treinado, X soma +1d12 no resultado do teste.
-    `;
-
-    habZona.innerHTML = `
-    <b style="color:red;">ZONA DAS SOMBRAS (3 determinação)</b><br>
-    Jae gasta 1 rodada para marcar uma área equivalente a um cômodo com vários “X”. Nessa área, Jae recebe +5 em testes de ataque e não sofre penalidade por fazer testes de Furtividade após atacar ou fazer outras ações chamativas.
-    `;
-    setTimeout(() => {
-  atualizar();
-}, 10);
-
-  }
+  
 if (saborLiberado) {
   ativarSabor();
 }
