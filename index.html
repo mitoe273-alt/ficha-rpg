@@ -2317,6 +2317,8 @@ function atualizarSegredos() {
   // restaura modo assassino
   if (modoAssassino) {
 
+  if (modoAssassino) {
+
     document.body.classList.add("modoAssassino");
 
     img.src = "jae_assassino.png";
@@ -2326,6 +2328,9 @@ function atualizarSegredos() {
 
     btn.innerText = "Desativar";
 
+    vidaMax = vidaBase + bonusVidaAssassino;
+    detMax = detBase + bonusDetAssassino;
+}
     // habilidades transformadas
     habFurtivo.innerHTML = `
     <b style="color:red;">ASSASSINATO CRUEL (2 determinação)</b><br>
