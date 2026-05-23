@@ -1088,15 +1088,7 @@ function toggleIntencoes() {
 
   atualizarIntencoes();
 }
-let modoAssassino = JSON.parse(
-  localStorage.getItem(SAVE_ID + "modoAssassino")
-) || false;
-let bonusVidaAssassino = 20;
-let bonusDetAssassino = 10;
-  let hexatombePermanente =
-localStorage.getItem(SAVE_ID +"hexatombePermanente") === "true";
-  let saborLiberado =
-localStorage.getItem(SAVE_ID +"saborLiberado") === "true";
+
 
 function toggleAssassino() {
 
@@ -1338,7 +1330,6 @@ function usarHabilidade(custo) {
   atualizar();
 }
 
-let defesa = 18, esquiva = 28, bloqueio = 0;
 
 function editarDefesa() {
   let v = prompt("Defesa:", defesa);
@@ -1372,8 +1363,7 @@ function atualizarDef() {
 
 
 function atualizar() {
- function atualizar() {
-
+ 
   vidaMax = vidaBase + (modoAssassino ? bonusVidaAssassino : 0);
   detMax = detBase + (modoAssassino ? bonusDetAssassino : 0);
 
@@ -1485,9 +1475,6 @@ detMax = parseInt(p[1]) || 1;
 detAtual = Math.max(0, Math.min(detAtual, detMax));
   atualizar();
 }
-
-let cargaAtual = parseInt(localStorage.getItem(SAVE_ID +"cargaAtual")) || 0;
-let cargaMax = parseInt(localStorage.getItem(SAVE_ID +"cargaMax")) || 16;
 
 function atualizarCarga(){
   cargaTexto.innerText = cargaAtual + " / " + cargaMax;
