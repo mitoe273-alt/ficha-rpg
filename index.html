@@ -46,10 +46,6 @@ body{
     );
 }
 
-/* ===================================== */
-/* NÉVOA */
-/* ===================================== */
-
 .fog{
     position:absolute;
 
@@ -90,10 +86,6 @@ body{
 
 }
 
-/* ===================================== */
-/* GLOW */
-/* ===================================== */
-
 .red-glow{
     position:absolute;
 
@@ -122,10 +114,6 @@ body{
     right:-100px;
 }
 
-/* ===================================== */
-/* GRID */
-/* ===================================== */
-
 .grid{
     position:absolute;
     inset:0;
@@ -144,10 +132,6 @@ body{
 
     background-size:40px 40px;
 }
-
-/* ===================================== */
-/* PARTÍCULAS */
-/* ===================================== */
 
 .particles{
     position:absolute;
@@ -187,10 +171,6 @@ body{
 
 }
 
-/* ===================================== */
-/* VINHETA */
-/* ===================================== */
-
 .vignette{
     position:absolute;
     inset:0;
@@ -204,7 +184,7 @@ body{
 }
 
 /* ===================================== */
-/* CONTEÚDO */
+/* MAIN */
 /* ===================================== */
 
 .main{
@@ -214,16 +194,31 @@ body{
     width:100%;
     height:100vh;
 
+    overflow:hidden;
+}
+
+/* ===================================== */
+/* TELA INICIAL */
+/* ===================================== */
+
+.homeScreen{
+
+    position:absolute;
+    inset:0;
+
     display:flex;
     align-items:center;
     justify-content:center;
 
-    padding:20px;
+    flex-direction:column;
+
+    transition:1s cubic-bezier(.77,0,.18,1);
 }
 
-/* ===================================== */
-/* LOGO */
-/* ===================================== */
+.homeScreen.hidden{
+    transform:translateY(-100%);
+    opacity:0;
+}
 
 .logo{
     display:flex;
@@ -263,10 +258,6 @@ body{
 
 }
 
-/* ===================================== */
-/* LINHA */
-/* ===================================== */
-
 .line{
     width:180px;
     height:1px;
@@ -285,7 +276,192 @@ body{
 }
 
 /* ===================================== */
-/* ANIMAÇÃO */
+/* TEXTO DESLIZAR */
+/* ===================================== */
+
+.swipeText{
+
+    position:absolute;
+    bottom:40px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    opacity:0.7;
+
+    animation:swipeAnim 2s infinite;
+}
+
+.swipeText span{
+    font-size:13px;
+    letter-spacing:3px;
+}
+
+.arrow{
+    margin-top:10px;
+    font-size:24px;
+    color:#ff3d3d;
+}
+
+@keyframes swipeAnim{
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+
+}
+
+/* ===================================== */
+/* MENU PERSONAGENS */
+/* ===================================== */
+
+.characterMenu{
+
+    position:absolute;
+    inset:0;
+
+    padding:25px;
+
+    transform:translateY(100%);
+
+    transition:1s cubic-bezier(.77,0,.18,1);
+
+    overflow-y:auto;
+}
+
+.characterMenu.active{
+    transform:translateY(0%);
+}
+
+.menuTitle{
+
+    margin-top:50px;
+    margin-bottom:25px;
+}
+
+.menuTitle h2{
+    font-size:36px;
+    color:#ff3d3d;
+    letter-spacing:3px;
+}
+
+.menuTitle p{
+    opacity:0.6;
+}
+
+/* ===================================== */
+/* PERSONAGENS */
+/* ===================================== */
+
+.characterList{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.characterCard{
+
+    width:100%;
+
+    min-height:100px;
+
+    border-radius:20px;
+
+    border:1px solid rgba(255,0,0,0.15);
+
+    background:
+    linear-gradient(
+        to right,
+        rgba(255,0,0,0.12),
+        rgba(255,255,255,0.02)
+    );
+
+    backdrop-filter:blur(5px);
+
+    padding:18px;
+
+    display:flex;
+    align-items:center;
+    gap:15px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:0.3s;
+}
+
+.characterCard:active{
+    transform:scale(0.97);
+}
+
+.characterCard::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:4px;
+    height:100%;
+
+    background:#ff2b2b;
+
+    box-shadow:0 0 10px red;
+}
+
+.avatar{
+
+    width:65px;
+    height:65px;
+
+    border-radius:14px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #500,
+        #111
+    );
+
+    border:1px solid rgba(255,0,0,0.25);
+}
+
+.characterInfo h3{
+
+    font-size:22px;
+    color:white;
+}
+
+.characterInfo p{
+
+    font-size:14px;
+
+    opacity:0.6;
+}
+
+.nex{
+
+    margin-top:4px;
+
+    color:#ff3d3d;
+
+    font-weight:bold;
+}
+
+/* ===================================== */
+/* ANIMAÇÕES */
 /* ===================================== */
 
 @keyframes fadeIn{
@@ -360,22 +536,152 @@ body{
 </div>
 
 <!-- ===================================== -->
-<!-- LOGO -->
+<!-- MAIN -->
 <!-- ===================================== -->
 
 <div class="main">
 
-    <div class="logo">
+    <!-- ================================= -->
+    <!-- TELA INICIAL -->
+    <!-- ================================= -->
 
-        <h1>HEXATOMBE</h1>
+    <div class="homeScreen" id="homeScreen">
 
-        <div class="line"></div>
+        <div class="logo">
 
-        <p>ORDEM PARANORMAL RPG</p>
+            <h1>HEXATOMBE</h1>
+
+            <div class="line"></div>
+
+            <p>ORDEM PARANORMAL RPG</p>
+
+        </div>
+
+        <div class="swipeText">
+
+            <span>DESLIZE PARA CIMA</span>
+
+            <div class="arrow">
+                ↑
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================================= -->
+    <!-- MENU -->
+    <!-- ================================= -->
+
+    <div class="characterMenu" id="characterMenu">
+
+        <div class="menuTitle">
+
+            <h2>PERSONAGENS</h2>
+
+            <p>Selecione uma ficha</p>
+
+        </div>
+
+        <div class="characterList">
+
+            <div class="characterCard">
+
+                <div class="avatar"></div>
+
+                <div class="characterInfo">
+
+                    <h3>JAE-YOON</h3>
+
+                    <p>Especialista</p>
+
+                    <div class="nex">
+                        NEX 35%
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="characterCard">
+
+                <div class="avatar"></div>
+
+                <div class="characterInfo">
+
+                    <h3>ARTHUR</h3>
+
+                    <p>Combatente</p>
+
+                    <div class="nex">
+                        NEX 50%
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
 </div>
+
+<script>
+
+/* ===================================== */
+/* ABRIR MENU */
+/* ===================================== */
+
+const homeScreen =
+document.getElementById("homeScreen");
+
+const characterMenu =
+document.getElementById("characterMenu");
+
+function abrirMenu(){
+
+    homeScreen.classList.add("hidden");
+
+    characterMenu.classList.add("active");
+}
+
+/* ===================================== */
+/* CLIQUE */
+/* ===================================== */
+
+document.addEventListener("click", abrirMenu, {
+    once:true
+});
+
+/* ===================================== */
+/* ARRASTAR */
+/* ===================================== */
+
+let startY = 0;
+
+document.addEventListener("touchstart", e => {
+
+    startY = e.touches[0].clientY;
+
+});
+
+document.addEventListener("touchmove", e => {
+
+    let currentY =
+    e.touches[0].clientY;
+
+    let diff =
+    startY - currentY;
+
+    if(diff > 70){
+
+        abrirMenu();
+    }
+
+});
+
+</script>
 
 </body>
 </html>
