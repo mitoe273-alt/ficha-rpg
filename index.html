@@ -1,685 +1,464 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <title>HEXATOMBE</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;700&display=swap" rel="stylesheet">
-
 <style>
 
-/* ===================================== */
-/* RESET */
-/* ===================================== */
-
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color: transparent;
 }
 
 body{
-    font-family:'Rajdhani', sans-serif;
-    background:#050505;
-    overflow:hidden;
-    height:100vh;
-    color:white;
+background:#000;
+font-family:Arial, Helvetica, sans-serif;
+overflow:hidden;
+height:100vh;
+color:white;
 }
 
-/* ===================================== */
 /* FUNDO */
-/* ===================================== */
 
-.background{
-    position:fixed;
-    inset:0;
-    overflow:hidden;
-
-    background:
-    radial-gradient(
-        circle at top,
-        rgba(120,0,0,0.35),
-        #050505 40%
-    );
+.bg{
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top,#3a0000 0%,#120000 35%,#000 80%);
+overflow:hidden;
 }
 
-.fog{
-    position:absolute;
+/* névoa */
 
-    width:200%;
-    height:200%;
-
-    background:
-    radial-gradient(
-        circle,
-        rgba(255,0,0,0.07),
-        transparent 60%
-    );
-
-    mix-blend-mode:screen;
-
-    animation:fogMove 18s linear infinite;
+.bg::before{
+content:"";
+position:absolute;
+width:200%;
+height:200%;
+background:
+radial-gradient(circle,rgba(255,0,0,0.08) 0%,transparent 60%);
+animation:fog 14s linear infinite;
+mix-blend-mode:screen;
 }
 
-.fog2{
-    animation-direction:reverse;
-    animation-duration:25s;
-    opacity:0.5;
+@keyframes fog{
+0%{
+transform:translate(-10%,-10%) rotate(0deg);
+}
+100%{
+transform:translate(-20%,-15%) rotate(360deg);
+}
 }
 
-@keyframes fogMove{
-
-    from{
-        transform:
-        translate(-10%, -10%)
-        rotate(0deg);
-    }
-
-    to{
-        transform:
-        translate(-20%, -15%)
-        rotate(360deg);
-    }
-
-}
-
-.red-glow{
-    position:absolute;
-
-    width:500px;
-    height:500px;
-
-    border-radius:50%;
-
-    background:
-    radial-gradient(
-        circle,
-        rgba(255,0,0,0.18),
-        transparent 70%
-    );
-
-    filter:blur(40px);
-}
-
-.glow1{
-    top:-100px;
-    left:-100px;
-}
-
-.glow2{
-    bottom:-150px;
-    right:-100px;
-}
-
-.grid{
-    position:absolute;
-    inset:0;
-
-    background-image:
-    linear-gradient(
-        rgba(255,0,0,0.03) 1px,
-        transparent 1px
-    ),
-
-    linear-gradient(
-        90deg,
-        rgba(255,0,0,0.03) 1px,
-        transparent 1px
-    );
-
-    background-size:40px 40px;
-}
+/* partículas */
 
 .particles{
-    position:absolute;
-    inset:0;
+position:absolute;
+inset:0;
+overflow:hidden;
 }
 
 .particles span{
-    position:absolute;
-
-    width:2px;
-    height:2px;
-
-    border-radius:50%;
-
-    background:#ff2b2b;
-
-    box-shadow:0 0 10px #ff0000;
-
-    animation:particleAnim linear infinite;
+position:absolute;
+display:block;
+width:2px;
+height:2px;
+background:red;
+border-radius:50%;
+opacity:.5;
+animation:particle linear infinite;
 }
 
-@keyframes particleAnim{
-
-    from{
-        transform:translateY(100vh);
-        opacity:0;
-    }
-
-    10%{
-        opacity:1;
-    }
-
-    to{
-        transform:translateY(-120vh);
-        opacity:0;
-    }
-
+@keyframes particle{
+from{
+transform:translateY(100vh);
+opacity:0;
+}
+20%{
+opacity:.7;
+}
+to{
+transform:translateY(-20vh);
+opacity:0;
+}
 }
 
-.vignette{
-    position:absolute;
-    inset:0;
-
-    background:
-    radial-gradient(
-        circle,
-        transparent 40%,
-        rgba(0,0,0,0.9) 100%
-    );
-}
-
-/* ===================================== */
-/* MAIN */
-/* ===================================== */
+/* CONTEÚDO */
 
 .main{
-    position:relative;
-    z-index:10;
-
-    width:100%;
-    height:100vh;
-
-    overflow:hidden;
+position:relative;
+z-index:5;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:20px;
+text-align:center;
 }
 
-/* ===================================== */
-/* TELA INICIAL */
-/* ===================================== */
-
-.homeScreen{
-
-    position:absolute;
-    inset:0;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    flex-direction:column;
-
-    transition:1s cubic-bezier(.77,0,.18,1);
-}
-
-.homeScreen.hidden{
-    transform:translateY(-100%);
-    opacity:0;
-}
+/* LOGO */
 
 .logo{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    text-align:center;
-
-    animation:fadeIn 2s ease;
+font-size:16vw;
+font-weight:900;
+letter-spacing:4px;
+color:#ff1a1a;
+text-shadow:
+0 0 10px red,
+0 0 30px rgba(255,0,0,.7);
+line-height:.9;
 }
 
-.logo h1{
-
-    font-size:58px;
-
-    font-weight:700;
-
-    letter-spacing:8px;
-
-    color:#ff3d3d;
-
-    text-shadow:
-    0 0 10px rgba(255,0,0,0.5),
-    0 0 25px rgba(255,0,0,0.25),
-    0 0 45px rgba(255,0,0,0.15);
-
+.sub{
+margin-top:10px;
+font-size:4vw;
+letter-spacing:3px;
+color:#cfcfcf;
+opacity:.8;
 }
 
-.logo p{
-
-    margin-top:10px;
-
-    font-size:14px;
-
-    letter-spacing:4px;
-
-    opacity:0.65;
-
-}
-
-.line{
-    width:180px;
-    height:1px;
-
-    margin:22px 0;
-
-    background:
-    linear-gradient(
-        to right,
-        transparent,
-        rgba(255,0,0,0.8),
-        transparent
-    );
-
-    box-shadow:0 0 10px rgba(255,0,0,0.4);
-}
-
-/* ===================================== */
-/* TEXTO DESLIZAR */
-/* ===================================== */
+/* indicador */
 
 .swipeText{
-
-    position:absolute;
-    bottom:40px;
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-
-    opacity:0.7;
-
-    animation:swipeAnim 2s infinite;
+position:absolute;
+bottom:35px;
+left:50%;
+transform:translateX(-50%);
+font-size:3.5vw;
+opacity:.6;
+animation:updown 2s infinite;
+letter-spacing:2px;
 }
 
-.swipeText span{
-    font-size:13px;
-    letter-spacing:3px;
+@keyframes updown{
+0%,100%{
+transform:translateX(-50%) translateY(0);
+}
+50%{
+transform:translateX(-50%) translateY(-10px);
+}
 }
 
-.arrow{
-    margin-top:10px;
-    font-size:24px;
-    color:#ff3d3d;
-}
-
-@keyframes swipeAnim{
-
-    0%{
-        transform:translateY(0px);
-    }
-
-    50%{
-        transform:translateY(-10px);
-    }
-
-    100%{
-        transform:translateY(0px);
-    }
-
-}
-
-/* ===================================== */
 /* MENU PERSONAGENS */
-/* ===================================== */
 
-.characterMenu{
+.characters{
+position:fixed;
+left:0;
+bottom:-100%;
+width:100%;
+height:78vh;
 
-    position:absolute;
-    inset:0;
+background:
+linear-gradient(to top,
+rgba(0,0,0,0.98),
+rgba(20,0,0,0.96));
 
-    padding:25px;
+border-top:
+2px solid rgba(255,0,0,.4);
 
-    transform:translateY(100%);
+backdrop-filter:blur(15px);
 
-    transition:1s cubic-bezier(.77,0,.18,1);
+z-index:20;
 
-    overflow-y:auto;
+transition:.5s cubic-bezier(.22,.9,.32,1);
+
+padding:22px;
+
+overflow-y:auto;
 }
 
-.characterMenu.active{
-    transform:translateY(0%);
+.characters.active{
+bottom:0;
 }
 
-.menuTitle{
+/* barra */
 
-    margin-top:50px;
-    margin-bottom:25px;
+.dragBar{
+width:70px;
+height:5px;
+border-radius:20px;
+background:#777;
+margin:0 auto 25px auto;
 }
 
-.menuTitle h2{
-    font-size:36px;
-    color:#ff3d3d;
-    letter-spacing:3px;
+/* titulo */
+
+.charTitle{
+text-align:center;
+font-size:7vw;
+font-weight:900;
+letter-spacing:3px;
+color:#ff2a2a;
+margin-bottom:25px;
+text-shadow:0 0 10px red;
 }
 
-.menuTitle p{
-    opacity:0.6;
+/* lista */
+
+.charList{
+display:flex;
+flex-direction:column;
+gap:18px;
 }
 
-/* ===================================== */
-/* PERSONAGENS */
-/* ===================================== */
+/* card */
 
-.characterList{
-    display:flex;
-    flex-direction:column;
-    gap:18px;
+.charCard{
+display:flex;
+align-items:center;
+gap:15px;
+
+padding:14px;
+
+background:
+linear-gradient(145deg,
+rgba(45,0,0,.9),
+rgba(10,0,0,.95));
+
+border:
+1px solid rgba(255,0,0,.2);
+
+border-radius:18px;
+
+box-shadow:
+0 0 20px rgba(255,0,0,.08);
+
+transition:.25s;
 }
 
-.characterCard{
-
-    width:100%;
-
-    min-height:100px;
-
-    border-radius:20px;
-
-    border:1px solid rgba(255,0,0,0.15);
-
-    background:
-    linear-gradient(
-        to right,
-        rgba(255,0,0,0.12),
-        rgba(255,255,255,0.02)
-    );
-
-    backdrop-filter:blur(5px);
-
-    padding:18px;
-
-    display:flex;
-    align-items:center;
-    gap:15px;
-
-    position:relative;
-
-    overflow:hidden;
-
-    transition:0.3s;
+.charCard:active{
+transform:scale(.97);
+border-color:red;
 }
 
-.characterCard:active{
-    transform:scale(0.97);
+/* FOTO */
+
+.charImg{
+width:72px;
+height:72px;
+border-radius:14px;
+object-fit:cover;
+
+border:2px solid rgba(255,0,0,.5);
+
+box-shadow:
+0 0 15px rgba(255,0,0,.25);
 }
 
-.characterCard::before{
+/* info */
 
-    content:"";
-
-    position:absolute;
-
-    left:0;
-    top:0;
-
-    width:4px;
-    height:100%;
-
-    background:#ff2b2b;
-
-    box-shadow:0 0 10px red;
+.charInfo{
+flex:1;
+text-align:left;
 }
 
-.avatar{
-
-    width:65px;
-    height:65px;
-
-    border-radius:14px;
-
-    background:
-    linear-gradient(
-        135deg,
-        #500,
-        #111
-    );
-
-    border:1px solid rgba(255,0,0,0.25);
+.charName{
+font-size:6vw;
+font-weight:800;
+color:#fff;
+letter-spacing:1px;
 }
 
-.characterInfo h3{
-
-    font-size:22px;
-    color:white;
+.charClass{
+font-size:3.3vw;
+margin-top:3px;
+color:#ff4a4a;
 }
 
-.characterInfo p{
-
-    font-size:14px;
-
-    opacity:0.6;
+.charNex{
+font-size:3vw;
+margin-top:6px;
+color:#aaa;
 }
 
-.nex{
+/* botão */
 
-    margin-top:4px;
+.enterBtn{
+padding:10px 14px;
 
-    color:#ff3d3d;
+border:none;
+border-radius:12px;
 
-    font-weight:bold;
-}
+background:
+linear-gradient(to bottom,#ff1a1a,#7a0000);
 
-/* ===================================== */
-/* ANIMAÇÕES */
-/* ===================================== */
+color:white;
+font-weight:800;
 
-@keyframes fadeIn{
+font-size:3.4vw;
 
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0px);
-    }
-
-}
-
-/* ===================================== */
-/* MOBILE */
-/* ===================================== */
-
-@media(max-width:500px){
-
-    .logo h1{
-        font-size:42px;
-        letter-spacing:5px;
-    }
-
-    .logo p{
-        font-size:11px;
-        letter-spacing:3px;
-    }
-
-    .line{
-        width:140px;
-    }
-
+box-shadow:
+0 0 15px rgba(255,0,0,.35);
 }
 
 </style>
 </head>
-
 <body>
 
-<!-- ===================================== -->
-<!-- FUNDO -->
-<!-- ===================================== -->
+<div class="bg">
 
-<div class="background">
-
-    <div class="fog"></div>
-    <div class="fog fog2"></div>
-
-    <div class="red-glow glow1"></div>
-    <div class="red-glow glow2"></div>
-
-    <div class="grid"></div>
-
-    <div class="particles">
-
-        <span style="left:10%; animation-duration:8s;"></span>
-        <span style="left:20%; animation-duration:12s;"></span>
-        <span style="left:35%; animation-duration:9s;"></span>
-        <span style="left:50%; animation-duration:15s;"></span>
-        <span style="left:65%; animation-duration:7s;"></span>
-        <span style="left:75%; animation-duration:13s;"></span>
-        <span style="left:85%; animation-duration:11s;"></span>
-
-    </div>
-
-    <div class="vignette"></div>
+<div class="particles" id="particles"></div>
 
 </div>
 
-<!-- ===================================== -->
-<!-- MAIN -->
-<!-- ===================================== -->
-
 <div class="main">
 
-    <!-- ================================= -->
-    <!-- TELA INICIAL -->
-    <!-- ================================= -->
+<div class="logo">
+HEXATOMBE
+</div>
 
-    <div class="homeScreen" id="homeScreen">
+<div class="sub">
+ORDEM PARANORMAL RPG
+</div>
 
-        <div class="logo">
+<div class="swipeText">
+ARRASTE PARA CIMA
+</div>
 
-            <h1>HEXATOMBE</h1>
+</div>
 
-            <div class="line"></div>
+<!-- MENU PERSONAGENS -->
 
-            <p>ORDEM PARANORMAL RPG</p>
+<div class="characters" id="characters">
 
-        </div>
+<div class="dragBar"></div>
 
-        <div class="swipeText">
+<div class="charTitle">
+PERSONAGENS
+</div>
 
-            <span>DESLIZE PARA CIMA</span>
+<div class="charList">
 
-            <div class="arrow">
-                ↑
-            </div>
+<!-- JAE -->
 
-        </div>
+<div class="charCard">
 
-    </div>
+<!-- COLOQUE SUA IMAGEM AQUI -->
+<img
+src="jae.png"
+class="charImg"
+>
 
-    <!-- ================================= -->
-    <!-- MENU -->
-    <!-- ================================= -->
+<div class="charInfo">
 
-    <div class="characterMenu" id="characterMenu">
+<div class="charName">
+JAE-YOON
+</div>
 
-        <div class="menuTitle">
+<div class="charClass">
+ESPECIALISTA
+</div>
 
-            <h2>PERSONAGENS</h2>
+<div class="charNex">
+Dificuldade: Médio
+</div>
 
-            <p>Selecione uma ficha</p>
+</div>
 
-        </div>
+<button class="enterBtn">
+ENTRAR
+</button>
 
-        <div class="characterList">
+</div>
 
-            <div class="characterCard">
-
-                <div class="avatar"></div>
-
-                <div class="characterInfo">
-
-                    <h3>JAE-YOON</h3>
-
-                    <p>Especialista</p>
-
-                    <div class="nex">
-                        NEX 35%
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="characterCard">
-
-                <div class="avatar"></div>
-
-                <div class="characterInfo">
-
-                    <h3>ARTHUR</h3>
-
-                    <p>Combatente</p>
-
-                    <div class="nex">
-                        NEX 50%
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+</div>
 
 </div>
 
 <script>
 
-/* ===================================== */
-/* ABRIR MENU */
-/* ===================================== */
+/* partículas */
 
-const homeScreen =
-document.getElementById("homeScreen");
+const particles =
+document.getElementById("particles");
 
-const characterMenu =
-document.getElementById("characterMenu");
+for(let i=0;i<45;i++){
 
-function abrirMenu(){
+const p =
+document.createElement("span");
 
-    homeScreen.classList.add("hidden");
+p.style.left =
+Math.random()*100 + "%";
 
-    characterMenu.classList.add("active");
+p.style.animationDuration =
+(5 + Math.random()*10) + "s";
+
+p.style.animationDelay =
+Math.random()*5 + "s";
+
+p.style.opacity =
+Math.random();
+
+particles.appendChild(p);
+
 }
 
-/* ===================================== */
-/* CLIQUE */
-/* ===================================== */
+/* MENU */
 
-document.addEventListener("click", abrirMenu, {
-    once:true
+const menu =
+document.getElementById("characters");
+
+function openMenu(){
+menu.classList.add("active");
+}
+
+function closeMenu(){
+menu.classList.remove("active");
+}
+
+/* clique */
+
+document.addEventListener("click", e=>{
+
+if(
+e.target.closest(".charCard")
+) return;
+
+openMenu();
+
 });
 
-/* ===================================== */
-/* ARRASTAR */
-/* ===================================== */
+/* swipe */
 
 let startY = 0;
+let endY = 0;
 
-document.addEventListener("touchstart", e => {
+document.addEventListener(
+"touchstart",
+e=>{
+startY =
+e.touches[0].clientY;
+}
+);
 
-    startY = e.touches[0].clientY;
+document.addEventListener(
+"touchmove",
+e=>{
+endY =
+e.touches[0].clientY;
+}
+);
 
-});
+document.addEventListener(
+"touchend",
+()=>{
 
-document.addEventListener("touchmove", e => {
+if(startY - endY > 80){
+openMenu();
+}
 
-    let currentY =
-    e.touches[0].clientY;
+if(endY - startY > 80){
+closeMenu();
+}
 
-    let diff =
-    startY - currentY;
-
-    if(diff > 70){
-
-        abrirMenu();
-    }
-
-});
+}
+);
 
 </script>
 
