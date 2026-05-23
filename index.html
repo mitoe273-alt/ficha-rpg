@@ -1120,6 +1120,11 @@ setTimeout(() => {
 
 modoAssassino = true;
 
+    localStorage.setItem(
+  SAVE_ID + "modoAssassino",
+  "true"
+);
+    
 // AUMENTA VIDA E DET
 vidaAtual += bonusVidaAssassino;
 detAtual += bonusDetAssassino;
@@ -1158,6 +1163,11 @@ document.body.classList.add("modoAssassino");
 
     modoAssassino = false;
 
+    localStorage.setItem(
+  SAVE_ID + "modoAssassino",
+  "false"
+);
+    
 localStorage.setItem(SAVE_ID +"modoAssassino", "false");
 
 // REMOVE BONUS CORRETAMENTE
@@ -1393,10 +1403,6 @@ function atualizar() {
   localStorage.setItem(SAVE_ID +"detAtual", detAtual);
   localStorage.setItem(SAVE_ID +"detMax", detMax);
 
-  localStorage.setItem(
-    SAVE_ID + "modoAssassino",
-    JSON.stringify(modoAssassino)
-  );
   }
 
   function mudarVida(v) {
@@ -2295,9 +2301,7 @@ function atualizarSegredos() {
   esquiva = parseInt(localStorage.getItem(SAVE_ID +"esquiva")) || 28;
   bloqueio = parseInt(localStorage.getItem(SAVE_ID +"bloqueio")) || 0;
 
-  modoAssassino = JSON.parse(
-  localStorage.getItem(SAVE_ID + "modoAssassino")
-) || false;
+modoAssassino = false;
 
   atualizar();
   atualizarCarga();
