@@ -1397,43 +1397,6 @@ function atualizar() {
     SAVE_ID + "modoAssassino",
     JSON.stringify(modoAssassino)
   );
-}
-  vidaTexto.innerText = vidaAtual + " / " + vidaMax;
-  detTexto.innerText = detAtual + " / " + detMax;
-
-  let vidaPerc = (vidaAtual / vidaMax) * 100;
-  let detPerc = (detAtual / detMax) * 100;
-
-  vidaFill.style.width = vidaPerc + "%";
-  detFill.style.width = detPerc + "%";
-
- requestAnimationFrame(() => {
-  vidaGhost.style.width = vidaPerc + "%";
-  detGhost.style.width = detPerc + "%";
-
-  vidaFill.style.width = vidaPerc + "%";
-  detFill.style.width = detPerc + "%";
-});
-  
- localStorage.setItem(SAVE_ID +"vidaAtual", vidaAtual);
- localStorage.setItem(SAVE_ID +"vidaMax", vidaMax);
- localStorage.setItem(SAVE_ID +"detAtual", detAtual);
-  localStorage.setItem(SAVE_ID +"detMax", detMax);
-localStorage.setItem(SAVE_ID +"cargaAtual", cargaAtual);
-localStorage.setItem(SAVE_ID +"cargaMax", cargaMax);
-
-localStorage.setItem(SAVE_ID +"defesa", defesa);
-localStorage.setItem(SAVE_ID +"esquiva", esquiva);
-localStorage.setItem(SAVE_ID +"bloqueio", bloqueio);
-
-  localStorage.setItem(SAVE_ID + "modoAssassino", JSON.stringify(modoAssassino));
-  
-}
-
-function mudarVida(v) {
-  vidaAtual = Math.max(0, Math.min(vidaMax, vidaAtual + v));
-  atualizar();
-}
 
 function aplicarDano() {
   let d = parseInt(vidaDano.value || 0);
