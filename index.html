@@ -1397,6 +1397,19 @@ function atualizar() {
     SAVE_ID + "modoAssassino",
     JSON.stringify(modoAssassino)
   );
+  }
+
+  function mudarVida(v) {
+  vidaAtual = Math.max(0, Math.min(vidaMax, vidaAtual + v));
+  atualizar();
+}
+
+function aplicarDano() {
+  let d = parseInt(vidaDano.value || 0);
+  vidaAtual = Math.max(0, vidaAtual - d);
+  vidaDano.value = "";
+  atualizar();
+}
 
 function aplicarDano() {
   let d = parseInt(vidaDano.value || 0);
