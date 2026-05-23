@@ -994,11 +994,14 @@ margin-inline:auto;
 <script>
 const SAVE_ID = "jae_";
 
-// Configurações de Base dos Atributos
 const vidaBase = 52;
 const detBase = 39;
-let vidaMax = vidaBase;
-let detMax = detBase;
+
+let vidaMax =
+parseInt(localStorage.getItem(SAVE_ID + "vidaMax")) || vidaBase;
+
+let detMax =
+parseInt(localStorage.getItem(SAVE_ID + "detMax")) || detBase;
 
 // Carrega os valores atuais salvos ou define o padrão
 let vidaAtual = parseInt(localStorage.getItem(SAVE_ID + "vidaAtual")) || vidaBase;
@@ -1374,17 +1377,17 @@ function atualizarDef() {
 
 function atualizar() {
  
-  vidaMax = vidaBase + (modoAssassino ? bonusVidaAssassino : 0);
-  detMax = detBase + (modoAssassino ? bonusDetAssassino : 0);
+ let bonusVida = modoAssassino ? bonusVidaAssassino : 0;
+let bonusDet = modoAssassino ? bonusDetAssassino : 0;
 
-  vidaAtual = Math.max(0, Math.min(vidaAtual, vidaMax));
-  detAtual = Math.max(0, Math.min(detAtual, detMax));
+ vidaAtual = Math.max(0, Math.min(vidaAtual, vidaMax + bonusVida));
+detAtual = Math.max(0, Math.min(detAtual, detMax + bonusDet));
 
-  vidaTexto.innerText = vidaAtual + " / " + vidaMax;
-  detTexto.innerText = detAtual + " / " + detMax;
-
-  let vidaPerc = (vidaAtual / vidaMax) * 100;
-  let detPerc = (detAtual / detMax) * 100;
+vidaTexto.innerText = vidaAtual + " / " + (vidaMax + bonusVida);
+detTexto.innerText = detAtual + " / " + (detMax + bonusDet);
+  
+ let vidaPerc = (vidaAtual / (vidaMax + bonusVida)) * 100;
+let detPerc = (detAtual / (detMax + bonusDet)) * 100;
 
   vidaFill.style.width = vidaPerc + "%";
   detFill.style.width = detPerc + "%";
