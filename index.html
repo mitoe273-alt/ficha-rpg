@@ -439,19 +439,25 @@ backdrop-filter:blur(10px);
 }
 
 .sheetImg{
-width:70px;
-height:70px;
+width:140px;
+height:140px;
 
-border-radius:14px;
+border-radius:24px;
 
-object-fit:contain;
+object-fit:cover;
+object-position:center top;
 
 background:#1a0000;
 
-padding:5px;
+padding:6px;
 
 border:
 2px solid rgba(255,0,0,.5);
+
+box-shadow:
+0 0 25px rgba(255,0,0,.25);
+
+flex-shrink:0;
 }
 
 .sheetName{
@@ -655,70 +661,7 @@ ESPECIALISTA
 
 <div class="sheetContent">
 
-<div class="statusBox">
 
-<!-- VIDA -->
-
-<div class="bar">
-
-<div class="barTop">
-<span>VIDA</span>
-<span id="lifeText">
-50 / 50
-</span>
-</div>
-
-<div class="barBg">
-<div
-class="barFill life"
-id="lifeBar"
-></div>
-</div>
-
-</div>
-
-<!-- DETERMINAÇÃO -->
-
-<div class="bar">
-
-<div class="barTop">
-<span>DETERMINAÇÃO</span>
-<span id="detText">
-30 / 30
-</span>
-</div>
-
-<div class="barBg">
-<div
-class="barFill det"
-id="detBar"
-></div>
-</div>
-
-</div>
-
-<!-- CARGA -->
-
-<div class="bar">
-
-<div class="barTop">
-<span>CARGA</span>
-<span id="loadText">
-0 / 10
-</span>
-</div>
-
-<div class="barBg">
-<div
-<div
-class="barFill load"
-id="loadBar"
-></div>
-</div>
-
-</div>
-
-</div>
 
 </div>
 
