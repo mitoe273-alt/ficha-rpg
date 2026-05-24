@@ -22,7 +22,7 @@ overflow:hidden;
 height:100vh;
 color:white;
 
-  touch-action:pan-y;
+touch-action:pan-y;
 }
 
 /* FUNDO */
@@ -30,8 +30,10 @@ color:white;
 .bg{
 position:fixed;
 inset:0;
+
 background:
 radial-gradient(circle at top,#3a0000 0%,#120000 35%,#000 80%);
+
 overflow:hidden;
 }
 
@@ -42,19 +44,28 @@ content:"";
 position:absolute;
 width:200%;
 height:200%;
+
 background:
 radial-gradient(circle,rgba(255,0,0,0.08) 0%,transparent 60%);
+
 animation:fog 14s linear infinite;
 mix-blend-mode:screen;
 }
 
 @keyframes fog{
+
 0%{
-transform:translate(-10%,-10%) rotate(0deg);
+transform:
+translate(-10%,-10%)
+rotate(0deg);
 }
+
 100%{
-transform:translate(-20%,-15%) rotate(360deg);
+transform:
+translate(-20%,-15%)
+rotate(360deg);
 }
+
 }
 
 /* partículas */
@@ -68,60 +79,78 @@ overflow:hidden;
 .particles span{
 position:absolute;
 display:block;
+
 width:2px;
 height:2px;
+
 background:red;
+
 border-radius:50%;
+
 opacity:.5;
+
 animation:particle linear infinite;
 }
 
 @keyframes particle{
+
 from{
 transform:translateY(100vh);
 opacity:0;
 }
+
 20%{
 opacity:.7;
 }
+
 to{
 transform:translateY(-20vh);
 opacity:0;
 }
+
 }
 
-/* CONTEÚDO */
+/* TELA INICIAL */
 
 .main{
 position:relative;
 z-index:5;
+
 height:100vh;
+
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-padding:20px;
-text-align:center;
-}
 
-/* LOGO */
+padding:20px;
+
+text-align:center;
+
+transition:.5s;
+}
 
 .logo{
 font-size:12vw;
-  max-font-size:60px;
 font-weight:900;
-letter-spacing:4px;
+letter-spacing:6px;
+
 color:#ff1a1a;
+
 text-shadow:
 0 0 10px red,
 0 0 30px rgba(255,0,0,.7);
+
 line-height:.9;
 }
 
 .sub{
 margin-top:10px;
+
 font-size:4vw;
+
 letter-spacing:3px;
+
 color:#cfcfcf;
 opacity:.8;
 }
@@ -130,37 +159,54 @@ opacity:.8;
 
 .swipeText{
 position:absolute;
+
 bottom:35px;
 left:50%;
+
 transform:translateX(-50%);
+
 font-size:3.5vw;
+
 opacity:.6;
+
 animation:updown 2s infinite;
+
 letter-spacing:2px;
 }
 
 @keyframes updown{
+
 0%,100%{
-transform:translateX(-50%) translateY(0);
+transform:
+translateX(-50%)
+translateY(0);
 }
+
 50%{
-transform:translateX(-50%) translateY(-10px);
+transform:
+translateX(-50%)
+translateY(-10px);
 }
+
 }
 
 /* MENU PERSONAGENS */
 
 .characters{
 position:fixed;
+
 left:0;
 bottom:-100%;
+
 width:100%;
 height:78vh;
 
 background:
-linear-gradient(to top,
+linear-gradient(
+to top,
 rgba(0,0,0,0.98),
-rgba(20,0,0,0.96));
+rgba(20,0,0,0.96)
+);
 
 border-top:
 2px solid rgba(255,0,0,.4);
@@ -185,8 +231,11 @@ bottom:0;
 .dragBar{
 width:70px;
 height:5px;
+
 border-radius:20px;
+
 background:#777;
+
 margin:0 auto 25px auto;
 }
 
@@ -194,11 +243,16 @@ margin:0 auto 25px auto;
 
 .charTitle{
 text-align:center;
+
 font-size:7vw;
 font-weight:900;
+
 letter-spacing:3px;
+
 color:#ff2a2a;
+
 margin-bottom:25px;
+
 text-shadow:0 0 10px red;
 }
 
@@ -210,7 +264,7 @@ flex-direction:column;
 gap:18px;
 }
 
-/* card */
+/* CARD */
 
 .charCard{
 display:flex;
@@ -220,9 +274,11 @@ gap:15px;
 padding:14px;
 
 background:
-linear-gradient(145deg,
+linear-gradient(
+145deg,
 rgba(45,0,0,.9),
-rgba(10,0,0,.95));
+rgba(10,0,0,.95)
+);
 
 border:
 1px solid rgba(255,0,0,.2);
@@ -233,11 +289,38 @@ box-shadow:
 0 0 20px rgba(255,0,0,.08);
 
 transition:.25s;
+
+position:relative;
+overflow:hidden;
 }
 
 .charCard:active{
 transform:scale(.97);
 border-color:red;
+}
+
+/* brilho */
+
+.charCard::before{
+content:"";
+
+position:absolute;
+inset:0;
+
+background:
+linear-gradient(
+120deg,
+transparent,
+rgba(255,255,255,.05),
+transparent
+);
+
+transform:translateX(-100%);
+transition:.6s;
+}
+
+.charCard:active::before{
+transform:translateX(100%);
 }
 
 /* FOTO */
@@ -252,9 +335,11 @@ object-fit:contain;
 object-position:center top;
 
 background:#140000;
+
 padding:4px;
 
-border:2px solid rgba(255,0,0,.5);
+border:
+2px solid rgba(255,0,0,.5);
 
 box-shadow:
 0 0 15px rgba(255,0,0,.25);
@@ -295,7 +380,11 @@ border:none;
 border-radius:12px;
 
 background:
-linear-gradient(to bottom,#ff1a1a,#7a0000);
+linear-gradient(
+to bottom,
+#ff1a1a,
+#7a0000
+);
 
 color:white;
 font-weight:800;
@@ -305,32 +394,159 @@ font-size:3.4vw;
 box-shadow:
 0 0 15px rgba(255,0,0,.35);
 }
-.charCard{
-position:relative;
+
+/* TELA FICHA */
+
+.sheet{
+position:fixed;
+inset:0;
+
+z-index:50;
+
+background:
+radial-gradient(
+circle at top,
+#2a0000,
+#000
+);
+
+display:flex;
+flex-direction:column;
+
+opacity:0;
+pointer-events:none;
+
+transition:.5s;
+}
+
+.sheet.active{
+opacity:1;
+pointer-events:auto;
+}
+
+/* topo */
+
+.sheetHeader{
+padding:25px 20px 15px;
+
+display:flex;
+align-items:center;
+gap:15px;
+
+border-bottom:
+1px solid rgba(255,0,0,.2);
+
+background:
+rgba(0,0,0,.35);
+
+backdrop-filter:blur(10px);
+}
+
+.sheetImg{
+width:70px;
+height:70px;
+
+border-radius:14px;
+
+object-fit:contain;
+
+background:#1a0000;
+
+padding:5px;
+
+border:
+2px solid rgba(255,0,0,.5);
+}
+
+.sheetName{
+font-size:7vw;
+font-weight:900;
+}
+
+.sheetClass{
+margin-top:4px;
+color:#ff4444;
+font-size:3.8vw;
+}
+
+/* conteúdo */
+
+.sheetContent{
+flex:1;
+overflow-y:auto;
+
+padding:20px;
+}
+
+/* status */
+
+.statusBox{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+/* barra */
+
+.bar{
+display:flex;
+flex-direction:column;
+gap:7px;
+}
+
+.barTop{
+display:flex;
+justify-content:space-between;
+font-size:3.8vw;
+}
+
+.barBg{
+height:22px;
+
+background:#111;
+
+border:
+1px solid rgba(255,255,255,.1);
+
+border-radius:999px;
+
 overflow:hidden;
 }
 
-.charCard::before{
-content:"";
-position:absolute;
-inset:0;
+.barFill{
+height:100%;
+width:100%;
 
+border-radius:999px;
+}
+
+.life{
 background:
 linear-gradient(
-120deg,
-transparent,
-rgba(255,255,255,.05),
-transparent
+to right,
+#ff0000,
+#ff4444
 );
-
-transform:translateX(-100%);
-transition:.6s;
 }
 
-.charCard:active::before{
-transform:translateX(100%);
+.det{
+background:
+linear-gradient(
+to right,
+#008cff,
+#4ec3ff
+);
 }
-  
+
+.load{
+background:
+linear-gradient(
+to right,
+#b96d00,
+#ffb300
+);
+}
+
 </style>
 </head>
 <body>
@@ -341,7 +557,9 @@ transform:translateX(100%);
 
 </div>
 
-<div class="main">
+<!-- TELA INICIAL -->
+
+<div class="main" id="main">
 
 <div class="logo">
 HEXATOMBE
@@ -357,7 +575,7 @@ ARRASTE PARA CIMA
 
 </div>
 
-<!-- MENU PERSONAGENS -->
+<!-- MENU -->
 
 <div class="characters" id="characters">
 
@@ -373,7 +591,6 @@ PERSONAGENS
 
 <div class="charCard">
 
-<!-- COLOQUE SUA IMAGEM AQUI -->
 <img
 src="jae.png"
 class="charImg"
@@ -395,7 +612,10 @@ Dificuldade: Médio
 
 </div>
 
-<button class="enterBtn">
+<button
+class="enterBtn"
+onclick="entrarPersonagem('jae')"
+>
 ENTRAR
 </button>
 
@@ -405,9 +625,112 @@ ENTRAR
 
 </div>
 
+<!-- FICHA -->
+
+<div class="sheet" id="sheet">
+
+<div class="sheetHeader">
+
+<img
+src="jae.png"
+class="sheetImg"
+id="sheetImg"
+>
+
+<div>
+
+<div
+class="sheetName"
+id="sheetName"
+>
+JAE-YOON
+</div>
+
+<div
+class="sheetClass"
+id="sheetClass"
+>
+ESPECIALISTA
+</div>
+
+</div>
+
+</div>
+
+<div class="sheetContent">
+
+<div class="statusBox">
+
+<!-- VIDA -->
+
+<div class="bar">
+
+<div class="barTop">
+<span>VIDA</span>
+<span id="lifeText">
+50 / 50
+</span>
+</div>
+
+<div class="barBg">
+<div
+class="barFill life"
+id="lifeBar"
+></div>
+</div>
+
+</div>
+
+<!-- DETERMINAÇÃO -->
+
+<div class="bar">
+
+<div class="barTop">
+<span>DETERMINAÇÃO</span>
+<span id="detText">
+30 / 30
+</span>
+</div>
+
+<div class="barBg">
+<div
+class="barFill det"
+id="detBar"
+></div>
+</div>
+
+</div>
+
+<!-- CARGA -->
+
+<div class="bar">
+
+<div class="barTop">
+<span>CARGA</span>
+<span id="loadText">
+0 / 10
+</span>
+</div>
+
+<div class="barBg">
+<div
+class="barFill load"
+id="loadBar"
+style="width:0%"
+></div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 <script>
 
-/* partículas */
+/* PARTÍCULAS */
 
 const particles =
 document.getElementById("particles");
@@ -446,16 +769,6 @@ function closeMenu(){
 menu.classList.remove("active");
 }
 
-/* clique */
-
-document.addEventListener("click", ()=>{
-
-if(!menu.classList.contains("active")){
-openMenu();
-}
-
-});
-
 /* swipe */
 
 let startY = 0;
@@ -491,6 +804,80 @@ closeMenu();
 
 }
 );
+
+/* PERSONAGENS */
+
+const personagens = {
+
+jae:{
+
+nome:"JAE-YOON",
+
+classe:"ESPECIALISTA",
+
+img:"jae.png",
+
+vida:50,
+vidaMax:50,
+
+det:30,
+detMax:30,
+
+carga:0,
+cargaMax:10
+
+}
+
+};
+
+/* ENTRAR */
+
+function entrarPersonagem(id){
+
+const p =
+personagens[id];
+
+document
+.getElementById("sheet")
+.classList.add("active");
+
+document
+.getElementById("sheetName")
+.innerText = p.nome;
+
+document
+.getElementById("sheetClass")
+.innerText = p.classe;
+
+document
+.getElementById("sheetImg")
+.src = p.img;
+
+/* VIDA */
+
+lifeText.innerText =
+p.vida + " / " + p.vidaMax;
+
+lifeBar.style.width =
+(p.vida / p.vidaMax)*100 + "%";
+
+/* DET */
+
+detText.innerText =
+p.det + " / " + p.detMax;
+
+detBar.style.width =
+(p.det / p.detMax)*100 + "%";
+
+/* CARGA */
+
+loadText.innerText =
+p.carga + " / " + p.cargaMax;
+
+loadBar.style.width =
+(p.carga / p.cargaMax)*100 + "%";
+
+}
 
 </script>
 
