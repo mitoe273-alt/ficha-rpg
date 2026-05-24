@@ -326,25 +326,21 @@ transform:translateX(100%);
 /* FOTO */
 
 .charImg{
-width:72px;
-height:72px;
+width:95px;
+height:95px;
 
-border-radius:14px;
+border-radius:18px;
 
-object-fit:contain;
+object-fit:cover;
 object-position:center top;
 
-background:#140000;
-
-padding:4px;
-
-border:
-2px solid rgba(255,0,0,.5);
+border:2px solid rgba(255,0,0,.5);
 
 box-shadow:
-0 0 15px rgba(255,0,0,.25);
-}
+0 0 20px rgba(255,0,0,.35);
 
+flex-shrink:0;
+}
 /* info */
 
 .charInfo{
@@ -427,11 +423,11 @@ pointer-events:auto;
 /* topo */
 
 .sheetHeader{
-padding:25px 20px 15px;
+padding:20px 20px 10px;
 
 display:flex;
-align-items:center;
-gap:15px;
+align-items:flex-end;
+gap:18px;
 
 border-bottom:
 1px solid rgba(255,0,0,.2);
@@ -542,7 +538,7 @@ to right,
 background:
 linear-gradient(
 to right,
-#b96d00,
+#ff7b00,
 #ffb300
 );
 }
@@ -714,9 +710,9 @@ id="detBar"
 
 <div class="barBg">
 <div
+<div
 class="barFill load"
 id="loadBar"
-style="width:0%"
 ></div>
 </div>
 
