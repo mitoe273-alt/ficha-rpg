@@ -21,6 +21,8 @@ font-family:Arial, Helvetica, sans-serif;
 overflow:hidden;
 height:100vh;
 color:white;
+
+  touch-action:pan-y;
 }
 
 /* FUNDO */
@@ -105,7 +107,8 @@ text-align:center;
 /* LOGO */
 
 .logo{
-font-size:16vw;
+font-size:12vw;
+  max-font-size:60px;
 font-weight:900;
 letter-spacing:4px;
 color:#ff1a1a;
@@ -242,8 +245,14 @@ border-color:red;
 .charImg{
 width:72px;
 height:72px;
+
 border-radius:14px;
-object-fit:cover;
+
+object-fit:contain;
+object-position:center top;
+
+background:#140000;
+padding:4px;
 
 border:2px solid rgba(255,0,0,.5);
 
@@ -296,7 +305,32 @@ font-size:3.4vw;
 box-shadow:
 0 0 15px rgba(255,0,0,.35);
 }
+.charCard{
+position:relative;
+overflow:hidden;
+}
 
+.charCard::before{
+content:"";
+position:absolute;
+inset:0;
+
+background:
+linear-gradient(
+120deg,
+transparent,
+rgba(255,255,255,.05),
+transparent
+);
+
+transform:translateX(-100%);
+transition:.6s;
+}
+
+.charCard:active::before{
+transform:translateX(100%);
+}
+  
 </style>
 </head>
 <body>
@@ -414,13 +448,11 @@ menu.classList.remove("active");
 
 /* clique */
 
-document.addEventListener("click", e=>{
+document.addEventListener("click", ()=>{
 
-if(
-e.target.closest(".charCard")
-) return;
-
+if(!menu.classList.contains("active")){
 openMenu();
+}
 
 });
 
