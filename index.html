@@ -1049,10 +1049,8 @@ PERÍCIAS
 </div> <!-- skillsBox -->
 </div> <!-- sheetContent -->
 </div> <!-- sheet -->
-  </div> <!-- FALTAVA ESSE -->
-<script>
 
-/* PARTÍCULAS */
+<script>
 
 const particles =
 document.getElementById("particles");
@@ -1078,8 +1076,6 @@ particles.appendChild(p);
 
 }
 
-/* MENU */
-
 const menu =
 document.getElementById("characters");
 
@@ -1090,8 +1086,6 @@ menu.classList.add("active");
 function closeMenu(){
 menu.classList.remove("active");
 }
-
-/* swipe */
 
 let startY = 0;
 let endY = 0;
@@ -1127,8 +1121,6 @@ closeMenu();
 }
 );
 
-/* PERSONAGENS */
-
 const personagens = {
 
 jae:{
@@ -1137,22 +1129,11 @@ nome:"JAE-YOON",
 
 classe:"ESPECIALISTA",
 
-img:"jae.png",
-
-vida:50,
-vidaMax:50,
-
-det:30,
-detMax:30,
-
-carga:0,
-cargaMax:10
+img:"jae.png"
 
 }
 
 };
-
-/* ENTRAR */
 
 function entrarPersonagem(id){
 
@@ -1175,9 +1156,8 @@ document
 .getElementById("sheetImg")
 .src = p.img;
 
-
-
 }
+
 function toggleSkills(){
 
 const box =
@@ -1191,7 +1171,9 @@ box.classList.toggle("active");
 btn.classList.toggle("active");
 
 }
+
 </script>
 
 </body>
+</html>
 </html>
