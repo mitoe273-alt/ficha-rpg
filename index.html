@@ -631,6 +631,8 @@ width:100%;
 
 padding:13px 15px;
 
+border:1px solid rgba(255,0,0,.15);
+
 border-radius:16px;
 
 background:
@@ -639,9 +641,6 @@ linear-gradient(
 rgba(35,0,0,.95),
 rgba(10,0,0,.98)
 );
-
-border:
-1px solid rgba(255,0,0,.15);
 
 display:flex;
 align-items:center;
@@ -657,6 +656,8 @@ box-shadow:
 0 0 15px rgba(255,0,0,.06);
 
 transition:.25s;
+
+cursor:pointer;
 }
 
 /* seta */
@@ -743,6 +744,17 @@ color:#41ff75;
 .skill.blue{
 color:#4ca6ff;
 }
+/* COLE AQUI */
+
+.skillsBox.active{
+max-height:2000px;
+opacity:1;
+}
+
+.skillToggle.active .skillArrow{
+transform:rotate(180deg);
+}
+  
 </style>
 </head>
 <body>
