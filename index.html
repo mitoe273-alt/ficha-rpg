@@ -665,7 +665,10 @@ transition:.25s;
 transition:.3s;
 font-size:4vw;
 }
-
+.skillToggle.active .skillArrow{
+transform:rotate(180deg);
+}
+  
 /* caixa perícias */
 
 .skillsBox{
@@ -693,6 +696,12 @@ opacity:0;
 transition:
 max-height .45s ease,
 opacity .3s ease;
+}
+  /* ABERTA */
+
+.skillsBox.active{
+max-height:2000px;
+opacity:1;
 }
 
 /* perícia */
