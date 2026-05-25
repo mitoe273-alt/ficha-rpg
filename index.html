@@ -695,7 +695,125 @@ object-fit:contain;
 filter:
 drop-shadow(0 0 25px rgba(255,0,0,.15));
 }
-  
+  /* BOTÃO PERÍCIAS */
+
+.skillToggle{
+
+margin-top:25px;
+
+width:100%;
+
+padding:16px 18px;
+
+border-radius:18px;
+
+background:
+linear-gradient(
+145deg,
+rgba(35,0,0,.95),
+rgba(10,0,0,.98)
+);
+
+border:
+1px solid rgba(255,0,0,.2);
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+font-size:5vw;
+font-weight:800;
+letter-spacing:2px;
+
+color:white;
+
+box-shadow:
+0 0 20px rgba(255,0,0,.08);
+
+transition:.25s;
+}
+
+.skillToggle:active{
+transform:scale(.98);
+}
+
+/* seta */
+
+.skillArrow{
+transition:.3s;
+font-size:5vw;
+}
+
+.skillToggle.active .skillArrow{
+transform:rotate(180deg);
+}
+
+/* caixa perícias */
+
+.skillsBox{
+
+margin-top:14px;
+
+background:
+linear-gradient(
+to bottom,
+rgba(18,0,0,.95),
+rgba(5,0,0,.98)
+);
+
+border-radius:18px;
+
+border:
+1px solid rgba(255,0,0,.12);
+
+overflow:hidden;
+
+max-height:0;
+
+opacity:0;
+
+transition:
+max-height .45s ease,
+opacity .3s ease;
+}
+
+/* aberta */
+
+.skillsBox.active{
+max-height:2000px;
+opacity:1;
+}
+
+/* perícia */
+
+.skill{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:14px 16px;
+
+border-bottom:
+1px solid rgba(255,255,255,.04);
+
+font-size:4.3vw;
+font-weight:700;
+}
+
+/* cores */
+
+.skill.white{
+color:#e5e5e5;
+}
+
+.skill.green{
+color:#41ff75;
+}
+
+.skill.blue{
+color:#4ca6ff;
+}
 </style>
 </head>
 <body>
@@ -822,6 +940,172 @@ ESPECIALISTA
 src="atributos.png"
 class="atributosImg"
 >
+
+</div>
+
+<button
+class="skillToggle"
+id="skillToggle"
+onclick="toggleSkills()"
+>
+
+PERÍCIAS
+
+<span class="skillArrow">
+▼
+</span>
+
+</button>
+
+<div class="skillsBox" id="skillsBox">
+
+<!-- +10 -->
+
+<div class="skill blue">
+<span>Crime</span>
+<span>+10</span>
+</div>
+
+<div class="skill blue">
+<span>Enganação</span>
+<span>+10</span>
+</div>
+
+<div class="skill blue">
+<span>Furtividade</span>
+<span>+10</span>
+</div>
+
+<div class="skill blue">
+<span>Iniciativa</span>
+<span>+10</span>
+</div>
+
+<div class="skill blue">
+<span>Investigação</span>
+<span>+10</span>
+</div>
+
+<div class="skill blue">
+<span>Luta</span>
+<span>+10</span>
+</div>
+
+<div class="skill blue">
+<span>Reflexos</span>
+<span>+10</span>
+</div>
+
+<div class="skill blue">
+<span>Tecnologia</span>
+<span>+10</span>
+</div>
+
+<!-- +5 -->
+
+<div class="skill green">
+<span>Acrobacia</span>
+<span>+5</span>
+</div>
+
+<div class="skill green">
+<span>Atletismo</span>
+<span>+5</span>
+</div>
+
+<div class="skill green">
+<span>Vontade</span>
+<span>+5</span>
+</div>
+
+<!-- +0 -->
+
+<div class="skill white">
+<span>Adestramento</span>
+<span>+0</span>
+</div>
+
+<div class="skill white">
+<span>Artes</span>
+<span>+0</span>
+</div>
+
+<div class="skill white">
+<span>Atualidades</span>
+<span>+0</span>
+</div>
+
+<div class="skill white">
+<span>Ciências</span>
+<span>+0</span>
+</div>
+
+<div class="skill white">
+<span>Diplomacia</span>
+<span>+0</span>
+</div>
+
+<div class="skill white">
+<span>Fortitude</span>
+<span>+0</span>
+</div>
+
+<div class="skill white">
+<span>Intimidação</span>
+<span>+0</span>
+</div>
+
+<div class="skill white">
+<span>Intuição</span>
+<span>+0</span>
+</div>
+
+<div class="skill white">
+<span>Medicina</span>
+<span>+0</span>
+</div>
+
+<div class="skill white">
+<span>Ocultismo</span>
+<span>+0</span>
+</div>
+
+<div class="skill white">
+<span>Percepção</span>
+<span>+0</span>
+</div>
+
+<div class="skill white">
+<span>Pilotagem</span>
+<span>+0</span>
+</div>
+
+<div class="skill white">
+<span>Pontaria</span>
+<span>+0</span>
+</div>
+
+<div class="skill white">
+<span>Profissão</span>
+<span>+0</span>
+</div>
+
+<div class="skill white">
+<span>Religião</span>
+<span>+0</span>
+</div>
+
+<div class="skill white">
+<span>Sobrevivência</span>
+<span>+0</span>
+</div>
+
+<div class="skill white">
+<span>Tática</span>
+<span>+0</span>
+</div>
+
+</div>
 
 </div>
 
@@ -956,7 +1240,19 @@ document
 
 
 }
+function toggleSkills(){
 
+const box =
+document.getElementById("skillsBox");
+
+const btn =
+document.getElementById("skillToggle");
+
+box.classList.toggle("active");
+
+btn.classList.toggle("active");
+
+}
 </script>
 
 </body>
