@@ -513,19 +513,21 @@ z-index:2;
 
 .sheetImg{
 
-width:180px;
-height:180px;
+width:220px;
+height:220px;
 
 object-fit:cover;
 object-position:center top;
 
-border-radius:24px;
+border-radius:28px;
 
+/* sombra escura */
 box-shadow:
-0 15px 35px rgba(0,0,0,.7);
+0 20px 40px rgba(0,0,0,.7);
 
+/* borda leve */
 border:
-1px solid rgba(255,255,255,.05);
+1px solid rgba(255,255,255,.06);
 
 background:#080808;
 }
@@ -537,12 +539,12 @@ background:#080808;
 position:relative;
 z-index:2;
 
-margin-top:18px;
+margin-top:24px;
 
-font-size:8vw;
+font-size:9vw;
 font-weight:900;
 
-letter-spacing:3px;
+letter-spacing:4px;
 
 color:white;
 
@@ -557,11 +559,11 @@ text-shadow:
 position:relative;
 z-index:2;
 
-margin-top:6px;
+margin-top:10px;
 
-font-size:3.3vw;
+font-size:4vw;
 
-letter-spacing:2px;
+letter-spacing:3px;
 
 color:#ff3c3c;
 
@@ -575,9 +577,9 @@ opacity:.85;
 position:relative;
 z-index:2;
 
-margin-top:20px;
+margin-top:28px;
 
-width:55%;
+width:70%;
 height:1px;
 
 background:
@@ -597,9 +599,82 @@ opacity:.7;
 flex:1;
 overflow-y:auto;
 
-padding:16px;
+padding:20px;
 }
 
+/* status */
+
+.statusBox{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+/* barra */
+
+.bar{
+display:flex;
+flex-direction:column;
+gap:7px;
+}
+
+.barTop{
+display:flex;
+justify-content:space-between;
+font-size:3.8vw;
+}
+
+.barBg{
+height:22px;
+
+background:#111;
+
+border:
+1px solid rgba(255,255,255,.1);
+
+border-radius:999px;
+
+overflow:hidden;
+}
+
+.barFill{
+height:100%;
+width:100%;
+
+border-radius:999px;
+}
+
+.life{
+background:
+linear-gradient(
+to right,
+#ff0000,
+#ff4444
+);
+}
+
+.det{
+background:
+linear-gradient(
+to right,
+#008cff,
+#4ec3ff
+);
+}
+
+.load{
+background:
+linear-gradient(
+to right,
+#ff7b00,
+#ffb300
+);
+}
+.sheetHeader,
+.sheetContent{
+position:relative;
+z-index:2;
+}
 /* ATRIBUTOS */
 
 .atributosBox{
@@ -608,32 +683,29 @@ width:100%;
 display:flex;
 justify-content:center;
 
-margin-top:0px;
+margin-top:10px;
 }
 
 .atributosImg{
 width:100%;
-max-width:340px;
+max-width:420px;
 
 object-fit:contain;
 
 filter:
-drop-shadow(0 0 20px rgba(255,0,0,.12));
+drop-shadow(0 0 25px rgba(255,0,0,.15));
 }
-
-/* BOTÃO PERÍCIAS */
+  /* BOTÃO PERÍCIAS */
 
 .skillToggle{
 
-margin-top:18px;
+margin-top:25px;
 
 width:100%;
 
-padding:13px 15px;
+padding:16px 18px;
 
-border:1px solid rgba(255,0,0,.15);
-
-border-radius:16px;
+border-radius:18px;
 
 background:
 linear-gradient(
@@ -642,48 +714,45 @@ rgba(35,0,0,.95),
 rgba(10,0,0,.98)
 );
 
+border:
+1px solid rgba(255,0,0,.2);
+
 display:flex;
 align-items:center;
 justify-content:space-between;
 
-font-size:4vw;
+font-size:5vw;
 font-weight:800;
-letter-spacing:1px;
+letter-spacing:2px;
 
 color:white;
 
 box-shadow:
-0 0 15px rgba(255,0,0,.06);
+0 0 20px rgba(255,0,0,.08);
 
 transition:.25s;
+}
 
-cursor:pointer;
+.skillToggle:active{
+transform:scale(.98);
 }
 
 /* seta */
 
 .skillArrow{
 transition:.3s;
-font-size:4vw;
+font-size:5vw;
 }
+
 .skillToggle.active .skillArrow{
 transform:rotate(180deg);
 }
 
-.skillsBox.active{
-max-height:2000px;
-opacity:1;
-}
-  
-.skillToggle.active .skillArrow{
-transform:rotate(180deg);
-}
-  
 /* caixa perícias */
 
 .skillsBox{
 
-margin-top:12px;
+margin-top:14px;
 
 background:
 linear-gradient(
@@ -692,10 +761,10 @@ rgba(18,0,0,.95),
 rgba(5,0,0,.98)
 );
 
-border-radius:16px;
+border-radius:18px;
 
 border:
-1px solid rgba(255,0,0,.1);
+1px solid rgba(255,0,0,.12);
 
 overflow:hidden;
 
@@ -707,7 +776,8 @@ transition:
 max-height .45s ease,
 opacity .3s ease;
 }
-  /* ABERTA */
+
+/* aberta */
 
 .skillsBox.active{
 max-height:2000px;
@@ -722,12 +792,12 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 
-padding:11px 14px;
+padding:14px 16px;
 
 border-bottom:
 1px solid rgba(255,255,255,.04);
 
-font-size:3.7vw;
+font-size:4.3vw;
 font-weight:700;
 }
 
@@ -744,17 +814,6 @@ color:#41ff75;
 .skill.blue{
 color:#4ca6ff;
 }
-/* COLE AQUI */
-
-.skillsBox.active{
-max-height:2000px;
-opacity:1;
-}
-
-.skillToggle.active .skillArrow{
-transform:rotate(180deg);
-}
-  
 </style>
 </head>
 <body>
@@ -1046,11 +1105,16 @@ PERÍCIAS
 <span>+0</span>
 </div>
 
-</div> <!-- skillsBox -->
-</div> <!-- sheetContent -->
-</div> <!-- sheet -->
+</div>
+
+</div>
+
+</div>
+</div>
 
 <script>
+
+/* PARTÍCULAS */
 
 const particles =
 document.getElementById("particles");
@@ -1076,6 +1140,8 @@ particles.appendChild(p);
 
 }
 
+/* MENU */
+
 const menu =
 document.getElementById("characters");
 
@@ -1086,6 +1152,8 @@ menu.classList.add("active");
 function closeMenu(){
 menu.classList.remove("active");
 }
+
+/* swipe */
 
 let startY = 0;
 let endY = 0;
@@ -1121,6 +1189,8 @@ closeMenu();
 }
 );
 
+/* PERSONAGENS */
+
 const personagens = {
 
 jae:{
@@ -1129,11 +1199,22 @@ nome:"JAE-YOON",
 
 classe:"ESPECIALISTA",
 
-img:"jae.png"
+img:"jae.png",
+
+vida:50,
+vidaMax:50,
+
+det:30,
+detMax:30,
+
+carga:0,
+cargaMax:10
 
 }
 
 };
+
+/* ENTRAR */
 
 function entrarPersonagem(id){
 
@@ -1156,8 +1237,9 @@ document
 .getElementById("sheetImg")
 .src = p.img;
 
-}
 
+
+}
 function toggleSkills(){
 
 const box =
@@ -1171,9 +1253,7 @@ box.classList.toggle("active");
 btn.classList.toggle("active");
 
 }
-
 </script>
 
 </body>
-</html>
 </html>
