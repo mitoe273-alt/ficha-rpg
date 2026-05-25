@@ -451,7 +451,7 @@ background:
 radial-gradient(
 circle,
 transparent 45%,
-rgba(0,0,0,.75) 100%
+rgba(0,0,0,.45) 100%
 );
 
 pointer-events:none;
@@ -917,29 +917,7 @@ document
 .getElementById("sheetImg")
 .src = p.img;
 
-/* VIDA */
 
-lifeText.innerText =
-p.vida + " / " + p.vidaMax;
-
-lifeBar.style.width =
-(p.vida / p.vidaMax)*100 + "%";
-
-/* DET */
-
-detText.innerText =
-p.det + " / " + p.detMax;
-
-detBar.style.width =
-(p.det / p.detMax)*100 + "%";
-
-/* CARGA */
-
-loadText.innerText =
-p.carga + " / " + p.cargaMax;
-
-loadBar.style.width =
-(p.carga / p.cargaMax)*100 + "%";
 
 }
 
