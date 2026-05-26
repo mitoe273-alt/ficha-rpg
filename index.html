@@ -1368,6 +1368,13 @@ id="vidaBar"
 
 <button
 class="arrowBtn"
+onclick="alterarVida(-10)"
+>
+-- 
+</button>
+
+<button
+class="arrowBtn"
 onclick="alterarVida(-1)"
 >
 −
@@ -1378,6 +1385,13 @@ class="arrowBtn"
 onclick="alterarVida(1)"
 >
 +
+</button>
+
+<button
+class="arrowBtn"
+onclick="alterarVida(10)"
+>
+++
 </button>
 
 <input
@@ -1431,6 +1445,13 @@ id="detBar"
 
 <button
 class="arrowBtn"
+onclick="alterarDet(-10)"
+>
+--
+</button>
+
+<button
+class="arrowBtn"
 onclick="alterarDet(-1)"
 >
 −
@@ -1441,6 +1462,13 @@ class="arrowBtn"
 onclick="alterarDet(1)"
 >
 +
+</button>
+
+<button
+class="arrowBtn"
+onclick="alterarDet(10)"
+>
+++
 </button>
 
 <input
@@ -1494,6 +1522,13 @@ id="cargaBar"
 
 <button
 class="arrowBtn"
+onclick="alterarCarga(-5)"
+>
+--
+</button>
+
+<button
+class="arrowBtn"
 onclick="alterarCarga(-1)"
 >
 −
@@ -1504,6 +1539,13 @@ class="arrowBtn"
 onclick="alterarCarga(1)"
 >
 +
+</button>
+
+<button
+class="arrowBtn"
+onclick="alterarCarga(5)"
+>
+++
 </button>
 
 </div>
@@ -1751,7 +1793,11 @@ function alterarVida(valor){
 
 personagens[personagemAtual].vida += valor;
 
-  salvarDados();
+if(personagens[personagemAtual].vida < 0){
+personagens[personagemAtual].vida = 0;
+}
+
+salvarDados();
 
 atualizarStatus();
 
@@ -1768,6 +1814,9 @@ const dano =
 Number(input.value);
 
   personagens[personagemAtual].vida -= dano;
+  if(personagens[personagemAtual].vida < 0){
+personagens[personagemAtual].vida = 0;
+}
 
 input.value = "";
 
@@ -1783,8 +1832,11 @@ function alterarDet(valor){
 
 personagens[personagemAtual].det += valor;
 
-  salvarDados();
+if(personagens[personagemAtual].det < 0){
+personagens[personagemAtual].det = 0;
+}
 
+salvarDados();
 
 atualizarStatus();
 
@@ -1801,6 +1853,9 @@ const valor =
 Number(input.value);
 
 personagens[personagemAtual].det -= valor;
+  if(personagens[personagemAtual].det < 0){
+personagens[personagemAtual].det = 0;
+}
 
 input.value = "";
 
@@ -1816,8 +1871,12 @@ function alterarCarga(valor){
 
 personagens[personagemAtual].carga += valor;
 
+if(personagens[personagemAtual].carga < 0){
+personagens[personagemAtual].carga = 0;
+}
+
 salvarDados();
-  
+
 atualizarStatus();
 
 }
