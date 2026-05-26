@@ -1548,6 +1548,8 @@ particles.appendChild(p);
 
 const menu =
 document.getElementById("characters");
+let personagemAtual = "jae";
+  
 
 function openMenu(){
 menu.classList.add("active");
@@ -1595,7 +1597,13 @@ closeMenu();
 
 /* PERSONAGENS */
 
-const personagens = {
+const personagens = carregarDados();
+
+/* SAVE */
+
+function dadosPadrao(){
+
+return{
 
 jae:{
 
@@ -1618,9 +1626,41 @@ cargaMax:10
 
 };
 
+}
+
+/* carregar */
+
+function carregarDados(){
+
+const save =
+localStorage.getItem("hexatombeSave");
+
+if(save){
+
+return JSON.parse(save);
+
+}
+
+return dadosPadrao();
+
+}
+
+/* salvar */
+
+function salvarDados(){
+
+localStorage.setItem(
+"hexatombeSave",
+JSON.stringify(personagens)
+);
+
+}
+  
 /* ENTRAR */
 
 function entrarPersonagem(id){
+
+  personagemAtual = id;
 
 const p =
 personagens[id];
@@ -1661,7 +1701,8 @@ btn.classList.toggle("active");
 
 function atualizarStatus(){
 
-const p = personagens.jae;
+const p = personagens[personagemAtual];
+
 
 /* VIDA */
 
@@ -1705,7 +1746,7 @@ document
 
 function alterarVida(valor){
 
-personagens.jae.vida += valor;
+personagens[personagemAtual].vida += valor;
 
 atualizarStatus();
 
@@ -1721,7 +1762,7 @@ document.getElementById("vidaInput");
 const dano =
 Number(input.value);
 
-personagens.jae.vida -= dano;
+  personagens[personagemAtual].vida -= dano;
 
 input.value = "";
 
@@ -1733,7 +1774,7 @@ atualizarStatus();
 
 function alterarDet(valor){
 
-personagens.jae.det += valor;
+personagens[personagemAtual].det += valor;
 
 atualizarStatus();
 
@@ -1749,7 +1790,7 @@ document.getElementById("detInput");
 const valor =
 Number(input.value);
 
-personagens.jae.det -= valor;
+personagens[personagemAtual].det -= valor;
 
 input.value = "";
 
@@ -1761,8 +1802,10 @@ atualizarStatus();
 
 function alterarCarga(valor){
 
-personagens.jae.carga += valor;
+personagens[personagemAtual].carga += valor;
 
+salvarDados();
+  
 atualizarStatus();
 
 }
