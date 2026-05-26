@@ -1328,6 +1328,9 @@ PERÍCIAS
 <span>Tática</span>
 <span>+0</span>
 </div>
+
+</div>
+
 <!-- STATUS -->
 
 <div class="statusBox">
@@ -1748,6 +1751,8 @@ function alterarVida(valor){
 
 personagens[personagemAtual].vida += valor;
 
+  salvarDados();
+
 atualizarStatus();
 
 }
@@ -1766,6 +1771,8 @@ Number(input.value);
 
 input.value = "";
 
+  salvarDados();
+
 atualizarStatus();
 
 }
@@ -1775,6 +1782,9 @@ atualizarStatus();
 function alterarDet(valor){
 
 personagens[personagemAtual].det += valor;
+
+  salvarDados();
+
 
 atualizarStatus();
 
@@ -1793,6 +1803,8 @@ Number(input.value);
 personagens[personagemAtual].det -= valor;
 
 input.value = "";
+
+  salvarDados();
 
 atualizarStatus();
 
