@@ -766,7 +766,8 @@ border-radius:18px;
 border:
 1px solid rgba(255,0,0,.12);
 
-overflow:hidden;
+overflow-y:auto;
+overflow-x:hidden;
 
 max-height:0;
 
@@ -780,9 +781,10 @@ opacity .3s ease;
 /* aberta */
 
 .skillsBox.active{
-max-height:2000px;
+max-height:320px;
 opacity:1;
 }
+
 
 /* perícia */
 
@@ -963,9 +965,11 @@ margin-top:12px;
 
 display:flex;
 align-items:center;
+flex-wrap:wrap;
+
 gap:10px;
 }
-
+  
 /* setas */
 
 .arrowBtn{
