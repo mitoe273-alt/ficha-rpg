@@ -1274,6 +1274,38 @@ color:white;
 font-weight:900;
 letter-spacing:1px;
 }
+  /* HABILIDADE SECRETA */
+
+.secretPower{
+
+border:
+1px solid rgba(255,0,0,.35);
+
+background:
+linear-gradient(
+145deg,
+rgba(45,0,0,.98),
+rgba(10,0,0,1)
+);
+
+box-shadow:
+0 0 25px rgba(255,0,0,.12);
+}
+
+.secretRed{
+color:#ff2b2b;
+}
+
+.lockedText{
+
+margin-top:10px;
+
+font-size:3.5vw;
+
+color:#999;
+
+font-style:italic;
+}
 </style>
 </head>
 <body>
@@ -1998,7 +2030,40 @@ USAR
 </button>
 
 </div>
+<!-- HABILIDADE SECRETA -->
 
+<div class="powerCard secretPower">
+
+<div class="powerTop">
+
+<div>
+
+<div class="powerName secretRed">
+SABOR DO SILÊNCIO
+</div>
+
+</div>
+
+</div>
+
+<div id="secretContent">
+
+<div class="lockedText">
+Habilidade bloqueada
+<br><br>
+Desbloqueada em circunstâncias específicas.
+</div>
+
+</div>
+
+<button
+class="useSkillBtn"
+onclick="desbloquearHabilidade()"
+>
+DESBLOQUEAR
+</button>
+
+</div>
 </div>
 </div>
 
@@ -2434,6 +2499,80 @@ personagens[personagemAtual].det = 0;
 salvarDados();
 
 atualizarStatus();
+
+}
+  /* HABILIDADE SECRETA */
+
+let segredoPermanente =
+localStorage.getItem("segredoJae");
+
+if(segredoPermanente === "true"){
+ativarSegredo();
+}
+
+function desbloquearHabilidade(){
+
+const senha =
+prompt("Digite a senha");
+
+if(senha === "26282928"){
+
+ativarSegredo();
+
+}
+
+else if(
+senha === "Coroa de espinhos"
+){
+
+localStorage.setItem(
+"segredoJae",
+"true"
+);
+
+ativarSegredo();
+
+}
+
+else{
+
+alert("Senha incorreta.");
+
+}
+
+}
+
+function ativarSegredo(){
+
+document
+.getElementById("secretContent")
+.innerHTML = `
+
+<div class="powerDesc secretRed">
+
+"O silêncio que te atormentou agora assombra o pesadelo dos outros."
+
+<br><br>
+
+<b>Gatinho</b>
+<br>
+
+<span style="color:#ddd">
+Você precisa provar o sangue de um ser adjacente que esteja machucado.
+</span>
+
+<br><br>
+
+<b>Efeito</b>
+<br>
+
+<span style="color:#ddd">
+Seus ataques causam +1d8 pontos de dano e recebem +2 na margem de ameaça. Além disso, se fizer um acerto crítico, você corta a boca do alvo, o silenciando, impedindo de se comunicar e utilizar qualquer poder ou ritual por 1d4 rodadas. Os efeitos duram até o final da cena.
+</span>
+
+</div>
+
+`;
 
 }
 </script>
