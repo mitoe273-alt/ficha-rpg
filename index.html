@@ -1065,22 +1065,29 @@ font-weight:800;
 
 /* COMBATE */
 
+
 .combatBox{
 
 margin-top:20px;
 
 display:flex;
-flex-direction:column;
-gap:12px;
+gap:10px;
+
 }
 
 .combatCard{
 
+flex:1;
+
 display:flex;
-justify-content:space-between;
+flex-direction:column;
+
+justify-content:center;
 align-items:center;
 
-padding:16px;
+gap:10px;
+
+padding:14px 10px;
 
 border-radius:18px;
 
@@ -1097,7 +1104,7 @@ border:
 
 .combatLabel{
 
-font-size:4vw;
+font-size:3vw;
 font-weight:800;
 letter-spacing:1px;
 }
@@ -1119,7 +1126,7 @@ to bottom,
 #120000
 );
 
-font-size:4.5vw;
+font-size:4vw;
 font-weight:900;
 
 border:
@@ -1684,6 +1691,7 @@ ESQUIVA
 <div
 class="combatValue blueCombat"
 id="esquivaText"
+onclick="editarEsquiva()"
 >
 20
 </div>
@@ -1701,6 +1709,7 @@ BLOQUEIO
 <div
 class="combatValue orangeCombat"
 id="bloqueioText"
+onclick="editarBloqueio()"
 >
 0
 </div>
@@ -1822,10 +1831,9 @@ cargaMax:10,
 
 defesa:10,
 
-reflexos:10,
+esquiva:20,
 
-fortitude:0
-
+bloqueio:0
 }
 
 };
@@ -1944,7 +1952,7 @@ document
 .style.width =
 (p.carga / p.cargaMax * 100) + "%";
 
-  /* COMBATE */
+ /* COMBATE */
 
 document
 .getElementById("defesaText")
@@ -1954,12 +1962,12 @@ p.defesa;
 document
 .getElementById("esquivaText")
 .innerText =
-p.defesa + p.reflexos;
+p.esquiva;
 
 document
 .getElementById("bloqueioText")
 .innerText =
-p.fortitude;
+p.bloqueio;
 }
 
 /* alterar vida */
@@ -2068,6 +2076,47 @@ personagens[personagemAtual].defesa
 if(novoValor !== null){
 
 personagens[personagemAtual].defesa =
+Number(novoValor);
+
+salvarDados();
+
+atualizarStatus();
+
+}
+
+}
+  function editarEsquiva(){
+
+const novoValor =
+prompt(
+"Nova esquiva:",
+personagens[personagemAtual].esquiva
+);
+
+if(novoValor !== null){
+
+personagens[personagemAtual].esquiva =
+Number(novoValor);
+
+salvarDados();
+
+atualizarStatus();
+
+}
+
+}
+
+function editarBloqueio(){
+
+const novoValor =
+prompt(
+"Novo bloqueio:",
+personagens[personagemAtual].bloqueio
+);
+
+if(novoValor !== null){
+
+personagens[personagemAtual].bloqueio =
 Number(novoValor);
 
 salvarDados();
