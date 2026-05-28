@@ -1042,6 +1042,99 @@ color:white;
 
 font-weight:800;
 }
+  .damageBtn{
+
+height:38px;
+
+padding:0 14px;
+
+border:none;
+border-radius:12px;
+
+background:
+linear-gradient(
+to bottom,
+#ff1a1a,
+#7a0000
+);
+
+color:white;
+
+font-weight:800;
+}
+
+/* COMBATE */
+
+.combatBox{
+
+margin-top:20px;
+
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.combatCard{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:16px;
+
+border-radius:18px;
+
+background:
+linear-gradient(
+145deg,
+rgba(25,0,0,.95),
+rgba(8,0,0,.98)
+);
+
+border:
+1px solid rgba(255,0,0,.12);
+}
+
+.combatLabel{
+
+font-size:4vw;
+font-weight:800;
+letter-spacing:1px;
+}
+
+.combatValue{
+
+min-width:70px;
+
+text-align:center;
+
+padding:10px 14px;
+
+border-radius:14px;
+
+background:
+linear-gradient(
+to bottom,
+#2a0000,
+#120000
+);
+
+font-size:4.5vw;
+font-weight:900;
+
+border:
+1px solid rgba(255,255,255,.08);
+}
+
+.blueCombat{
+
+color:#4dc3ff;
+}
+
+.orangeCombat{
+
+color:#ffb347;
+}
 </style>
 </head>
 <body>
@@ -1557,14 +1650,70 @@ onclick="alterarCarga(5)"
 </div>
 
 </div>
-  
+
+<!-- COMBATE -->
+
+<div class="combatBox">
+
+<!-- DEFESA -->
+
+<div class="combatCard">
+
+<div class="combatLabel">
+DEFESA
+</div>
+
+<div
+class="combatValue"
+id="defesaText"
+onclick="editarDefesa()"
+>
+10
+</div>
+
+</div>
+
+<!-- ESQUIVA -->
+
+<div class="combatCard">
+
+<div class="combatLabel">
+ESQUIVA
+</div>
+
+<div
+class="combatValue blueCombat"
+id="esquivaText"
+>
+20
+</div>
+
+</div>
+
+<!-- BLOQUEIO -->
+
+<div class="combatCard">
+
+<div class="combatLabel">
+BLOQUEIO
+</div>
+
+<div
+class="combatValue orangeCombat"
+id="bloqueioText"
+>
+0
 </div>
 
 </div>
 
 </div>
+
 </div>
 
+</div>
+
+</div>
 <script>
 
 /* PARTÍCULAS */
@@ -1669,7 +1818,13 @@ det:30,
 detMax:30,
 
 carga:0,
-cargaMax:10
+cargaMax:10,
+
+defesa:10,
+
+reflexos:10,
+
+fortitude:0
 
 }
 
@@ -1789,6 +1944,22 @@ document
 .style.width =
 (p.carga / p.cargaMax * 100) + "%";
 
+  /* COMBATE */
+
+document
+.getElementById("defesaText")
+.innerText =
+p.defesa;
+
+document
+.getElementById("esquivaText")
+.innerText =
+p.defesa + p.reflexos;
+
+document
+.getElementById("bloqueioText")
+.innerText =
+p.fortitude;
 }
 
 /* alterar vida */
@@ -1806,7 +1977,7 @@ salvarDados();
 atualizarStatus();
 
 }
-
+  
 /* dano vida */
 
 function darDanoVida(){
@@ -1876,7 +2047,9 @@ function alterarCarga(valor){
 personagens[personagemAtual].carga += valor;
 
 if(personagens[personagemAtual].carga < 0){
+
 personagens[personagemAtual].carga = 0;
+
 }
 
 salvarDados();
@@ -1884,7 +2057,26 @@ salvarDados();
 atualizarStatus();
 
 }
-  
+  function editarDefesa(){
+
+const novoValor =
+prompt(
+"Nova defesa:",
+personagens[personagemAtual].defesa
+);
+
+if(novoValor !== null){
+
+personagens[personagemAtual].defesa =
+Number(novoValor);
+
+salvarDados();
+
+atualizarStatus();
+
+}
+
+}
 </script>
 
 </body>
