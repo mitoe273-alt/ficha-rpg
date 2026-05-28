@@ -1142,6 +1142,138 @@ color:#4dc3ff;
 
 color:#ffb347;
 }
+  /* HABILIDADES */
+
+.skillPowerToggle{
+
+margin-top:20px;
+
+width:100%;
+
+padding:12px 14px;
+
+border:none;
+border-radius:18px;
+
+background:
+linear-gradient(
+145deg,
+rgba(35,0,0,.95),
+rgba(10,0,0,.98)
+);
+
+border:
+1px solid rgba(255,0,0,.2);
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+font-size:4vw;
+font-weight:800;
+letter-spacing:2px;
+
+color:white;
+
+box-shadow:
+0 0 20px rgba(255,0,0,.08);
+}
+
+.powerBox{
+
+margin-top:14px;
+
+background:
+linear-gradient(
+to bottom,
+rgba(18,0,0,.95),
+rgba(5,0,0,.98)
+);
+
+border-radius:18px;
+
+border:
+1px solid rgba(255,0,0,.12);
+
+overflow:hidden;
+
+max-height:0;
+
+opacity:0;
+
+transition:
+max-height .45s ease,
+opacity .3s ease;
+}
+
+.powerBox.active{
+max-height:3000px;
+opacity:1;
+}
+
+.powerCard{
+
+padding:16px;
+
+border-bottom:
+1px solid rgba(255,255,255,.05);
+}
+
+.powerTop{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+gap:10px;
+}
+
+.powerName{
+
+font-size:4vw;
+font-weight:900;
+
+color:#ff4d4d;
+}
+
+.powerCost{
+
+font-size:3vw;
+opacity:.8;
+}
+
+.powerDesc{
+
+margin-top:12px;
+
+font-size:3.5vw;
+line-height:1.5;
+
+color:#ddd;
+}
+
+.useSkillBtn{
+
+margin-top:14px;
+
+width:100%;
+height:42px;
+
+border:none;
+border-radius:14px;
+
+background:
+linear-gradient(
+to bottom,
+#ff1a1a,
+#7a0000
+);
+
+color:white;
+
+font-weight:900;
+letter-spacing:1px;
+}
 </style>
 </head>
 <body>
@@ -1714,7 +1846,156 @@ onclick="editarBloqueio()"
 >
 0
 </div>
+<!-- HABILIDADES -->
 
+<button
+class="skillPowerToggle"
+onclick="togglePowers()"
+>
+
+HABILIDADES
+
+<span class="skillArrow">
+▼
+</span>
+
+</button>
+
+<div class="powerBox" id="powerBox">
+
+<!-- ASSASSINATO -->
+
+<div class="powerCard">
+
+<div class="powerTop">
+
+<div>
+
+<div class="powerName">
+ASSASSINATO FURTIVO
+</div>
+
+<div class="powerCost">
+(2 DETERMINAÇÃO)
+</div>
+
+</div>
+
+</div>
+
+<div class="powerDesc">
+Uma vez por rodada, quando jae atinge um alvo desprevenido ou que esteja flanqueado, você causa +3d8 pontos de dano
+</div>
+
+<button
+class="useSkillBtn"
+onclick="usarHabilidade(2)"
+>
+USAR
+</button>
+
+</div>
+
+<!-- ESQUIVA -->
+
+<div class="powerCard">
+
+<div class="powerTop">
+
+<div>
+
+<div class="powerName">
+ESQUIVA TÁTICA
+</div>
+
+<div class="powerCost">
+(2 DETERMINAÇÃO)
+</div>
+
+</div>
+
+</div>
+
+<div class="powerDesc">
+Você pode fazer uma segunda reação de defesa na mesma rodada, desde que ela seja uma esquiva.
+</div>
+
+<button
+class="useSkillBtn"
+onclick="usarHabilidade(2)"
+>
+USAR
+</button>
+
+</div>
+
+<!-- PERITO -->
+
+<div class="powerCard">
+
+<div class="powerTop">
+
+<div>
+
+<div class="powerName">
+PERITO
+</div>
+
+<div class="powerCost">
+(3 DETERMINAÇÃO)
+</div>
+
+</div>
+
+</div>
+
+<div class="powerDesc">
+Uma vez por rodada, quando você faz um teste de uma perícia em que é treinado, jae soma +1d8 no resultado do teste.
+</div>
+
+<button
+class="useSkillBtn"
+onclick="usarHabilidade(3)"
+>
+USAR
+</button>
+
+</div>
+
+<!-- ZONA -->
+
+<div class="powerCard">
+
+<div class="powerTop">
+
+<div>
+
+<div class="powerName">
+ZONA DOS SUSSURROS
+</div>
+
+<div class="powerCost">
+(3 DETERMINAÇÃO)
+</div>
+
+</div>
+
+</div>
+
+<div class="powerDesc">
+Jae gasta uma rodada para marcar uma área equivalente a um cômodo com vários "X". Para áreas maiores, podem ser necessários mais usos dessa habilidade. Nessa área, jae recebe +5 em testes de ataque e não sofre penalidade por fazer testes de furtividade após atacar ou fazer outras ações chamativas. Jae pode ter no máximo 3 áreas X criadas; se criar uma quarta, uma das anteriores desaparece.
+</div>
+
+<button
+class="useSkillBtn"
+onclick="usarHabilidade(3)"
+>
+USAR
+</button>
+
+</div>
+
+</div>
 </div>
 
 </div>
@@ -2125,6 +2406,30 @@ salvarDados();
 atualizarStatus();
 
 }
+
+}
+  function togglePowers(){
+
+const box =
+document.getElementById("powerBox");
+
+box.classList.toggle("active");
+
+}
+
+function usarHabilidade(custo){
+
+personagens[personagemAtual].det -= custo;
+
+if(personagens[personagemAtual].det < 0){
+
+personagens[personagemAtual].det = 0;
+
+}
+
+salvarDados();
+
+atualizarStatus();
 
 }
 </script>
