@@ -1303,6 +1303,217 @@ color:#999;
 
 font-style:italic;
 }
+  /* INTENÇÃO ASSASSINA */
+
+.killerPower{
+
+border:
+1px solid rgba(255,0,0,.45);
+
+background:
+linear-gradient(
+145deg,
+rgba(55,0,0,.98),
+rgba(10,0,0,1)
+);
+
+box-shadow:
+0 0 30px rgba(255,0,0,.18);
+
+position:relative;
+
+overflow:hidden;
+}
+
+/* brilho pulsando */
+
+.killerPower::before{
+
+content:"";
+
+position:absolute;
+inset:0;
+
+background:
+linear-gradient(
+120deg,
+transparent,
+rgba(255,255,255,.04),
+transparent
+);
+
+animation:killerGlow 3s linear infinite;
+}
+
+@keyframes killerGlow{
+
+0%{
+transform:translateX(-100%);
+}
+
+100%{
+transform:translateX(100%);
+}
+
+}
+
+.killerTitle{
+
+color:#ff2a2a;
+
+text-shadow:
+0 0 8px red,
+0 0 20px rgba(255,0,0,.8);
+
+font-size:4.3vw;
+font-weight:900;
+
+letter-spacing:1px;
+}
+
+.activateBtn{
+
+margin-top:14px;
+
+width:100%;
+height:46px;
+
+border:none;
+border-radius:14px;
+
+background:
+linear-gradient(
+to bottom,
+#ff1a1a,
+#5c0000
+);
+
+color:white;
+
+font-size:4vw;
+font-weight:900;
+
+letter-spacing:2px;
+
+box-shadow:
+0 0 20px rgba(255,0,0,.3);
+
+transition:.2s;
+}
+
+.activateBtn:active{
+transform:scale(.98);
+}
+
+/* MODO ASSASSINO */
+
+.sheet.killerMode{
+
+background:
+radial-gradient(
+circle at top,
+#8b0000 0%,
+#2b0000 30%,
+#050505 70%,
+#000 100%
+);
+
+animation:killerPulse 4s infinite;
+}
+
+/* rachaduras */
+
+.sheet.killerMode::before{
+
+background:
+url("cracks.png"),
+radial-gradient(
+circle at center,
+rgba(255,0,0,.18),
+transparent 70%
+);
+
+background-size:cover;
+
+mix-blend-mode:screen;
+
+opacity:.45;
+
+filter:
+blur(1px)
+drop-shadow(0 0 12px gold);
+}
+
+/* vinheta brutal */
+
+.sheet.killerMode::after{
+
+background:
+radial-gradient(
+circle,
+transparent 20%,
+rgba(0,0,0,.78) 100%
+);
+}
+
+/* pulsação */
+
+@keyframes killerPulse{
+
+0%,100%{
+
+filter:
+saturate(1)
+brightness(1);
+
+}
+
+50%{
+
+filter:
+saturate(1.3)
+brightness(1.08);
+
+}
+
+}
+
+/* header */
+
+.sheet.killerMode .sheetName{
+
+color:#ff4d4d;
+
+text-shadow:
+0 0 12px red,
+0 0 35px rgba(255,0,0,.9);
+}
+
+.sheet.killerMode .sheetDivider{
+
+background:
+linear-gradient(
+to right,
+transparent,
+gold,
+transparent
+);
+
+opacity:1;
+}
+
+/* cards */
+
+.sheet.killerMode .statusCard,
+.sheet.killerMode .combatCard,
+.sheet.killerMode .powerCard{
+
+border:
+1px solid rgba(255,120,0,.25);
+
+box-shadow:
+0 0 20px rgba(255,0,0,.08);
+}
 </style>
 </head>
 <body>
@@ -2043,7 +2254,42 @@ Desbloqueada em circunstâncias específicas.
 </div>
 
 </div>
+<!-- INTENÇÃO ASSASSINA -->
 
+<div class="powerCard killerPower">
+
+<div class="powerTop">
+
+<div>
+
+<div class="killerTitle">
+INTENÇÃO ASSASSINA
+</div>
+
+<div class="powerCost">
+(6 DETERMINAÇÃO)
+</div>
+
+</div>
+
+</div>
+
+<div class="powerDesc">
+
+<span style="color:#ff4d4d;font-weight:800;">
+"Você ativa sua intenção assassina, você fica mais forte, porém ativar isso pode trazer consequências."
+</span>
+
+</div>
+
+<button
+class="activateBtn"
+onclick="ativarIntencaoAssassina()"
+>
+ATIVAR
+</button>
+
+</div>
 </div>
 </div>
 </div>
@@ -2176,16 +2422,35 @@ bloqueio:0
 
 function carregarDados(){
 
+try{
+
 const save =
-localStorage.getItem("hexatombeSave");
+JSON.parse(localStorage.getItem("hexatombeSave"));
 
-if(save){
+const padrao = dadosPadrao();
 
-return JSON.parse(save);
+if(!save){
+return padrao;
+}
+
+for(const id in padrao){
+
+save[id] = {
+
+...padrao[id],
+...save[id]
+
+};
 
 }
 
+return save;
+
+}catch{
+
 return dadosPadrao();
+
+}
 
 }
 
@@ -2560,6 +2825,45 @@ Seus ataques causam +1d8 pontos de dano e recebem +2 na margem de ameaça. Além
 </div>
 
 `;
+
+}
+  /* INTENÇÃO ASSASSINA */
+
+let intencaoAtiva = false;
+
+function ativarIntencaoAssassina(){
+
+if(intencaoAtiva){
+return;
+}
+
+const confirmar =
+confirm(
+"Tem certeza?"
+);
+
+if(!confirmar){
+return;
+}
+
+const p =
+personagens[personagemAtual];
+
+p.det -= 6;
+
+if(p.det < 0){
+p.det = 0;
+}
+
+salvarDados();
+
+atualizarStatus();
+
+document
+.getElementById("sheet")
+.classList.add("killerMode");
+
+intencaoAtiva = true;
 
 }
 </script>
