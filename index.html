@@ -407,8 +407,8 @@ pointer-events:none;
 
 transition:.5s;
 
-overflow:hidden;
-
+overflow-y:auto;
+  
 /* NOVO FUNDO */
 background:
 radial-gradient(
@@ -2032,19 +2032,10 @@ USAR
 </div>
 <!-- HABILIDADE SECRETA -->
 
-<div class="powerCard secretPower">
-
-<div class="powerTop">
-
-<div>
-
-<div class="powerName secretRed">
-SABOR DO SILÊNCIO
-</div>
-
-</div>
-
-</div>
+<div
+class="powerCard secretPower"
+onclick="desbloquearHabilidade()"
+>
 
 <div id="secretContent">
 
@@ -2055,13 +2046,6 @@ Desbloqueada em circunstâncias específicas.
 </div>
 
 </div>
-
-<button
-class="useSkillBtn"
-onclick="desbloquearHabilidade()"
->
-DESBLOQUEAR
-</button>
 
 </div>
 </div>
@@ -2548,13 +2532,19 @@ document
 .getElementById("secretContent")
 .innerHTML = `
 
-<div class="powerDesc secretRed">
+<div class="powerName secretRed">
+SABOR DO SILÊNCIO
+</div>
 
+<div class="powerDesc">
+
+<span class="secretRed">
 "O silêncio que te atormentou agora assombra o pesadelo dos outros."
+</span>
 
 <br><br>
 
-<b>Gatinho</b>
+<b class="secretRed">Gatilho</b>
 <br>
 
 <span style="color:#ddd">
@@ -2563,7 +2553,7 @@ Você precisa provar o sangue de um ser adjacente que esteja machucado.
 
 <br><br>
 
-<b>Efeito</b>
+<b class="secretRed">Efeito</b>
 <br>
 
 <span style="color:#ddd">
