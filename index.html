@@ -2281,6 +2281,7 @@ INTENÇÃO ASSASSINA
 
 <button
 class="activateBtn"
+id="killerBtn"
 onclick="ativarIntencaoAssassina()"
 >
 ATIVAR
@@ -2824,20 +2825,36 @@ Seus ataques causam +1d8 pontos de dano e recebem +2 na margem de ameaça. Além
 `;
 
 }
-  /* INTENÇÃO ASSASSINA */
+/* INTENÇÃO ASSASSINA */
 
 let intencaoAtiva = false;
 
 function ativarIntencaoAssassina(){
 
+const sheet =
+document.getElementById("sheet");
+
+const btn =
+document.getElementById("killerBtn");
+
+/* DESATIVAR */
+
 if(intencaoAtiva){
+
+sheet.classList.remove("killerMode");
+
+btn.innerText = "ATIVAR";
+
+intencaoAtiva = false;
+
 return;
+
 }
 
+/* ATIVAR */
+
 const confirmar =
-confirm(
-"Tem certeza?"
-);
+confirm("Tem certeza?");
 
 if(!confirmar){
 return;
@@ -2856,9 +2873,9 @@ salvarDados();
 
 atualizarStatus();
 
-document
-.getElementById("sheet")
-.classList.add("killerMode");
+sheet.classList.add("killerMode");
+
+btn.innerText = "DESATIVAR";
 
 intencaoAtiva = true;
 
